@@ -22,7 +22,7 @@
 <!ENTITY RFC5077 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5077.xml">
 <!ENTITY RFC6335 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
 <!ENTITY RFC5966 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5966.xml">
-<!ENTITY RFC7285 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7285.xml">
+<!ENTITY RFC7258 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7258.xml">
 <!ENTITY RFC7413 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7413.xml">
 <!ENTITY RFC7435 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7435.xml">
 ]>
@@ -192,7 +192,7 @@
         standard port (TCP/53) to a DNS-over-TLS connection.
 	Encryption provided by TLS eliminates opportunities for
 	eavesdropping on DNS queries in the network, such as
-        discussed in RFC 7285.  In addition, this document discusses
+        discussed in RFC 7258.  In addition, this document discusses
 	performance considerations to minimize overheads from using
 	TCP and TLS with DNS, pertaining to both approaches.
       </t>
@@ -230,7 +230,7 @@
 <!-- fix:A1 -->
   Traditionally, either privacy was not considered a requirement for DNS traffic,
      or it was assumed that network traffic was sufficiently private,
-     however these perceptions are evolving due to recent events <xref target="RFC7285"/>.
+     however these perceptions are evolving due to recent events <xref target="RFC7258"/>.
 </t>
 
 <t>
@@ -796,7 +796,7 @@ is a confusing situation.
     &RFC4892;
     &RFC5280;
     &RFC6698;
-    &RFC7285;
+    &RFC7258;
     &RFC7413;
     &RFC7435;
 
