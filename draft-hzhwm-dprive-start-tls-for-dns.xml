@@ -767,10 +767,8 @@ is a confusing situation.
   <!--  *****BACK MATTER ***** -->
 
   <back>
-    <!-- References split into informative and normative -->
 
     <references title="Normative References">
-      <!--?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
       &RFC2119;
       &RFC1034;
       &RFC1035;
@@ -779,11 +777,9 @@ is a confusing situation.
       &RFC5077;
       &RFC6335;
       &RFC5966;
-
     </references>
 
     <references title="Informative References">
-      <!-- Here we use entities that we defined at the beginning. -->
     &RFC1939;
     &RFC2131;
     &RFC2595;
@@ -800,64 +796,41 @@ is a confusing situation.
     &RFC7413;
     &RFC7435;
 
-
     <reference anchor='I-D.ietf-dnsop-5966bis'>
         <front>
             <title>DNS Transport over TCP - Implementation Requirements</title>
-            
             <author initials='J' surname='Dickinson' fullname='John Dickinson'>
                 <organization />
             </author>
-            
             <author initials='R' surname='Bellis' fullname='Ray Bellis'>
                 <organization />
             </author>
-            
             <author initials='A' surname='Mankin' fullname='Allison Mankin'>
                 <organization />
             </author>
-            
             <author initials='D' surname='Wessels' fullname='Duane Wessels'>
                 <organization />
             </author>
-            
-            <date month='December' day='4' year='2014' />
-            
-            <abstract><t>This document updates the requirements for the support of TCP as a transport protocol for DNS implementations.</t></abstract>
-            
+            <date month='December' day='4' year='2014' />            
         </front>
-        
         <seriesInfo name='Internet-Draft' value='draft-ietf-dnsop-5966bis-00' />
         <format type='TXT'
             target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-00.txt' />
-            </reference>
+    </reference>
 
-
-      <reference anchor='I-D.ietf-dprive-problem-statement'>
+    <reference anchor='I-D.ietf-dprive-problem-statement'>
 	<front>
 	  <title>DNS privacy considerations</title>
-
 	  <author initials='S' surname='Bortzmeyer' fullname='Stephane Bortzmeyer'>
 	    <organization />
 	  </author>
-
 	  <date month='October' day='26' year='2014' />
-
-	  <abstract><t>
-	      This document describes the privacy issues associated with the use of
-	      the DNS by Internet users.  It is intended to be mostly an analysis of
-	      the present situation, in the spirit of section 8 of [RFC6973] and it
-	      does not prescribe solutions.  Discussions of the document should take
-	      place on the DPRIVE working group mailing list [dprive].
-	  </t></abstract>
-
 	</front>
 
 	<seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-00' />
 	<format type='TXT'
 		target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-00.txt' />
       </reference>
-
 
     <reference anchor="draft-osterweil-dane-ipsec" target="http://tools.ietf.org/html/draft-osterweil-dane-ipsec-00">
     <front>
@@ -883,7 +856,6 @@ is a confusing situation.
     <seriesInfo name="Internet-Draft" value="draft-osterweil-dane-ipsec-00"/>
     </reference>
 
-    
     <reference anchor="unbound" target="http://unbound.net/">
     <front>
     <title>Unbound</title>
@@ -895,7 +867,6 @@ is a confusing situation.
     </front>
     </reference>
 
-    
     <reference anchor="draft-dempsky-dnscurve" target="http://tools.ietf.org/html/draft-dempsky-dnscurve-01">
     <front>
     <title>DNSCurve</title>
@@ -907,7 +878,6 @@ is a confusing situation.
     </front>
     <seriesInfo name="Internet-Draft" value="draft-dempsky-dnscurve-01" />
     </reference>
-
     
     <reference anchor="CA_Compromise" target="http://www.infosecisland.com/blogview/19782-Web-Authentication-A-Broken-Trust-with-No-Easy-Fix.html">
     <front>
@@ -971,7 +941,6 @@ is a confusing situation.
       </front>
       <seriesInfo name="Internet-Draft" value="draft-wouters-edns-tcp-keepalive-00" />
     </reference>
-
     
     <reference anchor="tdns" target="Technical report, ISI-TR-688, ftp://ftp.isi.edu/isi-pubs/tr-688.pdf">
     <front>
