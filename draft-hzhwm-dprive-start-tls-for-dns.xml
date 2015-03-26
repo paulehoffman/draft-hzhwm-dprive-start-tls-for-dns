@@ -218,15 +218,13 @@
 
 <t>
   Prior work has addressed some aspects of DNS security,
-<!--	but none addresses privacy between a DNS client and server
-	using standard protocols.-->
-  but there has been little work till recently on privacy between a DNS client and server.
+  but until recently
+  there has been little work on privacy between a DNS client and server.
   DNS Security Extensions (DNSSEC, <xref target="RFC4033"/>)
   provide <spanx style="emph">response integrity</spanx>
 	by defining mechanisms to cryptographically sign zones,
   allowing end-users (or their first-hop resolver) to verify replies are correct. 
-<!--  DNSSEC however does nothing to protect request or response privacy. -->
-  DNSSEC by intention does not protect request and response privacy.
+  By intention, DNSSEC does not protect request and response privacy.
 <!-- fix:A1 -->
   Traditionally, either privacy was not considered a requirement for DNS traffic,
      or it was assumed that network traffic was sufficiently private,
@@ -234,11 +232,6 @@
 </t>
 
 <t>
-<!--  More recently, DNSCurve <xref target="draft-dempsky-dnscurve"/> 
-  defines a method to provide link-level confidentiality and integrity
-	 between DNS clients and servers.
-  However, it does so with a new cryptographic protocol
-    and so does not take advantage of TLS. -->
   DNSCurve <xref target="draft-dempsky-dnscurve"/> 
   defines a method to add confidentiality to the link
 	 between DNS clients and servers;
@@ -246,50 +239,40 @@
     and does not take advantage of an existing standard protocol such as TLS.
   ConfidentialDNS <xref target="draft-wijngaards-confidentialdns"/>
 	and IPSECA <xref target="draft-osterweil-dane-ipsec"/>
-  use opportunistic encryption to <!--provide--> offer privacy for
+  use opportunistic encryption to offer privacy for
   DNS queries and responses.
-<!--  However, it is unclear how a client 
-     can locate an RR specific to its first-hop resolver. -->
   Finally, others have suggested DNS-over-TLS.
-<!--  Recent work suggests DNS-over-TLS (<xref target="draft-bortzmeyer-dnsop-privacy-sol"/>),
-  and
-   the -->
   Unbound DNS software <xref target="unbound"/> includes a DNS-over-TLS implementation.
-<!--  However, neither defines methods to negotiate TLS use over an existing
-     connection; unbound instead requires DNS-over-TLS to run on a different port. -->
   The present document goes beyond past DNS-over-TLS discussions by providing two modes of
-  initiation for DNS-over-TLS, use of a well-known port, TBD, and use of a negotiation mechanism
+  initiation for DNS-over-TLS: use of a well-known port, and use of a negotiation mechanism
   in an established connection.
 </t>
 
 <t>
-  This document describes a protocol that is resilient in
-  environments affected by differing middle box
-  concerns.  The port-based initiation of TLS is very straightforward, but might be blocked by
+  Protocol changes proposed here must consider potential interactions with
+  middle boxes.
+  The port-based initiation of TLS is very straightforward, but might be blocked by
   firewalls or be unwelcome to some DNS client or server implementations.  
-  If port-based initiation of TLS fails, there is an upgrade-based
-<!--  The mechanism described in this document enables DNS clients and servers to upgrade an
-  existing DNS-over-TCP connection to a DNS-over-TLS connection. -->
-  negotiation mechanism to enable DNS clients and servers to
+  If port-based initiation of TLS fails, the negotiation mechanism
+  allows DNS clients and servers to
   upgrade an existing DNS-over-TCP connection to a DNS-over-TLS connection,
   analogous to upgrade mechanisms in other uses of TLS, such as 
   STARTTLS <xref target="RFC2595"/> used in SMTP <xref target="RFC3207"/>, 
   IMAP <xref target="RFC3501"/> and POP <xref target="RFC1939"/>, 
-  to name just a few of many.  But like those, the upgrade-based approach has middle box considerations, particularly downgrade
-  attacks, as discussed in <xref target="downgrade"/>.
+  to name just a few of many.
+  Adding TLS to DNS-over-TCP avoids port blocking,
+  but maybe interact poorly with middle boxes that inspect DNS traffic.
+  Both approaches are subject to downgrade attacks,
+  as discussed in <xref target="downgrade"/>.
 </t>
 
 <t>
-<!-- Following discussion with the other authors..
-  The protocol described here is initially meant as a solution for communication between
-  stub resolvers and their upstream recursive resolvers. However, the same protocol can be
-  used between any DNS clients and servers, and might later be adopted by some authoritative
-  servers, which would allow encrypted communication between recursive resolvers and those
-  authoritative resolvers.
- -->
   The protocol described here works for any DNS client to server communication using DNS-over-TCP.
-  In particular, the same protocol can be used for stub-recursive and recursive-authoritative
-  communications. We expect implementation initially between stubs and recursives.
+  We see different profiles providing different levels of privacy and performance,
+  as dsicussed in <xref target="profiles"/>.
+  The protocol may be used for any DNS communication
+  both from stub to recursive, and from recursive to authoritative servers,
+  but different protocols may be preferable for different envrionments.
 </t>
 
 <t>
@@ -357,6 +340,9 @@
         TCP connection to the dedicated port TBD (number to be defined in <xref target="IANA"/>).
      </t>
      <t>
+       [xxx: I don't think this para is necessary.
+       Why would setting this up by any different than
+       any other TCP connection? ---johnh 2015-03-24]
         Stub resolvers do not change their recursive resolvers often. A slight delay
         in failing to establish a port-based DNS-over-TLS connection is probably minor
         relative to the benefit of encrypted DNS queries and responses. The stub resolver
@@ -364,6 +350,10 @@
         TLS setup, such as a few seconds.
      </t>
      <t>
+       [xxx: this para seems to conflict with the 1st para that says should do port first.
+       Suggest instead:
+       "Clients MAY try STARTTLS upgrade before the dedicated port
+       if there is information that this ordering is preferered.">
         It SHOULD be an implementation and/or local determination as to whether to
         attempt TLS via the dedicated port first and then fall back to
         STARTTLS use, or to choose some other order of attempts and
@@ -406,12 +396,14 @@ is a confusing situation.
     Since the motivation for upgrade-based DNS-over-TLS is to preserve privacy,
     DNS clients SHOULD use an initial (unprotected) query that reveals no private
     information in the initial TO=1
-    query to a server.  
+    query to a server.
     To provide a standard "dummy" query,
     it is RECOMMENDED to send the initial query
     with RD=0, QNAME="STARTTLS", QCLASS=CH, and QTYPE=TXT
     ("STARTTLS/CH/TXT") analogous to administrative queries already
     in widespread use <xref target="RFC4892"/>.
+    [xxx: partial upgrade next sen.  ---johnh 2015-03-23]
+    (For some profiles, the client MUST use a dummy query for the initial query.)
   </t>
   <t>
     After sending the initial TO=1 query using TCP transport, DNS
@@ -511,8 +503,18 @@ is a confusing situation.
     from eavesdropping and normal DNS queries SHOULD take place,
     following DNS-over-TCP framing (<xref target="RFC1035"/>, section 4.2.2).
   </t>
+    
+  <t>
+    [xxx: new para for review.  ---johnh 2015-03-23]
+    We expect that multiple DNS queries will be made over the same
+    TLS connection.
+    A user of DNS-over-TLS SHOULD follow best practices
+    for DNS-over-TCP, as described in  [draft-ietf-dnsop-5996bis-00].
+    [xxx: how do we properly reference an i-d?  And we probably become dependent on this other i-d. :-(  ---johnh 2015-03-26]
+  </t>
 
   <t>
+    [xxx: Paul: this text is the current timeout recommendations, which is different from your "long-lived" statement.  If we reach a different conesnsus we should reflect that here. ---johnh 2015-03-24]
     Both clients and servers SHOULD follow existing DNS-over-TCP
     timeout rules, which are often implementation- and situation-dependent.
     In the absence of any other advice, the RECOMMENDED timeout
@@ -537,6 +539,7 @@ is a confusing situation.
   in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref target="RFC7413"/>
   is of benefit.
   </t>
+
   <t>
   DNS servers SHOULD enable fast TLS session resumption <xref target="RFC5077"/>
   to avoid keeping per-client session state.
@@ -599,6 +602,79 @@ is a confusing situation.
 </section>
 </section>
 
+<section anchor="profiles" title="Usage Profiles">
+  <t>
+    [xxx: new section.  ---johnh 2015-03-24]
+    This protocol provides flexibility to accommodate several different use cases.
+    We define two usage profiles here to identify specific
+    design points in performance and privacy.
+    Other profiles are possible but are outside the scope of this document.
+  </t>
+
+  <section title="Opportunistic Privacy">
+    <t>
+      For opportunistic privacy, analgous to
+      SMTP opportunistic encryption
+      [xxx: or other refs better?  Paul can you suggest best prior rfc?  add reference here! ---johnh 2015-03-24]
+      one desires privacy when possible,
+      but does not require it.
+    </t>
+    <t>
+      With opportunistic privacy a client might acquire a recursive DNS resolver
+      from an untrusted source (perhaps DHCP),
+      it might or might not validate the TLS certificate,
+      and it might not use a dummy value for the initial query.
+      These choices maximize availability and performance,
+      but they are vulnerable to person-in-the-middle attacks.
+    </t>
+    <t>
+      Opportunistic privacy can be used by any current client,
+      but it provides only weak privacy.  The client MAY wish to
+      signal to the user the current privacy status.
+    </t>
+  </section>
+
+  <section title="Pre-Deployed">
+    <t>
+      For pre-deployed privacy,
+      we assume the client has a preferred, trusted
+      DNS provider.
+      It is designed to provide strong privacy guarantees to the user.
+    </t>
+    <t>
+      With pre-deployed privacy a client
+      retains a copy of the TLS certificate and IP address
+      of that provider.
+      It will use that DNS provider exclusively.
+      Because it has a pre-deloyed TLS certificate,
+      it may detect person-in-the-middle and downgrade attacks.
+    </t>
+    <t>
+      With pre-deployed privacy, the client MUST signal to the user
+      when the designed DNS server is unavailable.
+    </t>
+    <t>
+      The designed DNS provider may be temporarily unavailable
+      when configurating a network.
+      For example, for clients on networks that require
+      authentation through web-based login--such authentication
+      may require DNS interception and spoofing.
+      Techniques such as those used by DNSSEC-trigger
+      MAY be used during network configuration,
+      with the intent to transition to the designated DNS provider
+      after authentication.
+      The user MUST be alterted that the DNS is not private during such
+      bootstrap.
+    </t>
+    <t>
+	Methods for pre-deployment of the designed DNS provider are
+	outside the scope of this document.
+	In corporate settings, such information may be provided at system installation.
+	Use of mutliple public DNS providers suggests that end users are able to
+	configure DNS by hand.
+     </t>
+  </section>
+</section>
 
 <section anchor="Performance" title="Performance Considerations">
 <!-- fix:B2 -->
@@ -630,11 +706,25 @@ is a confusing situation.
   Use of TLS encryption algorithms results in slightly higher CPU usage.  Servers can
   choose to refuse new DNS-over-TCP clients if processing limits are exceeded.
         </t>
+	<t>
+	  Number of conenctions:
+	  To minimize state on DNS servers and connection startup time,
+	  clients SHOULD
+	  minimize creation of new TCP connections.
+	  Use of a local DNS forwarder allows a single active DNS-over-TLS
+	  connection allows a single active TCP connection for DNS per client computer.
+	  Additional guidance is at
+	[draft-ietf-dnsop-5966bis-00]
+	  [xxx: need to properly ref. ---johnh 2015-03-26]
+	</t>
+
   </list>
 	A full performance evaluation is outside the scope of this specification.
   A more detailed analysis of the performance implications
   of DNS-over-TLS (and DNS-over-TCP)
-  is discussed in a technical report <xref target="tdns"/>.
+  is discussed in a technical report <xref target="tdns"/>
+  and [draft-ietf-dnsop-5966bis-00]
+	  [xxx: need to properly ref. ---johnh 2015-03-26]
   </t>
 
 </section>
