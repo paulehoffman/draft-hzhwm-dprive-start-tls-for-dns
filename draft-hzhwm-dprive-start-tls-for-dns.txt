@@ -123,7 +123,7 @@ Internet-Draft                 TLS for DNS                    April 2015
    attacks, as discussed in Section 2.4.
 
    The protocol described here works for any DNS client to server
-   communication using DNS-over-TCP.  We see different profiles
+   communication using DNS-over-TCP.  There can be different profiles
    providing different levels of privacy and performance, as dsicussed
    in Section 3.  The protocol may be used for any DNS communication
    both from stub to recursive, and from recursive to authoritative
@@ -179,21 +179,9 @@ Internet-Draft                 TLS for DNS                    April 2015
 
    DNS clients SHOULD first try using port-based DNS-over-TLS by
    establishing the TCP connection to the dedicated port TBD (number to
-   be defined in Section 5).
-
-   [xxx: I don't think this para is necessary.  Why would setting this
-   up by any different than any other TCP connection? ---johnh
-   2015-03-24] Stub resolvers do not change their recursive resolvers
-   often.  A slight delay in failing to establish a port-based DNS-over-
-   TLS connection is probably minor relative to the benefit of encrypted
-   DNS queries and responses.  The stub resolver should give a
-   reasonable amount of time for the recursive resolver to start the TLS
-   setup, such as a few seconds.
-
-   [xxx: this para seems to conflict with the 1st para that says should
-   do port first.  Suggest instead: "Clients MAY try STARTTLS upgrade
-   before the dedicated port if there is information that this ordering
-   is preferered."> It SHOULD be an implementation and/or local
+   be defined in Section 5).  Clients MAY try STARTTLS upgrade before
+   the dedicated port if there is information that this ordering is
+   preferered.  It SHOULD be an implementation and/or local
    determination as to whether to attempt TLS via the dedicated port
    first and then fall back to STARTTLS use, or to choose some other
    order of attempts and fallbacks.
@@ -218,6 +206,18 @@ Internet-Draft                 TLS for DNS                    April 2015
    when using TCP or TLS transport because doing so has no meaning in
    this protocol.
 
+   Since the motivation for upgrade-based DNS-over-TLS is to preserve
+   privacy, DNS clients SHOULD use an initial (unprotected) query that
+   reveals no private information in the initial TO=1 query to a server.
+   To provide a standard "dummy" query, it is RECOMMENDED to send the
+   initial query with RD=0, QNAME="STARTTLS", QCLASS=CH, and QTYPE=TXT
+   ("STARTTLS/CH/TXT") analogous to administrative queries already in
+   widespread use [RFC4892].  (For some profiles, the client MUST use a
+   dummy query for the initial query.)
+
+   After sending the initial TO=1 query using TCP transport, DNS clients
+   MUST wait for the initial response before sending any subsequent
+   queries over the same TCP connection.
 
 
 
@@ -225,20 +225,6 @@ Hu, et al.               Expires October 7, 2015                [Page 4]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
-
-   Since the motivation for upgrade-based DNS-over-TLS is to preserve
-   privacy, DNS clients SHOULD use an initial (unprotected) query that
-   reveals no private information in the initial TO=1 query to a server.
-   To provide a standard "dummy" query, it is RECOMMENDED to send the
-   initial query with RD=0, QNAME="STARTTLS", QCLASS=CH, and QTYPE=TXT
-   ("STARTTLS/CH/TXT") analogous to administrative queries already in
-   widespread use [RFC4892].  [xxx: partial upgrade next sen.  ---johnh
-   2015-03-23] (For some profiles, the client MUST use a dummy query for
-   the initial query.)
-
-   After sending the initial TO=1 query using TCP transport, DNS clients
-   MUST wait for the initial response before sending any subsequent
-   queries over the same TCP connection.
 
 2.1.3.  Receiving Responses for Upgrade-Based DNS-over-TLS
 
@@ -267,10 +253,24 @@ Internet-Draft                 TLS for DNS                    April 2015
    and not request DNS-over-TLS from them for reasonable period (such as
    one hour per server).
 
-2.2.  Use by DNS Servers
+2.1.4.  Multiplexing Queries from Applications
 
-   A DNS server that supports DNS-over-TLS SHOULD support port-based
-   DNS-over-TLS, and SHOULD support upgrade-based DNS-over TLS.
+   Most current DNS clients exist as function calls in operating
+   systems, typically "gethostbyname()".  Such clients open and close
+   UDP connections when requested by applications, and open TCP
+   connections only when they receive responses to UDP requests that
+   tell them to.
+
+   When updating operating systems to follow the protocol described in
+   this document, it would be beneficial for the DNS clients to send
+   queries from all applications over an already-open TCP connection to
+   the recursive server.  This will reduce connection overhead on the
+   recursive DNS servers and cause DNS responses to come much more
+   quickly.
+
+   DISCUSSION: Should this advice instead be in
+   [I-D.ietf-dnsop-5966bis]?
+
 
 
 
@@ -281,6 +281,11 @@ Hu, et al.               Expires October 7, 2015                [Page 5]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
+
+2.2.  Use by DNS Servers
+
+   A DNS server that supports DNS-over-TLS SHOULD support port-based
+   DNS-over-TLS, and SHOULD support upgrade-based DNS-over TLS.
 
 2.2.1.  Receiving Queries for Upgrade-Based DNS-over-TLS
 
@@ -320,16 +325,11 @@ Internet-Draft                 TLS for DNS                    April 2015
    take place, following DNS-over-TCP framing ([RFC1035], section
    4.2.2).
 
-   [xxx: new para for review.  ---johnh 2015-03-23] We expect that
-   multiple DNS queries will be made over the same TLS connection.  A
-   user of DNS-over-TLS SHOULD follow best practices for DNS-over-TCP,
-   as described in [draft-ietf-dnsop-5996bis-00].  [xxx: how do we
-   properly reference an i-d?  And we probably become dependent on this
-   other i-d. :-( ---johnh 2015-03-26]
+   It is expected that multiple DNS queries will be made over the same
+   TLS connection instead of tearing down the TLS connection after each
+   response.  A user of DNS-over-TLS SHOULD follow best practices for
+   DNS-over-TCP, as described in [I-D.ietf-dnsop-5966bis].
 
-   [xxx: Paul: this text is the current timeout recommendations, which
-   is different from your "long-lived" statement.  If we reach a
-   different conesnsus we should reflect that here. ---johnh 2015-03-24]
 
 
 
@@ -403,44 +403,44 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 3.  Usage Profiles
 
-   [xxx: new section.  ---johnh 2015-03-24] This protocol provides
-   flexibility to accommodate several different use cases.  We define
-   two usage profiles here to identify specific design points in
-   performance and privacy.  Other profiles are possible but are outside
-   the scope of this document.
+   This protocol provides flexibility to accommodate several different
+   use cases.  Two usage profiles are defined here to identify specific
+   design points in performance and privacy.  Other profiles are
+   possible but are outside the scope of this document.
 
-3.1.  Opportunistic Privacy
+3.1.  Opportunistic Privacy Profile
 
    For opportunistic privacy, analgous to SMTP opportunistic encryption
-   [xxx: or other refs better?  Paul can you suggest best prior rfc?
-   add reference here! ---johnh 2015-03-24] one desires privacy when
-   possible, but does not require it.
+   one desires privacy when possible, but does not require it.
 
-   With opportunistic privacy a client might acquire a recursive DNS
-   resolver from an untrusted source (perhaps DHCP), it might or might
-   not validate the TLS certificate, and it might not use a dummy value
-   for the initial query.  These choices maximize availability and
-   performance, but they are vulnerable to person-in-the-middle attacks.
+   With opportunistic privacy, a client might acquire a recursive DNS
+   resolver from an untrusted source (such as DHCP while roaming), it
+   might or might not validate the TLS certificate, and it might not use
+   a dummy value for the initial query.  These choices maximize
+   availability and performance, but they are vulnerable to on-path
+   attacks.
 
-   Opportunistic privacy can be used by any current client, but it
-   provides only weak privacy.  The client MAY wish to signal to the
-   user the current privacy status.
+   Opportunistic privacy can be used by any current client, but it only
+   provides privacy when there are no on-path attackers.
 
-3.2.  Pre-Deployed
+3.2.  Pre-Deployed Profile
 
-   For pre-deployed privacy, we assume the client has a preferred,
-   trusted DNS provider.  It is designed to provide strong privacy
+   For pre-deployed privacy, the DNS client has one or more trusted
+   recursive DNS providers.  This profile provides strong privacy
    guarantees to the user.
 
-   With pre-deployed privacy a client retains a copy of the TLS
-   certificate and IP address of that provider.  It will use that DNS
-   provider exclusively.  Because it has a pre-deloyed TLS certificate,
-   it may detect person-in-the-middle and downgrade attacks.
+   With pre-deployed privacy, a client retains a copy of the TLS
+   certificate and IP address of each provider.  The client will only
+   use one of those DNS providers.  Because it has a pre-deloyed TLS
+   certificate, it may detect person-in-the-middle and downgrade
+   attacks.
 
-   With pre-deployed privacy, the client MUST signal to the user when
-   the designed DNS server is unavailable.
+   With pre-deployed privacy, the DNS client MUST signal to the user
+   when none of the designated DNS servers are available, and MUST NOT
+   provide DNS service until one of the designated DNS servers becomes
+   available.
 
-   The designed DNS provider may be temporarily unavailable when
+   The designated DNS provider may be temporarily unavailable when
    configurating a network.  For example, for clients on networks that
 
 
@@ -450,14 +450,14 @@ Hu, et al.               Expires October 7, 2015                [Page 8]
 Internet-Draft                 TLS for DNS                    April 2015
 
 
-   require authentation through web-based login--such authentication may
+   require authentation through web-based login, such authentication may
    require DNS interception and spoofing.  Techniques such as those used
    by DNSSEC-trigger MAY be used during network configuration, with the
    intent to transition to the designated DNS provider after
    authentication.  The user MUST be alterted that the DNS is not
    private during such bootstrap.
 
-   Methods for pre-deployment of the designed DNS provider are outside
+   Methods for pre-deployment of the designated DNS provider are outside
    the scope of this document.  In corporate settings, such information
    may be provided at system installation.  Use of mutliple public DNS
    providers suggests that end users are able to configure DNS by hand.
@@ -490,13 +490,13 @@ Internet-Draft                 TLS for DNS                    April 2015
        connection startup time, clients SHOULD minimize creation of new
        TCP connections.  Use of a local DNS forwarder allows a single
        active DNS-over-TLS connection allows a single active TCP
-       connection for DNS per client computer.  Additional guidance is
-       at [draft-ietf-dnsop-5966bis-00] [xxx: need to properly ref.
-       ---johnh 2015-03-26]
+       connection for DNS per client computer.  Additional guidance can
+       be found in [I-D.ietf-dnsop-5966bis].
 
    A full performance evaluation is outside the scope of this
    specification.  A more detailed analysis of the performance
    implications of DNS-over-TLS (and DNS-over-TCP) is discussed in a
+   technical report [tdns] and [I-D.ietf-dnsop-5966bis].
 
 
 
@@ -505,9 +505,6 @@ Hu, et al.               Expires October 7, 2015                [Page 9]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
-
-   technical report [tdns] and [draft-ietf-dnsop-5966bis-00] [xxx: need
-   to properly ref. ---johnh 2015-03-26]
 
 5.  IANA Considerations
 
@@ -539,8 +536,8 @@ Internet-Draft                 TLS for DNS                    April 2015
 
    1.  There are known attacks on TLS, such as person-in-the-middle and
        protocol downgrade.  These are general attacks on TLS and not
-       specific to DNS-over-TLS; we refer to the TLS RFCs for discussion
-       of these security issues.
+       specific to DNS-over-TLS; please refer to the TLS RFCs for
+       discussion of these security issues.
 
    2.  Any protocol interactions prior to the TLS handshake are
        performed in the clear and can be modified by a man-in-the-middle
@@ -554,6 +551,9 @@ Internet-Draft                 TLS for DNS                    April 2015
        track of servers known to support TLS (i.e., "pinning") enables
        clients to detect downgrade attacks.  For servers with no
        connection history, clients may choose to refuse non-TLS DNS, or
+       they may continue without TLS, depending on their privacy
+       requirements.
+
 
 
 
@@ -561,9 +561,6 @@ Hu, et al.               Expires October 7, 2015               [Page 10]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
-
-       they may continue without TLS, depending on their privacy
-       requirements.
 
    4.  This document does not propose new ideas for certificate
        authentication for TLS in the context of DNS.  Several external
@@ -588,10 +585,10 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 7.  Acknowledgments
 
-   We would like to thank Stephane Bortzmeyer, Brian Haberman, Kim-Minh
-   Kaplan, Bill Manning, George Michaelson, Eric Osterweil, Glen Wiley,
-   John Dickinson, and Sara Dickinson for reviewing this Internet-draft,
-   and Nikita Somaiya for early work on this idea.
+   The authors would like to thank Stephane Bortzmeyer, Brian Haberman,
+   Kim-Minh Kaplan, Bill Manning, George Michaelson, Eric Osterweil,
+   Glen Wiley, John Dickinson, and Sara Dickinson for reviewing this
+   Internet-draft, and Nikita Somaiya for early work on this idea.
 
    Work by Zi Hu, Liang Zhu, and John Heidemann in this paper is
    partially sponsored by the U.S.  Dept. of Homeland Security (DHS)
@@ -610,6 +607,9 @@ Internet-Draft                 TLS for DNS                    April 2015
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, November 1987.
 
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
 
 
 
@@ -617,9 +617,6 @@ Hu, et al.               Expires October 7, 2015               [Page 11]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119, March 1997.
 
    [RFC5077]  Salowey, J., Zhou, H., Eronen, P., and H. Tschofenig,
               "Transport Layer Security (TLS) Session Resumption without
@@ -667,14 +664,15 @@ Internet-Draft                 TLS for DNS                    April 2015
    [RFC2595]  Newman, C., "Using TLS with IMAP, POP3 and ACAP", RFC
               2595, June 1999.
 
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, May 2000.
+
+
 
 
 Hu, et al.               Expires October 7, 2015               [Page 12]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
-
-   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, May 2000.
 
    [RFC3118]  Droms, R. and W. Arbaugh, "Authentication for DHCP
               Messages", RFC 3118, June 2001.
@@ -722,6 +720,8 @@ Internet-Draft                 TLS for DNS                    April 2015
               Dempsky, M., "DNSCurve", draft-dempsky-dnscurve-01 (work
               in progress), August 2010,
               <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
+
+
 
 
 
