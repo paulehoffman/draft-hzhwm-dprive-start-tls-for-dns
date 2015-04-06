@@ -447,6 +447,8 @@ is a confusing situation.
   </t>
   <t>
     DISCUSSION: Should this advice instead be in <xref target="I-D.ietf-dnsop-5966bis"/>?
+    [xxx: johnh: IMHO we have to ref to 5966bis, otherwise we have to draw ALL of that content into this document, and that loses.  Suggest we add to 2nd para: "Guidance about use of DNS over long-lived TCP sessions is in <xref target="I-D.ietf-dnsop-5966bis"/>.
+    BUT doesn't this new section duplicate the para starting "It is expected that multiple DNS queries..." below?  suggest we move this conent there if we keep it.]
   </t>
  </section>
 </section>
