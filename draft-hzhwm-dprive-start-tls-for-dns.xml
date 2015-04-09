@@ -269,10 +269,10 @@
 <t>
   The protocol described here works for any DNS client to server communication using DNS-over-TCP.
   There can be different profiles providing different levels of privacy and performance,
-  as dsicussed in <xref target="profiles"/>.
+  as discussed in <xref target="profiles"/>.
   The protocol may be used for any DNS communication
   both from stub to recursive, and from recursive to authoritative servers,
-  but different protocols may be preferable for different envrionments.
+  but different protocols may be preferable for different environments.
 </t>
 
 <t>
@@ -339,7 +339,7 @@
         DNS clients SHOULD first try using port-based DNS-over-TLS by establishing the
         TCP connection to the dedicated port TBD (number to be defined in <xref target="IANA"/>).
         Clients MAY try STARTTLS upgrade before the dedicated port
-        if there is information that this ordering is preferered.
+        if there is information that this ordering is preferred.
         It SHOULD be an implementation and/or local determination as to whether to
         attempt TLS via the dedicated port first and then fall back to
         STARTTLS use, or to choose some other order of attempts and
@@ -456,7 +456,7 @@ is a confusing situation.
 <section anchor="server_use" title="Use by DNS Servers">
   <t>
     A DNS server that supports DNS-over-TLS SHOULD support port-based DNS-over-TLS, and SHOULD
-    support upgrade-based DNS-over TLS.
+    support upgrade-based DNS-over-TLS.
   </t>
 
  <section anchor="server_queries" title="Receiving Queries for Upgrade-Based DNS-over-TLS ">
@@ -613,7 +613,7 @@ is a confusing situation.
 
   <section title="Opportunistic Privacy Profile">
     <t>
-      For opportunistic privacy, analgous to
+      For opportunistic privacy, analogous to
       SMTP opportunistic encryption
       one desires privacy when possible,
       but does not require it.
@@ -644,7 +644,7 @@ is a confusing situation.
       retains a copy of the TLS certificate and IP address
       of each provider.
       The client will only use one of those DNS providers.
-      Because it has a pre-deloyed TLS certificate,
+      Because it has a pre-deployed TLS certificate,
       it may detect person-in-the-middle and downgrade attacks.
     </t>
     <t>
@@ -656,20 +656,20 @@ is a confusing situation.
       The designated DNS provider may be temporarily unavailable
       when configurating a network.
       For example, for clients on networks that require
-      authentation through web-based login, such authentication
+      authentication through web-based login, such authentication
       may require DNS interception and spoofing.
       Techniques such as those used by DNSSEC-trigger
       MAY be used during network configuration,
       with the intent to transition to the designated DNS provider
       after authentication.
-      The user MUST be alterted that the DNS is not private during such
+      The user MUST be alerted that the DNS is not private during such
       bootstrap.
     </t>
     <t>
 	Methods for pre-deployment of the designated DNS provider are
 	outside the scope of this document.
 	In corporate settings, such information may be provided at system installation.
-	Use of mutliple public DNS providers suggests that end users are able to
+	Use of multiple public DNS providers suggests that end users are able to
 	configure DNS by hand.
      </t>
   </section>
@@ -706,7 +706,7 @@ is a confusing situation.
   choose to refuse new DNS-over-TCP clients if processing limits are exceeded.
         </t>
 	<t>
-	  Number of conenctions:
+	  Number of connections:
 	  To minimize state on DNS servers and connection startup time,
 	  clients SHOULD
 	  minimize creation of new TCP connections.
