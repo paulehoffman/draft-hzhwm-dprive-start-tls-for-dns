@@ -42,7 +42,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-hzhwm-dprive-start-tls-for-dns-01" ipr="trust200902">
+<rfc category="std" docName="draft-hzhwm-dprive-start-tls-for-dns-02" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -432,28 +432,7 @@ is a confusing situation.
 	<!-- fix:a5 -->
 	<!-- fix:c4 -->
   </t>
-
  </section>
- <section anchor="multiplexing" title="Multiplexing Queries from Applications ">
-  <t>
-    Most current DNS clients exist as function calls in operating systems, typically
-    "gethostbyname()". Such clients open and close UDP connections when requested by
-    applications, and open TCP connections only when they receive responses to UDP requests
-    that tell them to.
-  </t>
-  <t>
-    When updating operating systems to follow the protocol described in this document,
-    it would be beneficial for the DNS clients to send queries from all applications over
-    an already-open TCP connection to the recursive server. This will reduce connection
-    overhead on the recursive DNS servers and cause DNS responses to come much more quickly.
-  </t>
-  <t>
-    DISCUSSION: Should this advice instead be in <xref target="I-D.ietf-dnsop-5966bis"/>?
-    [xxx: johnh: IMHO we have to ref to 5966bis, otherwise we have to draw ALL of that content into this document, and that loses.  Suggest we add to 2nd para: "Guidance about use of DNS over long-lived TCP sessions is in <xref target="I-D.ietf-dnsop-5966bis"/>.
-    BUT doesn't this new section duplicate the para starting "It is expected that multiple DNS queries..." below?  suggest we move this conent there if we keep it.]
-  </t>
- </section>
-</section>
 
 <section anchor="server_use" title="Use by DNS Servers">
   <t>
@@ -515,6 +494,11 @@ is a confusing situation.
     instead of tearing down the TLS connection after each response.
     A user of DNS-over-TLS SHOULD follow best practices
     for DNS-over-TCP, as described in <xref target="I-D.ietf-dnsop-5966bis"/>.
+    (For DNS clients that use library functions such as "gethostbyname()",
+    current clients may open and close UDP connections each DNS call.
+    We recommend they reuse a single TCP connection to the recursive resolver
+    or use UDP to a caching resolver that uses a system-wide TCP connection
+    to the recursive resolver.)
   </t>
 
   <t>
@@ -547,6 +531,10 @@ is a confusing situation.
   DNS servers SHOULD enable fast TLS session resumption <xref target="RFC5077"/>
   to avoid keeping per-client session state.
   </t>
+
+
+</section>
+
 
 
 </section>
@@ -852,8 +840,7 @@ is a confusing situation.
 </t>
 </section>
 
-</middle>
-  
+</middle>  
 
   <!--  *****BACK MATTER ***** -->
 
