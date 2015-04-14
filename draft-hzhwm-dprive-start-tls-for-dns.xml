@@ -289,7 +289,7 @@
   might validate server certificates or specify trusted certificate
   authorities.  Solutions for certificate authentication are currently outside the scope
   of this document. -->
-This document describes two profiles <xref target="profiles"/> providing different levels of
+This document describes two profiles in <xref target="profiles"/> providing different levels of
 assurance of privacy: an opportunistic privacy profile and a pre-deployed profile. 
 </t>
       <section title="Reserved Words">
@@ -377,7 +377,7 @@ is a confusing situation.
     DNS clients set the TO bit in the initial query sent to a
     server using TCP transport to signal their desire that the
     TCP connection be upgraded to TLS.  DNS clients SHOULD NOT set
-    the TO bit on queries when using TCP or TLS transport
+    the TO bit on queries when using TLS transport
 	because doing so has no meaning in this protocol.
   </t>
   <t>
@@ -671,7 +671,7 @@ is a confusing situation.
   <t>
   <!-- Using TCP/TLS does latency and additional state to DNS processing. -->
   DNS-over-TLS incurs additional latency at session startup.  It also requires
-  additional state (memory) increased processing (CPU).
+  additional state (memory) and increased processing (CPU).
   <list style="numbers">
 	<t>
 <!-- fix:C2 -->
