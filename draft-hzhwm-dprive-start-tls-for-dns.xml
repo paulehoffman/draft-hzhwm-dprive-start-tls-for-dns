@@ -432,7 +432,7 @@ is a confusing situation.
 	<!-- fix:a5 -->
 	<!-- fix:c4 -->
   </t>
-
+ </section>
 
 <section anchor="server_use" title="Use by DNS Servers">
   <t>
@@ -840,8 +840,7 @@ is a confusing situation.
 </t>
 </section>
 
-</middle>
-  
+</middle>  
 
   <!--  *****BACK MATTER ***** -->
 
