@@ -269,7 +269,7 @@
 
 <t>
   The protocol described here works for any DNS client to server communication using DNS-over-TCP.
-  There can be different profiles providing different levels of privacy <!-- and performance AJM: not about perf -->,
+  There can be different profiles providing different levels of privacy, <!-- and performance AJM: not about perf -->
   as discussed in <xref target="profiles"/>.
   The protocol may be used for any DNS communication
   both from stub to recursive, and from recursive to authoritative servers,
