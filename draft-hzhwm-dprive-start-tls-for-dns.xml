@@ -289,7 +289,7 @@
   might validate server certificates or specify trusted certificate
   authorities.  Solutions for certificate authentication are currently outside the scope
   of this document. -->
-This document describes two profiles <<xref target="profiles"/> providing different levels of
+This document describes two profiles <xref target="profiles"/> providing different levels of
 assurance of privacy: an opportunistic privacy profile and a pre-deployed profile. 
 </t>
       <section title="Reserved Words">
