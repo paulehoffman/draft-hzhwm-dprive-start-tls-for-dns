@@ -192,7 +192,8 @@
         standard port (TCP/53) to a DNS-over-TLS connection.
 	Encryption provided by TLS eliminates opportunities for
 	eavesdropping on DNS queries in the network, such as
-        discussed in RFC 7258.  In addition, this document discusses
+        discussed in RFC 7258.  In addition it specifies two usage
+        profiles for DNS-over-TLS.  Finally, it provides advice on
 	performance considerations to minimize overheads from using
 	TCP and TLS with DNS, pertaining to both approaches.
       </t>
@@ -262,13 +263,13 @@
   to name just a few of many.
   Adding TLS to DNS-over-TCP avoids port blocking,
   but maybe interact poorly with middle boxes that inspect DNS traffic.
-  Both approaches are subject to downgrade attacks,
+  As is generally the case with TLS, both approaches are subject to downgrade attacks,
   as discussed in <xref target="downgrade"/>.
 </t>
 
 <t>
   The protocol described here works for any DNS client to server communication using DNS-over-TCP.
-  There can be different profiles providing different levels of privacy and performance,
+  There can be different profiles providing different levels of privacy <!-- and performance AJM: not about perf -->,
   as discussed in <xref target="profiles"/>.
   The protocol may be used for any DNS communication
   both from stub to recursive, and from recursive to authoritative servers,
@@ -283,12 +284,13 @@
   might validate server certificates or specify trusted certificate
   authorities.  Solutions for certificate authentication are outside the scope
   of this document.-->
-  In specifying TLS negotiation for DNS, this document defines only the protocol
+  <!-- In specifying TLS negotiation for DNS, this document defines only the protocol
   extensions that are needed. It does not describe how DNS clients
   might validate server certificates or specify trusted certificate
   authorities.  Solutions for certificate authentication are currently outside the scope
-  of this document.
-
+  of this document. -->
+This document describes two profiles <<xref target="profiles"/> providing different levels of
+assurance of privacy: an opportunistic privacy profile and a pre-deployed profile. 
 </t>
       <section title="Reserved Words">
         <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -614,7 +616,8 @@ is a confusing situation.
   <section title="Opportunistic Privacy Profile">
     <t>
       For opportunistic privacy, analogous to
-      SMTP opportunistic encryption
+      SMTP opportunistic encryption 
+      <xref target="RFC7435"/>
       one desires privacy when possible,
       but does not require it.
     </t>
@@ -740,7 +743,9 @@ is a confusing situation.
       IANA is requested add the following value to the "Service Name and
       Transport Protocol Port Number Registry" registry.  That registry is
       populated by expert review  <xref target="RFC6335" />, and such a review will be requested if
-      this document progresses.  It would be desirable to be assigned port 54 upon completion of review.
+      this document progresses.  
+
+     <!-- AJM: Turns out port 54 assigned to XNS.  It would be desirable to be assigned port 54 upon completion of review. -->
       
     <figure>
     <artwork><![CDATA[
@@ -913,9 +918,9 @@ is a confusing situation.
 	  <date month='October' day='26' year='2014' />
 	</front>
 
-	<seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-00' />
+	<seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-01' />
 	<format type='TXT'
-		target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-00.txt' />
+		target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-01.txt' />
       </reference>
 
     <reference anchor="draft-osterweil-dane-ipsec" target="http://tools.ietf.org/html/draft-osterweil-dane-ipsec-00">
@@ -1000,7 +1005,7 @@ is a confusing situation.
     </front>
     </reference>
 
-    <reference anchor="draft-wijngaards-confidentialdns" target="http://tools.ietf.org/html/draft-wijngaards-dnsop-confidentialdns-00">
+    <reference anchor="draft-wijngaards-confidentialdns" target="http://tools.ietf.org/html/draft-wijngaards-dnsop-confidentialdns-03">
     <front>
     <title>Confidential DNS</title>
     <author initials="W." surname="Wijngaards" fullname="Wouter Wijngaards">
@@ -1009,7 +1014,7 @@ is a confusing situation.
     </author>
     <date month="November" year="2013" />
     </front>
-    <seriesInfo name="Internet-Draft" value="draft-wijngaards-dnsop-confidentialdns-00" />
+    <seriesInfo name="Internet-Draft" value="draft-wijngaards-dnsop-confidentialdns-03" />
     </reference>
 
     <reference anchor="draft-wouters-edns-tcp-keepalive" target="http://tools.ietf.org/html/draft-wouters-edns-tcp-keepalive-00">
