@@ -4,14 +4,14 @@
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: October 16, 2015                       USC/Information Sciences
+Expires: October 17, 2015                       USC/Information Sciences
                                                                Institute
                                                                A. Mankin
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                           VPN Consortium
-                                                          April 14, 2015
+                                                          April 15, 2015
 
 
          TLS for DNS: Initiation and Performance Considerations
@@ -44,7 +44,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 16, 2015.
+   This Internet-Draft will expire on October 17, 2015.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 1]
+Hu, et al.              Expires October 17, 2015                [Page 1]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -108,7 +108,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 2]
+Hu, et al.              Expires October 17, 2015                [Page 2]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -127,12 +127,12 @@ Internet-Draft                 TLS for DNS                    April 2015
 
    The protocol described here works for any DNS client to server
    communication using DNS-over-TCP.  There can be different profiles
-   providing different levels of privacy , as discussed in Section 3.
+   providing different levels of privacy, as discussed in Section 3.
    The protocol may be used for any DNS communication both from stub to
    recursive, and from recursive to authoritative servers, but different
    protocols may be preferable for different environments.
 
-   This document describes two profiles Section 3 providing different
+   This document describes two profiles in Section 3 providing different
    levels of assurance of privacy: an opportunistic privacy profile and
    a pre-deployed profile.
 
@@ -164,7 +164,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 3]
+Hu, et al.              Expires October 17, 2015                [Page 3]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -202,8 +202,8 @@ Internet-Draft                 TLS for DNS                    April 2015
    DNS clients set the TO bit in the initial query sent to a server
    using TCP transport to signal their desire that the TCP connection be
    upgraded to TLS.  DNS clients SHOULD NOT set the TO bit on queries
-   when using TCP or TLS transport because doing so has no meaning in
-   this protocol.
+   when using TLS transport because doing so has no meaning in this
+   protocol.
 
    Since the motivation for upgrade-based DNS-over-TLS is to preserve
    privacy, DNS clients SHOULD use an initial (unprotected) query that
@@ -220,7 +220,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 4]
+Hu, et al.              Expires October 17, 2015                [Page 4]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -276,7 +276,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 5]
+Hu, et al.              Expires October 17, 2015                [Page 5]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -332,7 +332,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 6]
+Hu, et al.              Expires October 17, 2015                [Page 6]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -361,11 +361,10 @@ Internet-Draft                 TLS for DNS                    April 2015
       normally, without encryption.
 
    o  The DNS client sends a TO=1 query and receives a TO=1 response,
-      but the middlebox does not understand the TLS negotiation.
-      Middleboxes SHOULD clear TO in replies if they are not prepared to
-      pass through TLS negotiation.  Clients SHOULD retry DNS without TO
-      set if negotiation fails, and then retry with TLS after a
-      reasonable period (see Section 2.1.3).
+      but the middlebox does not understand the TLS negotiation and does
+      not allow those packets to pass through.  Clients SHOULD retry DNS
+      without TO set if negotiation fails, and then retry with TLS after
+      a reasonable period (see Section 2.1.3).
 
    o  The DNS client sends a TO=1 query but receives no response at all.
       The middlebox might be silently dropping the query due to the
@@ -388,7 +387,8 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 7]
+
+Hu, et al.              Expires October 17, 2015                [Page 7]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -444,7 +444,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 8]
+Hu, et al.              Expires October 17, 2015                [Page 8]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -452,7 +452,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 4.  Performance Considerations
 
    DNS-over-TLS incurs additional latency at session startup.  It also
-   requires additional state (memory) increased processing (CPU).
+   requires additional state (memory) and increased processing (CPU).
 
    1.  Latency: Compared to UDP, DNS-over-TCP requires an additional
        round-trip-time (RTT) of latency to establish the connection.
@@ -500,7 +500,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015                [Page 9]
+Hu, et al.              Expires October 17, 2015                [Page 9]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -556,7 +556,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015               [Page 10]
+Hu, et al.              Expires October 17, 2015               [Page 10]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -612,7 +612,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015               [Page 11]
+Hu, et al.              Expires October 17, 2015               [Page 11]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -668,7 +668,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015               [Page 12]
+Hu, et al.              Expires October 17, 2015               [Page 12]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -724,7 +724,7 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015               [Page 13]
+Hu, et al.              Expires October 17, 2015               [Page 13]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -780,7 +780,7 @@ Authors' Addresses
 
 
 
-Hu, et al.              Expires October 16, 2015               [Page 14]
+Hu, et al.              Expires October 17, 2015               [Page 14]
 
 Internet-Draft                 TLS for DNS                    April 2015
 
@@ -836,5 +836,5 @@ Internet-Draft                 TLS for DNS                    April 2015
 
 
 
-Hu, et al.              Expires October 16, 2015               [Page 15]
+Hu, et al.              Expires October 17, 2015               [Page 15]
 
