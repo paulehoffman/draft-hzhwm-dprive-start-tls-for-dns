@@ -569,9 +569,8 @@ is a confusing situation.
       <t>
 	<!-- fix:d3 -->
         The DNS client sends a TO=1 query and receives a TO=1 response,
-	but the middlebox does not understand the TLS negotiation.
-	Middleboxes SHOULD clear TO in replies if they are not prepared
-	to pass through TLS negotiation.
+	but the middlebox does not understand the TLS negotiation
+	and does not allow those packets to pass through.  
 	Clients SHOULD retry DNS without TO set if negotiation fails,
   and then retry with TLS after a reasonable period (see <xref target="client_responses"/>).
       </t>
