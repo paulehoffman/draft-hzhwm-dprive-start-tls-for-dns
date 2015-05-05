@@ -42,7 +42,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-hzhwm-dprive-start-tls-for-dns-02" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-dprive-start-tls-for-dns-01" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN" 
@@ -168,21 +168,6 @@
 	compatible with clients and servers that are not aware of
 	DNS-over-TLS. -->
 
-<!--    <abstract>
-      <t>
-	This memo offers one approach to initiating TLS for DNS
-	over the standard port (TCP/53).
-	Encryption provided by TLS eliminates opportunities for
-	eavesdropping on DNS queries in the network.
-	In addition, and most importantly, the document discusses
-	performance considerations to minimize overheads from using
-	TCP and TLS with DNS.
-	These considerations may apply to other approaches for DNS over
-	TCP and TLS using other ports.
-      </t>
-
-    </abstract>
--->
 
     <abstract>
       <t>
@@ -213,7 +198,6 @@
   reducing the privacy of the querier.
   Recent news reports have elevated these concerns,
   and ongoing efforts are beginning to identify privacy 
-<!--  concerns about DNS (<xref target="draft-bortzmeyer-dnsop-dns-privacy"/>). -->
   concerns about DNS (<xref target="I-D.ietf-dprive-problem-statement"/>).
 </t>
 
@@ -226,7 +210,6 @@
 	by defining mechanisms to cryptographically sign zones,
   allowing end-users (or their first-hop resolver) to verify replies are correct. 
   By intention, DNSSEC does not protect request and response privacy.
-<!-- fix:A1 -->
   Traditionally, either privacy was not considered a requirement for DNS traffic,
      or it was assumed that network traffic was sufficiently private,
      however these perceptions are evolving due to recent events <xref target="RFC7258"/>.
@@ -269,7 +252,7 @@
 
 <t>
   The protocol described here works for any DNS client to server communication using DNS-over-TCP.
-  There can be different profiles providing different levels of privacy <!-- and performance AJM: not about perf -->,
+  There can be different profiles providing different levels of privacy,
   as discussed in <xref target="profiles"/>.
   The protocol may be used for any DNS communication
   both from stub to recursive, and from recursive to authoritative servers,
@@ -277,18 +260,6 @@
 </t>
 
 <t>
-<!--  This document defines only the protocol extensions necessary to
-  support TLS negotiation.  
- 
-  It does not describe how DNS clients
-  might validate server certificates or specify trusted certificate
-  authorities.  Solutions for certificate authentication are outside the scope
-  of this document.-->
-  <!-- In specifying TLS negotiation for DNS, this document defines only the protocol
-  extensions that are needed. It does not describe how DNS clients
-  might validate server certificates or specify trusted certificate
-  authorities.  Solutions for certificate authentication are currently outside the scope
-  of this document. -->
 This document describes two profiles <xref target="profiles"/> providing different levels of
 assurance of privacy: an opportunistic privacy profile and a pre-deployed profile. 
 </t>
@@ -310,7 +281,6 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   </t>
   <t>
     Clients and servers negotiate upgrade-based DNS-over-TLS
-<!--    to use, DNS-over-TLS by setting a bit in the Flags field of the -->
     by setting a bit in the Flags field of the
     EDNS0 <xref target="RFC6891"/> OPT meta-RR.  The "TLS OK"
     (TO) bit is defined as the second bit of the third and fourth
@@ -351,18 +321,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 
  <section anchor="client_queries" title="Sending Queries for Upgrade-Based DNS-over-TLS">
 
-<!--Paul changed the TO-in-UDP discussion to simply say that it has no meaning anywhere.
-This is because the current text said clients MAY send it but servers MUST ignore it, which
-is a confusing situation. 
- Allison changed the TO-in-UDP discussion back to allowing clients to send it with 
- Discussion note about why this might be of value-->
-
   <t>
-<!--
-    Setting the TO bit in queries sent using UDP transport has no meaning. Because setting
-    any EDNS options might cause problems with middleboxes, a client SHOULD NOT set the TO bit
-    when using UDP transport.
--->
     Setting the TO bit in queries sent using UDP transport has no protocol meaning.  However,
     the client MAY set the TO bit when using UDP transport. The server MUST ignore the TO bit
     when receiving UDP transport.
@@ -400,7 +359,6 @@ is a confusing situation.
  </section>
  <section anchor="client_responses" title="Receiving Responses for Upgrade-Based DNS-over-TLS">
   <t>
-<!-- fix:c6 -->
    A DNS client that receives a response using UDP transport that
    has the TO bit set handles that response as usual.
 	It MAY record the server's support for DNS-over-TLS
@@ -429,8 +387,6 @@ is a confusing situation.
     addresses that don't support upgrade-based DNS-over-TLS, including TLS handshake
     failures, and not request DNS-over-TLS from them for 
 	reasonable period (such as one hour per server).
-	<!-- fix:a5 -->
-	<!-- fix:c4 -->
   </t>
  </section>
 
@@ -452,7 +408,6 @@ is a confusing situation.
   </t>
   <t>
     A DNS server receiving subsequent queries over TCP MUST ignore the TO bit.
-<!-- fix:c5 -->
 	(A client wishing to start TLS after the initial query
 	MUST open a new TCP connection to do so.)
   </t>
@@ -467,7 +422,6 @@ is a confusing situation.
   <t>
     A DNS server receiving an initial query over TCP that has the TO
     bit set MAY set the TO bit in its response.  
-	<!-- fix:E4 -->
 	The server MUST then proceed with the TLS handshake protocol.
   </t>
   <t>
@@ -512,7 +466,7 @@ is a confusing situation.
     assist DNS-over-TLS clients and servers select useful timeout values
    <xref target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
   </t>
-  <t> <!-- fix:e3 -->
+  <t>
 	As with current DNS-over-TCP,
 	DNS servers MAY close the connection
 	at any time (e.g., due to resource constraints).
@@ -556,18 +510,7 @@ is a confusing situation.
         case there is no upgrade to TLS and DNS resolution occurs normally, without
         encryption.
       </t>
-<!-- We said we weren't going to talk about this yet.
       <t>
-        The DNS client sends a TO=1 query and receives a TO=1 response,
-        but the TLS handshake fails because the server's certificate
-        cannot be authenticated.  In this case the client SHOULD
-	close
-        the established connection and fall back to unencrypted
-        DNS for a reasonable period (as discussed in <xref target="client_responses"/>).
-      </t>
--->
-      <t>
-	<!-- fix:d3 -->
         The DNS client sends a TO=1 query and receives a TO=1 response,
 	but the middlebox does not understand the TLS negotiation.
 	Middleboxes SHOULD clear TO in replies if they are not prepared
@@ -584,7 +527,6 @@ is a confusing situation.
         to normal (unencrypted) DNS for a reasonable period (as discussed in <xref target="client_responses"/>).
       </t>
     </list>
-<!-- fix:e5 -->
   In general, clients that attempt TLS and fail
 	can either fall back on unencrypted DNS,
 	or wait and retry later,
@@ -645,7 +587,7 @@ is a confusing situation.
     </t>
     <t>
       The designated DNS provider may be temporarily unavailable
-      when configurating a network.
+      when configuring a network.
       For example, for clients on networks that require
       authentication through web-based login, such authentication
       may require DNS interception and spoofing.
@@ -667,14 +609,11 @@ is a confusing situation.
 </section>
 
 <section anchor="Performance" title="Performance Considerations">
-<!-- fix:B2 -->
   <t>
-  <!-- Using TCP/TLS does latency and additional state to DNS processing. -->
   DNS-over-TLS incurs additional latency at session startup.  It also requires
   additional state (memory) increased processing (CPU).
   <list style="numbers">
 	<t>
-<!-- fix:C2 -->
   Latency:
   Compared to UDP, DNS-over-TCP requires an additional round-trip-time (RTT) of
   latency to establish the connection.  The TLS handshake adds another two
@@ -683,7 +622,6 @@ is a confusing situation.
   Moreover, TLS connection resumption can further reduce the setup delay.  
 	</t>
 	<t>
-<!-- fix:C3 -->
   State:
   The use of connection-oriented TCP requires keeping additional state in both
   kernels and applications.  TLS has marginal increases in state over TCP alone.
@@ -733,8 +671,6 @@ is a confusing situation.
       populated by expert review  <xref target="RFC6335" />, and such a review will be requested if
       this document progresses.  
 
-     <!-- AJM: Turns out port 54 assigned to XNS.  It would be desirable to be assigned port 54 upon completion of review. -->
-      
     <figure>
     <artwork><![CDATA[
     Service Name            DNS-over-TLS
@@ -771,9 +707,6 @@ is a confusing situation.
     </t>
 
     <t>
-	<!-- fix:A3 -->
-	<!-- fix:E1 -->
-	<!-- fix:E6 -->
 	As with other uses of STARTTLS-upgrade to TLS, the
 	  mechanism specified here is susceptible to downgrade attacks,
 	where a person-in-the-middle prevents a successful TLS upgrade.
@@ -820,7 +753,6 @@ is a confusing situation.
 
 
 <section anchor="Acknowledgments" title="Acknowledgments">
-	<!-- fix:a6 -->
   <t>
 	The authors would like to thank Stephane Bortzmeyer, Brian Haberman, 
 	Kim-Minh Kaplan, Bill Manning, George Michaelson, Eric Osterweil, Glen Wiley,
@@ -1053,5 +985,9 @@ is a confusing situation.
 -->
 <!--  LocalWords:  Minh Kaplan Michaelson AFNIC NLnet Infosec OWASP
 -->
-<!--  LocalWords:  edns tcp keepalive Dyn
+<!--  LocalWords:  edns tcp keepalive Dyn IPSECA pre TBD fallbacks Hu
+-->
+<!--  LocalWords:  gethostbyname Stephane Osterweil Somaiya Liang Zhu
+-->
+<!--  LocalWords:  HSARPA RIKA FA8750 D08PC75599 IPsec VeriSign
 -->
