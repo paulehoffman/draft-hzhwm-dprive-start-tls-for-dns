@@ -639,7 +639,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 	  clients SHOULD
 	  minimize creation of new TCP connections.
 	  Use of a local DNS forwarder allows a single active DNS-over-TLS
-	  connection allows a single active TCP connection for DNS per client computer.
+	  per client computer.
 	  Additional guidance can be found in <xref target="I-D.ietf-dnsop-5966bis"/>.
 	</t>
 
