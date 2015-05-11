@@ -38,6 +38,7 @@
 <!-- control vertical white space 
      (using these PIs as follows is recommended by the RFC Editor) -->
 <?rfc compact="yes" ?>
+<?rfc toc="yes" ?>
 <!-- do not start each main section on a new page -->
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
@@ -486,6 +487,11 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   to avoid keeping per-client session state.
   </t>
 
+  <!--
+  XXX Should we include recommendations about TLS False Start?
+  https://tools.ietf.org/html/draft-ietf-tls-falsestart-00
+  -->
+
 
 </section>
 
@@ -513,7 +519,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
       <t>
         The DNS client sends a TO=1 query and receives a TO=1 response,
 	but the middlebox does not understand the TLS negotiation
-	and does not allow those packets to pass through.  
+	and does not allow the TLS handshake packets to pass.
 	Clients SHOULD retry DNS without TO set if negotiation fails,
   and then retry with TLS after a reasonable period (see <xref target="client_responses"/>).
       </t>
@@ -560,7 +566,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     </t>
     <t>
       Opportunistic privacy can be used by any current client,
-      but it only provides privacy when there are no on-path attackers.
+      but it only provides privacy when there are no on-path active attackers.
     </t>
   </section>
 
@@ -579,6 +585,30 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
       Because it has a pre-deployed TLS certificate,
       it may detect person-in-the-middle and downgrade attacks.
     </t>
+<!-- XXX from Daniel Kahn Gillmor
+I'm not sure that "certificate" is the relevant thing that a client
+wants to cache here.  For example, a client could instead use one of the
+following options:
+
+* a long-term public key (and the certificate itself could be
+  re-issued as long as it retains the same key, or could be sent as a
+  raw public key (RFC 7250), or a TLSA record, etc)
+
+* the equivalent of an HPKP pinset (a digest of two or more public
+  keys that should be present somewhere in the certificate chain) plus
+  a name of the peer
+
+* a PSK, for use with one of the TLS PSK modes
+
+* the name of the peer and a X.509 trust anchor list
+
+
+Or maybe some combination of the above.  I'm not sure that this draft is
+the place to specify all of these options, of course, but limiting it to
+"the TLS certificate of each provider" seems unnecssesarily
+constrained.  (This is partly addressed in item 4 of the security
+considerations section, but seems to be in conflict)
+-->
     <t>
       With pre-deployed privacy, the DNS client MUST signal to the user
       when none of the designated DNS servers are available, and MUST NOT
@@ -590,7 +620,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
       For example, for clients on networks that require
       authentication through web-based login, such authentication
       may require DNS interception and spoofing.
-      Techniques such as those used by DNSSEC-trigger
+      Techniques such as those used by DNSSEC-trigger <xref target="dnssec-trigger"/>
       MAY be used during network configuration,
       with the intent to transition to the designated DNS provider
       after authentication.
@@ -747,7 +777,20 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 	 (connections without CA validation, <xref target="RFC7435"/>)
 	may be relevant to DNS-over-TLS. 
 </t>
+
+	<!-- XXX From Daniel Kahn Gillmor
+	The Security Considerations section does not mention traffic analysis at
+	all.  The sizes of DNS packets and their timing may turn out to be
+	significant, and this draft should at least mention these concerns.
+	-->
+
 </section>
+
+<!-- section anchor="Security" title="Security Considerations">
+<t>
+	XXX See https://tools.ietf.org/html/rfc6973
+</t>
+</section -->
 
 
 
@@ -873,6 +916,17 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     <address></address>
     </author>
     <date month="December" year="2013" />
+    </front>
+    </reference>
+
+    <reference anchor="dnssec-trigger" target="https://www.nlnetlabs.nl/projects/dnssec-trigger/">
+    <front>
+    <title>Dnssec-Trigger</title>
+    <author>
+    <organization abbrev="NLnet">NLnet Labs</organization>
+    <address></address>
+    </author>
+    <date month="May" year="2014" />
     </front>
     </reference>
 
