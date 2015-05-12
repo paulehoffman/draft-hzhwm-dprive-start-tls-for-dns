@@ -717,9 +717,12 @@ considerations section, but seems to be in conflict)
 
 <section anchor="Security" title="Security Considerations">
   <t>
-	The goal of this proposal is to address the security risks that arise
-        because DNS queries may be eavesdropped upon, as described above.
-        There are a number of residual risks that may impact this goal.
+    Use of TLS for DNS addresses is designed to address the privacy
+    risks arise
+    because DNS queries may be eavesdropped upon.
+    It does not address other security issues in DNS,
+    and there are a number of residual risks that may affect its success
+    at protecting privacy:
 
 	  <list style="numbers">
 	<t>
