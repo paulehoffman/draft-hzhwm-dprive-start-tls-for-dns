@@ -669,7 +669,8 @@ considerations section, but seems to be in conflict)
 	  clients SHOULD
 	  minimize creation of new TCP connections.
 	  Use of a local DNS forwarder allows a single active DNS-over-TLS
-	  per client computer.
+	  connection
+	  between any given client and server.
 	  Additional guidance can be found in <xref target="I-D.ietf-dnsop-5966bis"/>.
 	</t>
 
