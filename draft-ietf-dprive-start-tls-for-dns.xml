@@ -668,9 +668,10 @@ considerations section, but seems to be in conflict)
 	  To minimize state on DNS servers and connection startup time,
 	  clients SHOULD
 	  minimize creation of new TCP connections.
-	  Use of a local DNS forwarder allows a single active DNS-over-TLS
-	  connection
-	  between any given client and server.
+	  Use of a local DNS request aggregator
+	  (a particular type of forwarder)
+	  allows a single active DNS-over-TLS
+	  connection from any given client computer to its server.
 	  Additional guidance can be found in <xref target="I-D.ietf-dnsop-5966bis"/>.
 	</t>
 
