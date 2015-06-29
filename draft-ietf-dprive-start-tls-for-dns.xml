@@ -372,8 +372,8 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
    to its initial query that has the TO bit set MUST immediately initiate
    a TLS handshake using the procedure described in <xref
    target="RFC5246"/>.
-   (Note that this document does not yet deal with what happens when the TLS handshake
-   does not succeed.)
+   If the TLS handshake does not succeed, the client MUST close the connection
+   immediately and treat the server as described below for future queries.
   </t>
   <t>
       DISCUSSION: are there any cases in which a DNS client that sent TO on DNS-over-TCP
