@@ -568,36 +568,14 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     </t>
     <t>
       With pre-deployed privacy, a client
-      retains a copy of the TLS certificate and IP address
+      retains a copy of the TLS certificate (and/or other authentication
+      credentials as appropriate) and IP address
       of each provider.
       The client will only use one of those DNS providers.
       Because it has a pre-deployed TLS certificate,
       it may detect person-in-the-middle and downgrade attacks.
     </t>
-<!-- XXX from Daniel Kahn Gillmor
-I'm not sure that "certificate" is the relevant thing that a client
-wants to cache here.  For example, a client could instead use one of the
-following options:
 
-* a long-term public key (and the certificate itself could be
-  re-issued as long as it retains the same key, or could be sent as a
-  raw public key (RFC 7250), or a TLSA record, etc)
-
-* the equivalent of an HPKP pinset (a digest of two or more public
-  keys that should be present somewhere in the certificate chain) plus
-  a name of the peer
-
-* a PSK, for use with one of the TLS PSK modes
-
-* the name of the peer and a X.509 trust anchor list
-
-
-Or maybe some combination of the above.  I'm not sure that this draft is
-the place to specify all of these options, of course, but limiting it to
-"the TLS certificate of each provider" seems unnecssesarily
-constrained.  (This is partly addressed in item 4 of the security
-considerations section, but seems to be in conflict)
--->
     <t>
       With pre-deployed privacy, the DNS client MUST signal to the user
       when none of the designated DNS servers are available, and MUST NOT
