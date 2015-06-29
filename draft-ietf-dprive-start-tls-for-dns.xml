@@ -688,6 +688,73 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 
 </section>
 
+<section anchor="Implementation" title="Implementation Status">
+  <t>
+    [Note to RFC Editor: please remove this section and reference to
+    RFC 6982 prior to publication.]
+  </t>
+  <t>
+    This section records the status of known implementations of the
+    protocol defined by this specification at the time of posting
+    of this Internet-Draft, and is based on a proposal described
+    in RFC 6982.  The description of implementations in this section
+    is intended to assist the IETF in its decision processes in
+    progressing drafts to RFCs.  Please note that the listing of
+    any individual implementation here does not imply endorsement
+    by the IETF.  Furthermore, no effort has been spent to verify
+    the information presented here that was supplied by IETF
+    contributors.  This is not intended as, and must not be construed
+    to be, a catalog of available implementations or their features.
+    Readers are advised to note that other implementations may
+    exist.
+  </t>
+  <t>
+    According to RFC 6982, "this will allow reviewers and working
+    groups to assign due consideration to documents that have the
+    benefit of running code, which may serve as evidence of valuable
+    experimentation and feedback that have made the implemented
+    protocols more mature.  It is up to the individual working
+    groups to use this information as they see fit".
+  </t>
+  <section title="Unbound">
+    <t>
+      The Unbound recursive name server software added support for port-based
+      DNS-over-TLS in version XXXX.  The unbound.conf configuration file
+      has the following configuration directives: ssl-port, ssl-service-key,
+      ssl-service-pem, ssl-upstream.  See https://unbound.net/documentation/unbound.conf.html.
+    </t>
+    <t>
+      Sinodun Internet Technologies has implemented
+      upgrade-based DNS-over-TLS in Unbound-1.5.1 (patch available
+      at
+      https://portal.sinodun.com/stash/projects/TDNS/repos/dns-over-tls_patches/browse)
+      for both stub-to-recursive and recursive-to-authoritative.
+    </t>
+  </section>
+  <section title="ldns">
+    <t>
+      Sinodun Internet Technologies has implemented
+      both upgrade-based and port-based DNS-over-TLS in the ldns library
+      from NLnetLabs.  This also gives DNS-over-TLS support to the
+      drill DNS client program.
+      Patches available at https://portal.sinodun.com/stash/projects/TDNS/repos/dns-over-tls_patches/browse.
+    </t>
+  </section>
+  <section title="digit">
+    <t>
+      The digit DNS client from USC/ISI supports both port- and upgrade-based DNS-over-TLS.
+      Source code available at http://www.isi.edu/ant/software/tdns/index.html.
+    </t>
+  </section>
+  <section title="getdns">
+    <t>
+      The getdns API implementation supports both port- and upgrade-based DNS-over-TLS.
+      Upgrade-based operation requires linking getdns with a patched version of libunbound.
+      Source code available at https://getdnsapi.net.
+    </t>
+  </section>
+</section>
+
 <section anchor="Security" title="Security Considerations">
   <t>
     Use of TLS for DNS addresses is designed to address the privacy
@@ -762,12 +829,6 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 </t>
 
 </section>
-
-<!-- section anchor="Implementation" title="Implementation Status">
-<t>
-	XXX See https://tools.ietf.org/html/rfc6982
-</t>
-</section -->
 
 
 
