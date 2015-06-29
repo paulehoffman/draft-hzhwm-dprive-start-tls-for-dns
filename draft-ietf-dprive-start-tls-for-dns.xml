@@ -70,7 +70,7 @@
         <email>zihu@usc.edu</email>
       </address>
     </author>
-    
+
     <author fullname="Liang Zhu" initials="L." surname="Zhu">
       <organization>USC/Information Sciences Institute</organization>
       <address>
@@ -150,7 +150,7 @@
     <area>Internet</area>
 
     <!-- WG name at the upperleft corner of the doc,
-         IETF is fine for individual submissions.  
+         IETF is fine for individual submissions. 
 	 If this element is not present, the default is "Network Working Group",
          which is used by the RFC Editor as a nod to the history of the IETF. -->
 
@@ -237,7 +237,7 @@
   Protocol changes proposed here must consider potential interactions with
   middle boxes.
   The port-based initiation of TLS is very straightforward, but might be blocked by
-  firewalls or be unwelcome to some DNS client or server implementations.  
+  firewalls or be unwelcome to some DNS client or server implementations. 
   If port-based initiation of TLS fails, the negotiation mechanism
   allows DNS clients and servers to
   upgrade an existing DNS-over-TCP connection to a DNS-over-TLS connection,
@@ -422,7 +422,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   </t>
   <t>
     A DNS server receiving an initial query over TCP that has the TO
-    bit set MAY set the TO bit in its response.  
+    bit set MAY set the TO bit in its response. 
 	The server MUST then proceed with the TLS handshake protocol.
   </t>
   <t>
@@ -443,7 +443,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     from eavesdropping and normal DNS queries SHOULD take place,
     following DNS-over-TCP framing (<xref target="RFC1035"/>, section 4.2.2).
   </t>
-    
+
   <t>
     It is expected that multiple DNS queries will be made over the same TLS connection
     instead of tearing down the TLS connection after each response.
@@ -481,17 +481,6 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref target="RFC7413"/>
   is of benefit.
   </t>
-
-  <t>
-  DNS servers SHOULD enable fast TLS session resumption <xref target="RFC5077"/>
-  to avoid keeping per-client session state.
-  </t>
-
-  <!--
-  XXX Should we include recommendations about TLS False Start?
-  https://tools.ietf.org/html/draft-ietf-tls-falsestart-00
-  -->
-
 
 </section>
 
@@ -648,7 +637,11 @@ considerations section, but seems to be in conflict)
   latency to establish the connection.  The TLS handshake adds another two
   RTTs of latency.
   Clients and servers should support connection keepalive (reuse) and out-of-order processing to amortize connection setup costs.
-  Moreover, TLS connection resumption can further reduce the setup delay.  
+  Moreover, TLS connection resumption can further reduce the setup delay.
+  DNS servers SHOULD enable fast TLS session resumption <xref target="RFC5077"/>
+  to avoid keeping per-client session state.
+  TLS False Start <xref target="draft-tls-falsestart"/> can also lead to a latency
+  reduction in certain situations.
 	</t>
 	<t>
   State:
@@ -700,7 +693,7 @@ considerations section, but seems to be in conflict)
       IANA is requested add the following value to the "Service Name and
       Transport Protocol Port Number Registry" registry.  That registry is
       populated by expert review  <xref target="RFC6335" />, and such a review will be requested if
-      this document progresses.  
+      this document progresses. 
 
     <figure>
     <artwork><![CDATA[
@@ -825,7 +818,7 @@ considerations section, but seems to be in conflict)
 </t>
 </section>
 
-</middle>  
+</middle> 
 
   <!--  *****BACK MATTER ***** -->
 
@@ -874,7 +867,7 @@ considerations section, but seems to be in conflict)
             <author initials='D' surname='Wessels' fullname='Duane Wessels'>
                 <organization />
             </author>
-            <date month='December' day='4' year='2014' />            
+            <date month='December' day='4' year='2014' />
         </front>
         <seriesInfo name='Internet-Draft' value='draft-ietf-dnsop-5966bis-01' />
         <format type='TXT'
@@ -952,7 +945,7 @@ considerations section, but seems to be in conflict)
     </front>
     <seriesInfo name="Internet-Draft" value="draft-dempsky-dnscurve-01" />
     </reference>
-    
+
     <reference anchor="CA_Compromise" target="http://www.infosecisland.com/blogview/19782-Web-Authentication-A-Broken-Trust-with-No-Easy-Fix.html">
     <front>
     <title>CA Compromise</title>
@@ -1015,7 +1008,7 @@ considerations section, but seems to be in conflict)
       </front>
       <seriesInfo name="Internet-Draft" value="draft-wouters-edns-tcp-keepalive-00" />
     </reference>
-    
+
     <reference anchor="tdns" target="Technical report, ISI-TR-688, ftp://ftp.isi.edu/isi-pubs/tr-688.pdf">
     <front>
     <title>T-DNS: Connection-Oriented DNS to Improve Privacy and Security</title>
@@ -1030,10 +1023,24 @@ considerations section, but seems to be in conflict)
     <seriesInfo name="Technical report" value="ISI-TR-688" />
     </reference>
 
+    <reference anchor="draft-tls-falsestart" target="http://tools.ietf.org/html/draft-bmoeller-tls-falsestart-01">
+      <front>
+        <title>Transport Layer Security (TLS) False Start</title>
+        <author initials="B." surname="Moeller" fullname="Bodo Moeller">
+          <organization abbrev="Google">Google Switzerland GmbH</organization>
+          <address></address>
+        </author>
+        <author initials="A." surname="Langley" fullname="Adam Langley">
+          <organization abbrev="Google">Google Inc.</organization>
+          <address></address>
+        </author>
+        <date month="November" year="2014" />
+      </front>
+      <seriesInfo name="Internet-Draft" value="draft-bmoeller-tls-falsestart-01" />
+    </reference>
 
     </references>
-     
-    
+
   </back>
 </rfc>
 
