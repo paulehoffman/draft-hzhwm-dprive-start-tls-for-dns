@@ -281,6 +281,15 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     the following.  The DNS protocol itself is unchanged.
   </t>
   <t>
+      DISCUSSION: Draft authors seek input from the working group 
+      regarding the need for both port- and upgrade-based approaches.
+      Removing the upgrade-based technique would simplify this
+      document and implementations.  However, there may perhaps
+      be situations where the upgrade-based technique works
+      (over port 53) that a port-based technique would not work
+      (i.e., due to aggressive port blocking by firewalls).
+  </t>
+  <t>
     Clients and servers negotiate upgrade-based DNS-over-TLS
     by setting a bit in the Flags field of the
     EDNS0 <xref target="RFC6891"/> OPT meta-RR.  The "TLS OK"
