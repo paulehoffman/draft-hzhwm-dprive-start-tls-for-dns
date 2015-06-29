@@ -382,7 +382,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   </t>
   <t>
     A DNS client that receives a response to its initial query using
-    TCP transport that has the TO bit clear MUST not initiate a TLS
+    TCP transport that has the TO bit clear MUST NOT initiate a TLS
     handshake and SHOULD utilize the existing TCP connection
     for subsequent queries.  DNS clients SHOULD remember server IP
     addresses that don't support upgrade-based DNS-over-TLS, including TLS handshake
@@ -876,9 +876,9 @@ considerations section, but seems to be in conflict)
             </author>
             <date month='December' day='4' year='2014' />            
         </front>
-        <seriesInfo name='Internet-Draft' value='draft-ietf-dnsop-5966bis-00' />
+        <seriesInfo name='Internet-Draft' value='draft-ietf-dnsop-5966bis-01' />
         <format type='TXT'
-            target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-00.txt' />
+            target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-01.txt' />
     </reference>
 
     <reference anchor='I-D.ietf-dprive-problem-statement'>
@@ -890,9 +890,9 @@ considerations section, but seems to be in conflict)
 	  <date month='October' day='26' year='2014' />
 	</front>
 
-	<seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-01' />
+	<seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-06' />
 	<format type='TXT'
-		target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-01.txt' />
+		target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-06.txt' />
       </reference>
 
     <reference anchor="draft-osterweil-dane-ipsec" target="http://tools.ietf.org/html/draft-osterweil-dane-ipsec-00">
