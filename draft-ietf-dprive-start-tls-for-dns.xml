@@ -723,6 +723,13 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 	depending on their privacy requirements.
     </t>
 
+    <t>
+      This document does not propose new ideas to provide resistance
+      to known traffic analysis techniques.  Even with encrypted
+      messages, a well-positioned party may be able to glean certain
+      details from an analysis of message timings and sizes.
+    </t>
+
 <t>
   This document does not propose new ideas for certificate authentication
      for TLS in the context of DNS.
@@ -761,12 +768,6 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 	-->
 
 </section>
-
-<!-- section anchor="Security" title="Security Considerations">
-<t>
-	XXX See https://tools.ietf.org/html/rfc6973
-</t>
-</section -->
 
 <!-- section anchor="Implementation" title="Implementation Status">
 <t>
