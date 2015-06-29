@@ -761,12 +761,6 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
 	may be relevant to DNS-over-TLS. 
 </t>
 
-	<!-- XXX From Daniel Kahn Gillmor
-	The Security Considerations section does not mention traffic analysis at
-	all.  The sizes of DNS packets and their timing may turn out to be
-	significant, and this draft should at least mention these concerns.
-	-->
-
 </section>
 
 <!-- section anchor="Implementation" title="Implementation Status">
