@@ -728,7 +728,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   <section title="Unbound">
     <t>
       The Unbound recursive name server software added support for port-based
-      DNS-over-TLS in version XXXX.  The unbound.conf configuration file
+      DNS-over-TLS in version 1.4.14.  The unbound.conf configuration file
       has the following configuration directives: ssl-port, ssl-service-key,
       ssl-service-pem, ssl-upstream.  See https://unbound.net/documentation/unbound.conf.html.
     </t>
