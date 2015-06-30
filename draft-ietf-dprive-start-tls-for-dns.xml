@@ -478,7 +478,17 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     name servers, and 20 seconds for clients of authoritative name
     servers.  Current work in this area may
     assist DNS-over-TLS clients and servers select useful timeout values
-   <xref target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
+    <xref target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
+  </t>
+  <t>
+    Clients and servers MAY choose to not preemptively close
+    connections, instead maintaining them for as long as they have
+    resources.  Successful negotation of TLS indicates
+    the willingness of both parties to keep idle DNS connections open,
+    independent of timeout recommendations for DNS-over-TCP
+    without TLS.
+    Clients and servers that keep idle connections open MUST be
+    robust to termination of idle connection by either party.
   </t>
   <t>
 	As with current DNS-over-TCP,
