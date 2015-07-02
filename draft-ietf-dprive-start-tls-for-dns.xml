@@ -389,11 +389,6 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
    (this query will not be TLS-protected and so will not be private).
   </t>
   <t>
-      DISCUSSION: are there any cases in which a DNS client that sent TO on DNS-over-TCP
-      and receives TO in the initial response from the server would not initiate the TLS
-      handshake?  Is there any reason for this to be SHOULD rather than MUST?
-  </t>
-  <t>
     A DNS client that receives a response to its initial query using
     TCP transport that has the TO bit clear MUST NOT initiate a TLS
     handshake and SHOULD utilize the existing TCP connection
