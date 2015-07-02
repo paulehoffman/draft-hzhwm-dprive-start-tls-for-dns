@@ -373,25 +373,22 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
    particular query.
   </t>
   <t>
+    A DNS client that receives a response to its initial query using
+    TCP transport that has the TO bit clear MUST NOT initiate a TLS
+    handshake and MAY utilize the existing TCP connection
+    for subsequent (unencrypted) queries.  DNS clients SHOULD remember server IP
+    addresses that don't support upgrade-based DNS-over-TLS, including TLS handshake
+    failures, and not request DNS-over-TLS from them for
+	a reasonable period (such as one hour per server).
+  </t>
+  <t>
    A DNS client that has sent the TO bit using TCP transport and receives a response
    to its initial query that has the TO bit set MUST immediately initiate
    a TLS handshake using the procedure described in <xref
    target="RFC5246"/>.
-   If the TLS handshake does not succeed, the client MUST 
-   treat the server as described below for future
-   queries,
-   and it MUST close the connection.
-   The client MAY make one query before closing the connect
-   (this query will not be TLS-protected and so will not be private).
-  </t>
-  <t>
-    A DNS client that receives a response to its initial query using
-    TCP transport that has the TO bit clear MUST NOT initiate a TLS
-    handshake and SHOULD utilize the existing TCP connection
-    for subsequent queries.  DNS clients SHOULD remember server IP
-    addresses that don't support upgrade-based DNS-over-TLS, including TLS handshake
-    failures, and not request DNS-over-TLS from them for 
-	reasonable period (such as one hour per server).
+   If the TLS handshake does not succeed, the client MUST close the
+   connection and treat the server as described above for future
+   queries.
   </t>
  </section>
 
