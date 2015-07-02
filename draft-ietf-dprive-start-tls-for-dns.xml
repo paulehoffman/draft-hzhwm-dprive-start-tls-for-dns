@@ -336,12 +336,8 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     the client MAY set the TO bit when using UDP transport. The server MUST ignore the TO bit
     when receiving UDP transport.
   </t>
-  <t>
-      DISCUSSION: community advice is sought on this. The advantage of allowing a client to
-      send UDP on TO is that servers can collect information on deployment (as happened with the DO bit).
-      The disadvantage is that a meaningless bit (TO over UDP) might cause confusion, and some
-      middleboxes might not pass a UDP query with the TO bit set.
-  </t>
+  <!-- Document authors are willing to remove/change the above "UDP client MAY set TO=1"
+       if the working group decides it is a bad idea. -->
   <t>
     DNS clients set the TO bit in the initial query sent to a
     server using TCP transport to signal their desire that the
