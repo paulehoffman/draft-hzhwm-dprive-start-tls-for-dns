@@ -444,53 +444,65 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     from eavesdropping and normal DNS queries SHOULD take place,
     following DNS-over-TCP framing (<xref target="RFC1035"/>, section 4.2.2).
   </t>
-
   <t>
-    It is expected that multiple DNS queries will be made over the same TLS connection
-    instead of tearing down the TLS connection after each response.
-    A user of DNS-over-TLS SHOULD follow best practices
-    for DNS-over-TCP, as described in <xref target="I-D.ietf-dnsop-5966bis"/>.
-    (For DNS clients that use library functions such as "gethostbyname()",
-    current clients may open and close UDP connections each DNS call.
-    We recommend they reuse a single TCP connection to the recursive resolver
-    or use UDP to a caching resolver that uses a system-wide TCP connection
-    to the recursive resolver.)
-  </t>
-
-  <t>
-    Both clients and servers SHOULD follow existing DNS-over-TCP
-    timeout rules, which are often implementation- and situation-dependent.
-    In the absence of any other advice, the RECOMMENDED timeout
-    values are 30 seconds for recursive name servers, 60 seconds
-    for clients of recursive name servers, 10 seconds for authoritative
-    name servers, and 20 seconds for clients of authoritative name
-    servers.  Current work in this area may
-    assist DNS-over-TLS clients and servers select useful timeout values
-    <xref target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
+    For DNS clients that use library functions such as "gethostbyname()",
+    current clients may open and close UDP connections each DNS
+    call.  We recommend they reuse a single TCP connection to the
+    recursive resolver or use UDP to a caching resolver that uses
+    a system-wide TCP connection to the recursive resolver.
   </t>
   <t>
-    Clients and servers MAY choose to not preemptively close
-    connections, instead maintaining them for as long as they have
-    resources.  Successful negotation of TLS indicates
-    the willingness of both parties to keep idle DNS connections open,
-    independent of timeout recommendations for DNS-over-TCP
-    without TLS.
+    In order to amortize TCP and TLS connetion setup costs, clients
+    and servers SHOULD NOT immediately close a connection after
+    each response.  Instead, clients and servers SHOULD reuse
+    existing connections for subsequent queries as long as they
+    have sufficient resources.  In some cases, this means that
+    clients and servers may need to keep idle connections open for
+    some amount of time.
+  </t>
+  <t>
+    Proper management of established and idle connections is important
+    to the healthy operation of a DNS server.  An implementor of
+    DNS-over-TLS SHOULD follow best practices for DNS-over-TCP, as
+    described in <xref target="I-D.ietf-dnsop-5966bis"/>.  Failure
+    to do so may lead to resource exhaustion and denial-of-service.
+  </t>
+  <t>
+    Whereas client and server implementations from the <xref
+    target="RFC1035"/> era known to have poor TCP connection
+    management, this document stipulates that successful negotation
+    of TLS indicates the willingness of both parties to keep idle
+    DNS connections open, independent of timeouts or other
+    recommendations for DNS-over-TCP without TLS.  In other words,
+    software implemeting this protocol is assumed to support idle
+    persistent connections and to have good connection management.
+  </t>
+  <t>
+    This document does not make specific recommendations for timeout
+    values on idle connections.  Clients and servers should reuse
+    and/or close connections depending on the level of available
+    resources.  Timeouts may be longer during periods of low activity
+    and shorter during periods of high activity.  Current work in
+    this area may also assist DNS-over-TLS clients and servers
+    select useful timeout values <xref
+    target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
+  </t>
+  <t>
     Clients and servers that keep idle connections open MUST be
-    robust to termination of idle connection by either party.
+    robust to termination of idle connection by either party.  As
+    with current DNS-over-TCP, DNS servers MAY close the connection
+    at any time (e.g., due to resource constraints).  As with current
+    DNS-over-TCP, clients MUST handle abrupt closes and be prepared
+    to reestablish connections and/or retry queries.
   </t>
   <t>
-	As with current DNS-over-TCP,
-	DNS servers MAY close the connection
-	at any time (e.g., due to resource constraints).
-	As with current DNS-over-TCP,
-	clients MUST handle abrupt closes
-	and be prepared to reestablish connections and/or retry queries.
-  DNS servers SHOULD use the TLS close-notify request to
-    shift TCP TIME-WAIT state to the clients.
-  Additional requirements and guidance for optimizing DNS-over-TCP are provided by
-  <xref target="RFC5966"/>, <xref target="I-D.ietf-dnsop-5966bis"/>.  As discussed
-  in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref target="RFC7413"/>
-  is of benefit.
+    When closing a connection, DNS servers SHOULD use the TLS
+    close-notify request to shift TCP TIME-WAIT state to the clients.
+    Additional requirements and guidance for optimizing DNS-over-TCP
+    are provided by <xref target="RFC5966"/>, <xref
+    target="I-D.ietf-dnsop-5966bis"/>.  As discussed in <xref
+    target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
+    target="RFC7413"/> is of benefit.
   </t>
 
 </section>
