@@ -447,7 +447,8 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   <t>
     For DNS clients that use library functions such as "gethostbyname()",
     current clients may open and close UDP connections each DNS
-    call.  We recommend they reuse a single TCP connection to the
+    call.  To avoid many TCP connections, each with a single query,
+    clients SHOULD either reuse a single TCP connection to the
     recursive resolver or use UDP to a caching resolver that uses
     a system-wide TCP connection to the recursive resolver.
   </t>
@@ -474,7 +475,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     of TLS indicates the willingness of both parties to keep idle
     DNS connections open, independent of timeouts or other
     recommendations for DNS-over-TCP without TLS.  In other words,
-    software implemeting this protocol is assumed to support idle
+    software implemeting this protocol is assumed to support idle,
     persistent connections and to have good connection management.
   </t>
   <t>
@@ -488,7 +489,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
   </t>
   <t>
-    Clients and servers that keep idle connections open MUST be
+    Clients and servers that keep idle connections open MUST be	
     robust to termination of idle connection by either party.  As
     with current DNS-over-TCP, DNS servers MAY close the connection
     at any time (e.g., due to resource constraints).  As with current
