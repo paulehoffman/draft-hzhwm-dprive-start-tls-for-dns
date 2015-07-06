@@ -444,9 +444,11 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     from eavesdropping and normal DNS queries SHOULD take place,
     following DNS-over-TCP framing (<xref target="RFC1035"/>, section 4.2.2).
     For reasons of efficiency, DNS clients and servers SHOULD
-    transmit the two-octet length field, and the message described
-    by that length field, in a single TCP segment (<xref
+    transmit the request in a single TCP segment (<xref
     target="I-D.ietf-dnsop-5966bis"/>, section 8).
+    All messages (requests and responses) in the established TLS session
+    MUST use the two-octet length field described in Section 4.2.2 of
+    <xref target="RFC1035"/>.
   </t>
   <t>
     For DNS clients that use library functions such as "gethostbyname()",
