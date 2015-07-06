@@ -443,14 +443,20 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
     and is now protected
     from eavesdropping and normal DNS queries SHOULD take place,
     following DNS-over-TCP framing (<xref target="RFC1035"/>, section 4.2.2).
+    For reasons of efficiency, DNS clients and servers SHOULD
+    transmit the two-octet length field, and the message described
+    by that length field, in a single TCP segment (<xref
+    target="I-D.ietf-dnsop-5966bis"/>, section 8).
   </t>
   <t>
     For DNS clients that use library functions such as "gethostbyname()",
-    current clients may open and close UDP connections each DNS
+    current implementations are known to open and close UDP connections each DNS
     call.  To avoid many TCP connections, each with a single query,
-    clients SHOULD either reuse a single TCP connection to the
-    recursive resolver or use UDP to a caching resolver that uses
-    a system-wide TCP connection to the recursive resolver.
+    clients SHOULD reuse a single TCP connection to the
+    recursive resolver.  Alternatively they may prefer to use UDP
+    to a DNS-over-TLS enabled caching resolver on the same machine
+    that then uses a system-wide TCP connection to the recursive
+    resolver.
   </t>
   <t>
     In order to amortize TCP and TLS connetion setup costs, clients
@@ -470,7 +476,7 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   </t>
   <t>
     Whereas client and server implementations from the <xref
-    target="RFC1035"/> era known to have poor TCP connection
+    target="RFC1035"/> era are known to have poor TCP connection
     management, this document stipulates that successful negotation
     of TLS indicates the willingness of both parties to keep idle
     DNS connections open, independent of timeouts or other
