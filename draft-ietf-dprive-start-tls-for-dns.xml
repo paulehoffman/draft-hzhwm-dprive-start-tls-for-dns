@@ -441,14 +441,13 @@ assurance of privacy: an opportunistic privacy profile and a pre-deployed profil
   <t>
     After TLS negotiation completes, the connection will be encrypted
     and is now protected
-    from eavesdropping and normal DNS queries SHOULD take place,
-    following DNS-over-TCP framing (<xref target="RFC1035"/>, section 4.2.2).
-    For reasons of efficiency, DNS clients and servers SHOULD
-    transmit the request in a single TCP segment (<xref
-    target="I-D.ietf-dnsop-5966bis"/>, section 8).
+    from eavesdropping. At this point, normal DNS queries SHOULD take place.
     All messages (requests and responses) in the established TLS session
     MUST use the two-octet length field described in Section 4.2.2 of
     <xref target="RFC1035"/>.
+    For reasons of efficiency, DNS clients and servers SHOULD
+    transmit the request in a single TCP segment (<xref
+    target="I-D.ietf-dnsop-5966bis"/>, Section 8).
   </t>
   <t>
     For DNS clients that use library functions such as "gethostbyname()",
