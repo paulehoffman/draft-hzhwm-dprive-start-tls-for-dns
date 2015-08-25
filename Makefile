@@ -1,5 +1,14 @@
+TXTS=\
+draft-ietf-dprive-start-tls-for-dns.txt \
+draft-ietf-dprive-dns-over-tls.txt
+
+all: ${TXTS}
+
 draft-ietf-dprive-start-tls-for-dns.txt: draft-ietf-dprive-start-tls-for-dns.xml
-	./xml2rfc-1.36/xml2rfc.tcl $< $@
+	xml2rfc $< $@
+
+draft-ietf-dprive-dns-over-tls.txt: draft-ietf-dprive-dns-over-tls.xml
+	xml2rfc $< $@
 
 clean:
-	rm -f draft-ietf-dprive-start-tls-for-dns.txt
+	rm -f ${TXTS}
