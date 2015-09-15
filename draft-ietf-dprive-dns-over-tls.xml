@@ -608,7 +608,55 @@
       </t>
       
       <t>
-        Explain the WG consensus that led to deprecating STARTTLS upgrade in favor of port.
+	As already mentioned, earlier versions of this document
+	proposed an upgrade-based approach to establishing a TLS
+	session.  The client would signal its interest in TLS by
+	setting a "TLS OK" bit in the EDNS0 flags field.  A server
+	would signal its acceptance by responding with the TLS OK
+	bit set.
+      </t>
+      <t>
+	Since we assume the client doesn't want to reveal (leak)
+	any information prior to securing the channel, we proposed
+	the use of a "dummy query" that clients could send for this
+	purpose.  The proposed query name was STARTTLS, query type
+	TXT, and query class CH.
+      </t>
+      <t>
+	The TLS OK signaling approach has both advantages and
+	disadvantages.  One important advantage is that clients and
+	servers could negotiate TLS.  If the server is too busy,
+	or doesn't want to provide TLS service to a particular
+	client, it can respond negatively to the TLS probe.  An
+	ancillary benefit is that servers could collect information
+	on adoption of DNS-over-TLS (via the TLS OK bit in queries)
+	before implementation and deployment.  Another anticipated
+	advantage is the expectation that DNS-over-TLS would work
+	over port 53.  That is, no need to "waste" another port and
+	need new firewall rules on middleboxes.
+      </t>
+      <t>
+	However, at the same time, there was uncertainty whether
+	or not middleboxes would pass the TLS OK bit, given that
+	the EDNS0 flags field has been unchanged for many years.
+	Another disadvantage is that the TLS OK bit may make downgrade
+	attacks easy and indistinguishable from broken middleboxes.
+	From a performance standpoint, the upgrade-based approach
+	had the disadvantage of requiring 1xRTT additional latency
+	for the dummy query.
+      </t>
+      <t>
+	Following this proposal, DNS-over-DTLS was proposed separately.
+	DNS-over-DTLS claimed it could work over port 53, but only
+	because a non-DTLS server interprets a DNS-over-DTLS query
+	as a response.  That is, the non-DTLS server observes the
+	QR flag set to 1.  While this technically works, it seems
+	unfortunate and perhaps even undesirable.
+      </t>
+      <t>
+	DNS over both TLS and DTLS can benefit from a single
+	well-known port and avoid extra latency and mis-interpreted
+	queries as responses.
       </t>
     </section>
     
