@@ -246,7 +246,7 @@
       
       
       <t>
-        This document describes using DNS-over-TLS over a well-known port and 
+        This document describes using DNS-over-TLS on a well-known port and 
         also offers advice on performance considerations to minimize overheads from 
         using TCP and TLS with DNS.
       </t>
