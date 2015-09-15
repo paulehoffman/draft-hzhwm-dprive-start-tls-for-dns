@@ -476,7 +476,7 @@
           With pre-deployed privacy, a client retains a copy of the TLS
           certificate (and/or other authentication credentials as
           appropriate) and IP address of each provider.  The client
-          will only use DNS servers for which this informaation
+          will only use DNS servers for which this information
           has been pre-configured.  Because of possessing a trusted,
           pre-deployed TLS certificate, the client may detect person-in-the-middle
           and downgrade attacks.
