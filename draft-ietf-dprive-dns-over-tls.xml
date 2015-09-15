@@ -213,7 +213,9 @@
            RFC.  If nothing else it needs to be rewritten (and given
            a brief "related work" intro sentence) 
            XXX AJM: See replacment which is very minimal and
-           I think may be OK -->
+           I think may be OK 
+	   XXX DW: yes, I like it.
+      -->
       
       <!-- <t>
            DNSCurve <xref target="draft-dempsky-dnscurve"/> defines a
