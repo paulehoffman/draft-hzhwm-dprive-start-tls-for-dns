@@ -51,14 +51,14 @@
        ipr values: full3667, noModification3667, noDerivatives3667
        you can add the attributes updates="NNNN" and obsoletes="NNNN"
        they will automatically be output with "(if approved)" -->
-  
+
   <!-- ***** FRONT MATTER ***** -->
-  
+
   <front>
     <!-- The abbreviated title is used in the page header - it is only necessary if the
          full title is longer than 39 characters -->
     <title abbrev="DNS over TLS">DNS over TLS: Initiation and Performance Considerations</title>
-    
+
     <author fullname="Zi Hu" initials="Z." surname="Hu">
       <organization>USC/Information Sciences Institute</organization>
       <address>
@@ -73,7 +73,7 @@
         <email>zihu@usc.edu</email>
       </address>
     </author>
-    
+
     <author fullname="Liang Zhu" initials="L." surname="Zhu">
       <organization>USC/Information Sciences Institute</organization>
       <address>
@@ -88,7 +88,7 @@
         <email>liangzhu@usc.edu</email>
       </address>
     </author>
-    
+
     <author fullname="John Heidemann" initials="J." surname="Heidemann">
       <organization>USC/Information Sciences Institute</organization>
       <address>
@@ -103,7 +103,7 @@
         <email>johnh@isi.edu</email>
       </address>
     </author>
-    
+
     <author fullname="Allison Mankin" initials="A." surname="Mankin">
       <organization>Verisign Labs</organization>
       <address>
@@ -117,7 +117,7 @@
         <email>amankin@verisign.com</email>
       </address>
     </author>
-    
+
     <author fullname="Duane Wessels" initials="D." surname="Wessels">
       <organization>Verisign Labs</organization>
       <address>
@@ -131,39 +131,39 @@
         <email>dwessels@verisign.com</email>
       </address>
     </author>
-    
+
     <author fullname="Paul Hoffman" initials="P." surname="Hoffman">
       <organization>ICANN</organization>
       <address>
         <email>paul.hoffman@icann.org</email>
       </address>
     </author>
-    
+
     <date year="2015" />
-    
+
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
          in the current day for you. If only the current year is specified, xml2rfc will fill
          in the current day and month for you. If the year is not the current one, it is
          necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the
          purpose of calculating the expiry date).  With drafts it is normally sufficient to
          specify just the year. -->
-    
+
     <!-- Meta-data Declarations -->
-    
+
     <area>Internet</area>
-    
+
     <!-- WG name at the upperleft corner of the doc,
          IETF is fine for individual submissions.
          If this element is not present, the default is "Network Working Group",
          which is used by the RFC Editor as a nod to the history of the IETF. -->
-    
+
     <keyword>template</keyword>
-    
+
     <!-- Keywords will be incorporated into HTML output
          files in a meta tag but they have no effect on text or nroff
          output. If you submit your draft to the RFC Editor, the
          keywords will be used for the search engine. -->
-    
+
     <abstract>
       <t>
         This document describes the use of TLS to provide privacy
@@ -174,15 +174,15 @@
         performance considerations to minimize overheads from using
         TCP and TLS with DNS.
       </t>
-      
+
     </abstract>
   </front>
-  
-  
-  
+
+
+
   <middle>
     <section anchor="Intro" title="Introduction">
-      
+
       <t>
         Today, nearly all DNS queries <xref target="RFC1034"/>,
         <xref target="RFC1035"/> are sent unencrypted, which makes
@@ -192,7 +192,7 @@
         and recent IETF work has specified privacy considerations
         for DNS <xref target="RFC7626"/>.
       </t>
-      
+
       <t>
         Prior work has addressed some aspects of DNS security, but
         until recently there has been little work on privacy between
@@ -207,7 +207,7 @@
         however these perceptions are evolving due to recent events
         <xref target="RFC7258"/>.
       </t>
-      
+
       <!--    XXX DW: I don't particularly like the following paragraph.
            It seems wrong to mention these drafts in a standards track
            RFC.  If nothing else it needs to be rewritten (and given
@@ -216,7 +216,7 @@
            I think may be OK 
 	   XXX DW: yes, I like it.
       -->
-      
+
       <!-- <t>
            DNSCurve <xref target="draft-dempsky-dnscurve"/> defines a
            method to add confidentiality to the link between DNS clients
@@ -243,16 +243,16 @@
         In addition to the present draft, the DPRIVE working group
         has recently adopted a DNS-over-DTLS
         <xref target="draft-ietf-dprive-dnsodtls"/> proposal.  
-        
+
       </t> 
-      
-      
+
+
       <t>
         This document describes using DNS-over-TLS on a well-known port and 
         also offers advice on performance considerations to minimize overheads from 
         using TCP and TLS with DNS.
       </t>
-      
+
       <t>
         Initiation of DNS-over-TLS is very straightforward.  By
         establishing a connection over a well-known port, clients and
@@ -271,8 +271,8 @@
            Deleted: Furthermore,
            as is generally the case with TLS, it is subject to downgrade
            attacks, as discussed in <xref target="Security"/>. -->
-      
-      
+
+
       <t>
         The protocol described here works for any DNS client to server
         communication using DNS-over-TCP.  That is, it may be used
@@ -280,13 +280,13 @@
         servers as well as between recursive clients and authoritative
         servers.
       </t>
-      
+
       <t>
         This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
         privacy profile and a pre-deployed profile.
       </t>
-      
+
       <t>
         An earlier version of this document described a technique for
         upgrading a DNS-over-TCP connection to a DNS-over-TLS session.
@@ -298,7 +298,7 @@
         would be used by DNS-over-DTLS.
       </t>
     </section>
-    
+
     <section title="Reserved Words">
       <t>
         The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
@@ -307,10 +307,10 @@
         in <xref target="RFC2119">RFC 2119</xref>.
       </t>
     </section>
-    
-    
-    
-    
+
+
+
+
     <section anchor="Establishment" title="Establishing and Managing DNS-over-TLS Sessions">
       <section anchor="Initiation" title="Session Initiation">
         <t>
@@ -335,7 +335,7 @@
           DNS-over-TLS connection failures.
         </t>
       </section>
-      
+
       <section anchor="handshake" title="TLS Handshake and Authentication">     
         <t>
           Once the DNS client succeeds in connecting via TCP on the well-known port for
@@ -356,7 +356,7 @@
           and is now protected from eavesdropping. At this point, normal DNS queries SHOULD take place.
         </t>
       </section>  
-      
+
       <section anchor="transmitting" title="Transmitting and Receiving Messages">
         <t>
           All messages (requests and responses) in the established TLS session
@@ -386,7 +386,7 @@
 	  target="I-D.ietf-dnsop-5966bis"/>, Section 7).
 	</t>
       </section>  
-      
+
       <section anchor="Connection" title="Connection Reuse, Close and Reestablishment">
         <t>
           For DNS clients that use library functions such as "gethostbyname()",
@@ -457,9 +457,9 @@
                 target="I-D.ietf-dnsop-5966bis"/>.  
         </t>
       </section>
-      
+
     </section>
-    
+
     <section anchor="profiles" title="Usage Profiles">
       <t>
         This protocol provides flexibility to accommodate several different use cases.
@@ -467,7 +467,7 @@
         design points in performance and privacy.
         Other profiles are possible but are outside the scope of this document.
       </t>
-      
+
       <section title="Opportunistic Privacy Profile">
         <t>
           For opportunistic privacy, analogous to SMTP opportunistic
@@ -487,7 +487,7 @@
           active attackers.
         </t>
       </section>
-      
+
       <section title="Pre-Deployed Profile">
         <t>
           For pre-deployed privacy, the DNS client has one or more
@@ -533,7 +533,7 @@
         </t>
       </section>
     </section>
-    
+
     <section anchor="Performance" title="Performance Considerations">
       <t>
         DNS-over-TLS incurs additional latency at session startup.  It
@@ -579,19 +579,19 @@
                   target="I-D.ietf-dnsop-5966bis"/>.
           </t>
         </list>
-        
+
         A full performance evaluation is outside the scope of this
         specification.  A more detailed analysis of the performance
         implications of DNS-over-TLS (and DNS-over-TCP) is discussed
         in a technical report <xref target="tdns"/> and <xref
               target="I-D.ietf-dnsop-5966bis"/>.
       </t>
-      
+
     </section>
-    
-    
+
+
     <section anchor="IANA" title="IANA Considerations">
-      
+
       <t>
         IANA is requested add the following value to the "Service Name
         and Transport Protocol Port Number Registry" registry in the System
@@ -604,7 +604,7 @@
              and such a review will be requested if this document
              progresses.
              -->
-        
+
     <figure>
     <artwork><![CDATA[
     Service Name            dnss
@@ -615,19 +615,19 @@
     Reference               This document
       ]]></artwork>
     </figure>
-        
-      
-      
-      
-      
+
+
+
+
+
     </section>
-    
+
     <section anchor="Evolution" title="Design Evolution">
       <t>
         [Note to RFC Editor: please do not remove this section prior to publication
         as it may be useful to future Foo-over-TLS efforts]
       </t>
-      
+
       <t>
 	As already mentioned, earlier versions of this document
 	proposed an upgrade-based approach to establishing a TLS
@@ -680,8 +680,8 @@
 	queries as responses.
       </t>
     </section>
-    
-    
+
+
     <section anchor="Implementation" title="Implementation Status">
       <t>
         [Note to RFC Editor: please remove this section and reference to
@@ -740,7 +740,7 @@
         </t>
       </section>
     </section>
-    
+
     <section anchor="Security" title="Security Considerations">
       <t>
         Use of DNS-over-TLS is designed to address the privacy
@@ -748,7 +748,7 @@
         does not address other security issues in DNS, and there are a
         number of residual risks that may affect its success at protecting
         privacy:
-        
+
         <list style="numbers">
           <t>
             There are known attacks on TLS, such as person-in-the-middle
@@ -799,11 +799,11 @@
           </t> -->
         </list>
       </t>
-      
+
     </section>
-    
-    
-    
+
+
+
     <section anchor="Acknowledgments" title="Acknowledgments">
       <t>
         The authors would like to thank Stephane Bortzmeyer, Brian
@@ -812,7 +812,7 @@
         Daniel Kahn Gillmor for reviewing this Internet-draft, and
         Nikita Somaiya for early work on this idea.
       </t>
-      
+
       <t>
         Work by Zi Hu, Liang Zhu, and John Heidemann on this document is
         partially sponsored by the U.S. Dept. of Homeland Security (DHS)
@@ -822,13 +822,13 @@
         and contract number D08PC75599.
       </t>
     </section>
-    
+
   </middle>
-  
+
   <!--  *****BACK MATTER ***** -->
-  
+
   <back>
-    
+
     <references title="Normative References">
       &RFC2119;
       &RFC1034;
@@ -864,7 +864,7 @@
       &RFC7120;
       &RFC7525;
     </references>
-    
+
     <references title="Informative References">
       <!-- &RFC1939; -->
       <!-- &RFC2131; -->
@@ -883,8 +883,8 @@
       &RFC7413;
       &RFC7435;
       &RFC7626;
-      
-      
+
+
       <!--  <reference anchor='I-D.ietf-dprive-problem-statement'>
            <front>
            <title>DNS privacy considerations</title>
@@ -893,12 +893,12 @@
       </author>
            <date month='October' day='26' year='2014' />
       </front>
-           
+
            <seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-06' />
            <format type='TXT'
            target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-06.txt' />
       </reference> --> 
-      
+
       <reference anchor="I-D.ipseca" target="http://tools.ietf.org/html/draft-osterweil-dane-ipsec-03">
         <front>
           <title>Opportunistic Encryption with DANE Semantics and IPsec: IPSECA</title>
@@ -926,7 +926,7 @@
         </front>
         <seriesInfo name="Internet-Draft" value="draft-osterweil-dane-ipsec-03"/>
       </reference>
-      
+
       <!-- ><reference anchor="unbound" target="http://unbound.net/">
            <front>
            <title>Unbound</title>
@@ -937,7 +937,7 @@
            <date year="2013" />
       </front>
       </reference> -->
-      
+
       <reference anchor="dnssec-trigger" target="https://www.nlnetlabs.nl/projects/dnssec-trigger/">
         <front>
           <title>Dnssec-Trigger</title>
@@ -948,7 +948,7 @@
           <date month="May" year="2014" />
         </front>
       </reference>
-      
+
       <reference anchor="dempsky-dnscurve" target="http://tools.ietf.org/html/draft-dempsky-dnscurve-01">
         <front>
           <title>DNSCurve</title>
@@ -960,7 +960,7 @@
         </front>
         <seriesInfo name="Internet-Draft" value="draft-dempsky-dnscurve-01" />
       </reference>
-      
+
       <reference anchor="I-D.edns0-padding" target="http://tools.ietf.org/html/draft-mayrhofer-edns0-padding-01">
         <front>
           <title>The EDNS(0) Padding Option</title>
@@ -969,12 +969,12 @@
           </author>
           <date month='August' day='14' year='2015' />
         </front>
-        
+
         <seriesInfo name='Internet-Draft' value='draft-mayrhofer-edns0-padding-01' />
         <format type='TXT'
                 target='http://www.ietf.org/internet-drafts/draft-mayrhofer-edns0-padding-01.txt' />
       </reference>
-      
+
       <!-- ><reference anchor="CA_Compromise" target="http://www.infosecisland.com/blogview/19782-Web-Authentication-A-Broken-Trust-with-No-Easy-Fix.html">
            <front>
            <title>CA Compromise</title>
@@ -985,7 +985,7 @@
            <date month="January" year="2012" />
       </front>
       </reference> -->
-      
+
       <!-- reference anchor="crime-attack" target="https://community.qualys.com/blogs/securitylabs/2012/09/14/crime-information-leakage-attack-against-ssltls">
            <front>
            <title>The CRIME attack against TLS</title>
@@ -998,7 +998,7 @@
            <date month="September" year="2012" />
       </front>
       </reference -->
-      
+
       <!-- <reference anchor="certificate_pinning" target="https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning">
            <front>
            <title>Certificate and Public Key Pinning</title>
@@ -1010,7 +1010,7 @@
       </front>
       </reference>
            -->
-      
+
       <reference anchor="I-D.confidentialdns" target="http://tools.ietf.org/html/draft-wijngaards-dnsop-confidentialdns-03">
         <front>
           <title>Confidential DNS</title>
@@ -1022,7 +1022,7 @@
         </front>
         <seriesInfo name="Internet-Draft" value="draft-wijngaards-dnsop-confidentialdns-03" />
       </reference>
-      
+
       <reference anchor="I-D.edns-tcp-keepalive" target="http://tools.ietf.org/html/draft-ietf-dnsop-edns-tcp-keepalive-02">
         <front>
           <title>The edns-tcp-keepalive EDNS0 Option</title>
@@ -1046,7 +1046,7 @@
         </front>
         <seriesInfo name="Internet-Draft" value="draft-ietf-dnsop-edns-tcp-keepalive-02" />
       </reference>
-      
+
       <reference anchor="tdns" target="Technical report, ISI-TR-688, ftp://ftp.isi.edu/isi-pubs/tr-688.pdf">
         <front>
           <title>T-DNS: Connection-Oriented DNS to Improve Privacy and Security</title>
@@ -1060,7 +1060,7 @@
         </front>
         <seriesInfo name="Technical report" value="ISI-TR-688" />
       </reference>
-      
+
       <reference anchor="draft-ietf-tls-falsestart" target="http://tools.ietf.org/html/draft-ietf-tls-falsestart-00">
         <front>
           <title>Transport Layer Security (TLS) False Start</title>
@@ -1076,7 +1076,7 @@
         </front>
         <seriesInfo name="Internet-Draft" value="draft-ietf-tls-falsestart-00" />
       </reference>
-      
+
       <reference anchor="draft-ietf-dprive-dnsodtls" target="https://tools.ietf.org/html/draft-ietf-dprive-dnsodtls-01">
         <front>
           <title>DNS over DTLS (DNSoD)</title>
@@ -1096,9 +1096,9 @@
         </front>
         <seriesInfo name="Internet-Draft" value="draft-ietf-dprive-dnsodtls-01" />
       </reference>
-      
+
     </references>
-    
+
   </back>
 </rfc>
 
