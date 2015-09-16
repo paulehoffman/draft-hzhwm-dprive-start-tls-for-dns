@@ -357,7 +357,7 @@
         </t>
       </section>  
       
-      <section anchor="Connection" title="Connection Reuse, Close and Reestablishment">
+      <section anchor="transmitting" title="Transmitting Messages">
         <t>
           All messages (requests and responses) in the established TLS session
           MUST use the two-octet length field described in Section 4.2.2 of
@@ -367,6 +367,9 @@
           described by that length field, in a single TCP segment
           (<xref target="I-D.ietf-dnsop-5966bis"/>, Section 8).
         </t>
+      </section>  
+      
+      <section anchor="Connection" title="Connection Reuse, Close and Reestablishment">
         <t>
           For DNS clients that use library functions such as "gethostbyname()",
           current implementations are known to open and close TCP connections each DNS
