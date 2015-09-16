@@ -357,7 +357,7 @@
         </t>
       </section>  
       
-      <section anchor="transmitting" title="Transmitting Messages">
+      <section anchor="transmitting" title="Transmitting and Receiving Messages">
         <t>
           All messages (requests and responses) in the established TLS session
           MUST use the two-octet length field described in Section 4.2.2 of
@@ -367,6 +367,24 @@
           described by that length field, in a single TCP segment
           (<xref target="I-D.ietf-dnsop-5966bis"/>, Section 8).
         </t>
+	<t>
+	  <!-- cut-n-paste with edits from rfc5966-bis sec 6.2.1.1 -->
+	  In order to minimize latency, clients SHOULD pipeline
+	  multiple queries over a TLS session.  When a DNS client sends
+	  multiple queries to a server, it should not wait for an
+	  outstanding reply before sending the next query (<xref
+	  target="I-D.ietf-dnsop-5966bis"/>, Section 6.2.1.1).
+	</t>
+	<t>
+	  <!-- cut-n-paste from rfc5966-bis sec 7 -->
+	  Since pipelined responses may arrive out-of-order, clients
+	  must take care to match responses to outstanding queries,
+	  using the ID field, port number, query name/type/class,
+	  and any other relevant protocol features.  Failure by
+	  clients to properly match responses to outstanding queries
+	  can have serious consequences for interoperability (<xref
+	  target="I-D.ietf-dnsop-5966bis"/>, Section 7).
+	</t>
       </section>  
       
       <section anchor="Connection" title="Connection Reuse, Close and Reestablishment">
