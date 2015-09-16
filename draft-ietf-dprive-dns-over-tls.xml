@@ -837,33 +837,13 @@
       <!-- &RFC6891; -->
       &RFC5077;
       &RFC6335;
-      &RFC5966;
-      &RFC7120;
-      &RFC7525;
-    </references>
-    
-    <references title="Informative References">
-      <!-- &RFC1939; -->
-      <!-- &RFC2131; -->
-      <!-- &RFC2595; -->
-      &RFC2818;
-      &RFC3118;
-      <!-- &RFC3207; -->
-      &RFC3234;
-      <!-- &RFC3501; -->
-      &RFC4033;
-      <!-- &RFC4892; -->
-      &RFC5280;
-      &RFC6698;
-      &RFC7258;
-      &RFC7413;
-      &RFC7435;
-      &RFC7626;
-      
       <reference anchor='I-D.ietf-dnsop-5966bis'>
         <front>
           <title>DNS Transport over TCP - Implementation Requirements</title>
           <author initials='J' surname='Dickinson' fullname='John Dickinson'>
+            <organization />
+          </author>
+          <author initials='S' surname='Dickinson' fullname='Sara Dickinson'>
             <organization />
           </author>
           <author initials='R' surname='Bellis' fullname='Ray Bellis'>
@@ -881,6 +861,29 @@
         <format type='TXT'
                 target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-02.txt' />
       </reference>
+      &RFC7120;
+      &RFC7525;
+    </references>
+    
+    <references title="Informative References">
+      <!-- &RFC1939; -->
+      <!-- &RFC2131; -->
+      <!-- &RFC2595; -->
+      &RFC2818;
+      &RFC3118;
+      <!-- &RFC3207; -->
+      &RFC3234;
+      <!-- &RFC3501; -->
+      &RFC4033;
+      <!-- &RFC4892; -->
+      &RFC5280;
+      &RFC5966;
+      &RFC6698;
+      &RFC7258;
+      &RFC7413;
+      &RFC7435;
+      &RFC7626;
+      
       
       <!--  <reference anchor='I-D.ietf-dprive-problem-statement'>
            <front>
