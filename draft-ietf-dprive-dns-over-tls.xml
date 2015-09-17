@@ -819,13 +819,31 @@
     </section>
 
 
+    <section anchor="contrib" title="Contributing Authors">
+      <t>
+        The below individuals contributed significantly to the draft.  The
+        RFC Editor prefers a maximum of 5 names on the front page, and so
+        we have listed additional authors in this section.
+      </t>
+ <figure>
+    <artwork><![CDATA[
+Sara Dickinson
+Sinodun Internet Technologies
+Magdalen Centre
+Oxford Science Park
+Oxford  OX4 4GA
+UK
+Email: sara@sinodun.com
+URI:   http://sinodun.com
+      ]]></artwork>
+    </figure>
+    </section>
 
     <section anchor="Acknowledgments" title="Acknowledgments">
       <t>
         The authors would like to thank
 	Stephane Bortzmeyer,
 	John Dickinson,
-	Sara Dickinson, 
         Daniel Kahn Gillmor,
 	Brian Haberman,
 	Kim-Minh Kaplan,
