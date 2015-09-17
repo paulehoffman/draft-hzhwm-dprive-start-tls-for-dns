@@ -4,14 +4,14 @@
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: March 19, 2016                         USC/Information Sciences
+Expires: March 20, 2016                         USC/Information Sciences
                                                                Institute
                                                                A. Mankin
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                                    ICANN
-                                                      September 16, 2015
+                                                      September 17, 2015
 
 
         DNS over TLS: Initiation and Performance Considerations
@@ -24,7 +24,7 @@ Abstract
    on DNS queries in the network, such as discussed in RFC 7258.  In
    addition, this document specifies two usage profiles for DNS-over-TLS
    and provides advice on performance considerations to minimize
-   overheads from using TCP and TLS with DNS.
+   overhead from using TCP and TLS with DNS.
 
 Status of this Memo
 
@@ -41,7 +41,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 19, 2016.
+   This Internet-Draft will expire on March 20, 2016.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 1]
+Hu, et al.               Expires March 20, 2016                 [Page 1]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -88,10 +88,11 @@ Table of Contents
      8.3.  digit  . . . . . . . . . . . . . . . . . . . . . . . . . . 11
      8.4.  getdns . . . . . . . . . . . . . . . . . . . . . . . . . . 11
    9.  Security Considerations  . . . . . . . . . . . . . . . . . . . 11
-   10. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 12
-   11. References . . . . . . . . . . . . . . . . . . . . . . . . . . 12
-     11.1. Normative References . . . . . . . . . . . . . . . . . . . 12
-     11.2. Informative References . . . . . . . . . . . . . . . . . . 13
+   10. Contributing Authors . . . . . . . . . . . . . . . . . . . . . 12
+   11. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 12
+   12. References . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+     12.1. Normative References . . . . . . . . . . . . . . . . . . . 12
+     12.2. Informative References . . . . . . . . . . . . . . . . . . 13
    Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 15
 
 
@@ -107,8 +108,7 @@ Table of Contents
 
 
 
-
-Hu, et al.               Expires March 19, 2016                 [Page 2]
+Hu, et al.               Expires March 20, 2016                 [Page 2]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -150,7 +150,7 @@ Internet-Draft                DNS over TLS                September 2015
    well-known port might be blocked by some firewalls.  Clients will be
    expected to keep track of servers that support TLS and those that
    don't.  Clients and servers will adhere to the TLS implementation
-   recommendations and security considerations of [RFC7525]
+   recommendations and security considerations of [RFC7525].
 
    The protocol described here works for any DNS client to server
    communication using DNS-over-TCP.  That is, it may be used for
@@ -164,7 +164,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 3]
+Hu, et al.               Expires March 20, 2016                 [Page 3]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -173,9 +173,9 @@ Internet-Draft                DNS over TLS                September 2015
    upgrading a DNS-over-TCP connection to a DNS-over-TLS session with,
    essentially, "STARTTLS for DNS".  To simplify the protocol, this
    document now only uses a well-known port to specify TLS use, omitting
-   the upgrade approach. willingness to upgrade to TLS.  The upgrade
-   approach no longer appears in this document, which now focuses
-   exclusively on the use of a well-known port for DNS-over-TLS.
+   the upgrade approach.  The upgrade approach no longer appears in this
+   document, which now focuses exclusively on the use of a well-known
+   port for DNS-over-TLS.
 
 
 2.  Reserved Words
@@ -220,7 +220,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 4]
+Hu, et al.               Expires March 20, 2016                 [Page 4]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -248,12 +248,11 @@ Internet-Draft                DNS over TLS                September 2015
    to a server, it should not wait for an outstanding reply before
    sending the next query ([I-D.ietf-dnsop-5966bis], Section 6.2.1.1).
 
-   Since pipelined responses may arrive out-of-order, clients must take
-   care to match responses to outstanding queries, using the ID field,
-   port number, query name/type/class, and any other relevant protocol
-   features.  Failure by clients to properly match responses to
-   outstanding queries can have serious consequences for
-   interoperability ([I-D.ietf-dnsop-5966bis], Section 7).
+   Since pipelined responses can arrive out-of-order, clients MUST match
+   responses to outstanding queries using the ID field and port number.
+   Failure by clients to properly match responses to outstanding queries
+   can have serious consequences for interoperability
+   ([I-D.ietf-dnsop-5966bis], Section 7).
 
 3.4.  Connection Reuse, Close and Reestablishment
 
@@ -273,15 +272,15 @@ Internet-Draft                DNS over TLS                September 2015
    need to keep idle connections open for some amount of time.
 
    Proper management of established and idle connections is important to
+   the healthy operation of a DNS server.  An implementor of DNS-over-
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 5]
+Hu, et al.               Expires March 20, 2016                 [Page 5]
 
 Internet-Draft                DNS over TLS                September 2015
 
 
-   the healthy operation of a DNS server.  An implementor of DNS-over-
    TLS SHOULD follow best practices for DNS-over-TCP, as described in
    [I-D.ietf-dnsop-5966bis].  Failure to do so may lead to resource
    exhaustion and denial-of-service.
@@ -292,8 +291,8 @@ Internet-Draft                DNS over TLS                September 2015
    willingness of both parties to keep idle DNS connections open,
    independent of timeouts or other recommendations for DNS-over-TCP
    without TLS.  In other words, software implementing this protocol is
-   assumed to support idle, persistent connections and will be prepared
-   to manage multiple, potentially long-lived TCP connections.
+   assumed to support idle, persistent connections and be prepared to
+   manage multiple, potentially long-lived TCP connections.
 
    This document does not make specific recommendations for timeout
    values on idle connections.  Clients and servers should reuse and/or
@@ -313,7 +312,7 @@ Internet-Draft                DNS over TLS                September 2015
    When reestablishing a DNS-over-TCP connection that was terminated, as
    discussed in [I-D.ietf-dnsop-5966bis], TCP Fast Open [RFC7413] is of
    benefit.  DNS servers SHOULD enable fast TLS session resumption
-   [RFC5077] and this SHOULD be used during reestablishing connections.
+   [RFC5077] and this SHOULD be used when reestablishing connections.
 
    When closing a connection, DNS servers SHOULD use the TLS close-
    notify request to shift TCP TIME-WAIT state to the clients.
@@ -332,7 +331,8 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 6]
+
+Hu, et al.               Expires March 20, 2016                 [Page 6]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -360,7 +360,7 @@ Internet-Draft                DNS over TLS                September 2015
    guarantees to the user.
 
    With pre-deployed privacy, a client retains a copy of the TLS
-   certificate (with other authentication credentials as appropriate)
+   certificate (and/or other authentication credentials as appropriate)
    and IP address of each provider.  The client will only use DNS
    servers for which this information has been pre-configured.  The
    possession of a trusted, pre-deployed TLS certificate allows the
@@ -388,7 +388,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 7]
+Hu, et al.               Expires March 20, 2016                 [Page 7]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -404,7 +404,7 @@ Internet-Draft                DNS over TLS                September 2015
        exists from prior connections.  The TLS handshake adds another
        two RTTs of latency.  Clients and servers should support
        connection keepalive (reuse) and out-of-order processing to
-       amortize connection setup costs.  Fast TLS connection nresumption
+       amortize connection setup costs.  Fast TLS connection resumption
        [RFC5077] further reduces the setup delay and avoids the DNS
        server keeping per-client session state.  TLS False Start
        [draft-ietf-tls-falsestart] can also lead to a latency reduction
@@ -412,12 +412,11 @@ Internet-Draft                DNS over TLS                September 2015
 
    2.  State: The use of connection-oriented TCP requires keeping
        additional state at the server in both the kernel and
-       application.  The state requirements are of particular concerns
-       on servers with many clients, although memory-optimized TLS can
-       add only modest state over TCP.  Smaller timeout values will
-       reduce the number of concurrent connections, and servers can
-       preemptively close connections when resources limits are
-       exceeded.
+       application.  The state requirements are of particular concern on
+       servers with many clients, although memory-optimized TLS can add
+       only modest state over TCP.  Smaller timeout values will reduce
+       the number of concurrent connections, and servers can
+       preemptively close connections when resource limits are exceeded.
 
    3.  Processing: Use of TLS encryption algorithms results in slightly
        higher CPU usage.  Servers can choose to refuse new DNS-over-TLS
@@ -438,20 +437,20 @@ Internet-Draft                DNS over TLS                September 2015
 
 6.  IANA Considerations
 
-   IANA is requested add the following value to the "Service Name and
+   IANA is requested to add the following value to the "Service Name and
    Transport Protocol Port Number Registry" registry in the System
    Range.  The registry for that range requires IETF Review or IESG
+   Approval [RFC6335] and such a review has been requested using the
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 8]
+Hu, et al.               Expires March 20, 2016                 [Page 8]
 
 Internet-Draft                DNS over TLS                September 2015
 
 
-   Approval [RFC6335] and such a review has been requested using the
-   Early Allocation process [RFC7120] for both the TCP port for this
-   document.
+   Early Allocation process [RFC7120] for the well-known TCP port in
+   this document.
 
    We further recommend that IANA reserve the same port number over UDP
    for the proposed DNS-over-DTLS protocol [draft-ietf-dprive-dnsodtls].
@@ -487,7 +486,7 @@ Internet-Draft                DNS over TLS                September 2015
    information on adoption of DNS-over-TLS (via the TLS OK bit in
    queries) before implementation and deployment.  Another anticipated
    advantage is the expectation that DNS-over-TLS would work over port
-   53.  That is, no need to "waste" another port and need new firewall
+   53.  That is, no need to "waste" another port and deploy new firewall
    rules on middleboxes.
 
    However, at the same time, there was uncertainty whether or not
@@ -500,7 +499,8 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                 [Page 9]
+
+Hu, et al.               Expires March 20, 2016                 [Page 9]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -556,7 +556,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                [Page 10]
+Hu, et al.               Expires March 20, 2016                [Page 10]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -587,17 +587,17 @@ Internet-Draft                DNS over TLS                September 2015
        specific to DNS-over-TLS; please refer to the TLS RFCs for
        discussion of these security issues.  Clients and servers MUST
        adhere to the TLS implementation recommendations and security
-       considerations of [RFC7525] DNS clients keeping track of servers
-       known to support TLS (i.e., "pinning") enables clients to detect
-       downgrade attacks.  For servers with no connection history and no
-       apparent support for TLS, clients depending on their Privacy
-       Profile and privacy requirements may choose to (a) try another
-       server when available, (b) continue without TLS, or (c) refuse to
-       forward the query.
+       considerations of [RFC7525].  DNS clients keeping track of
+       servers known to support TLS (i.e., "pinning") enables clients to
+       detect downgrade attacks.  For servers with no connection history
+       and no apparent support for TLS, clients depending on their
+       Privacy Profile and privacy requirements may choose to (a) try
+       another server when available, (b) continue without TLS, or (c)
+       refuse to forward the query.
 
-   2.  Middleboxes [RFC3234] may be present in some networks and have
+   2.  Middleboxes [RFC3234] are be present in some networks and have
        been known to interfere with normal DNS resolution.  Use of a
-       designed port for DNS-over-TLS should avoid such interference.
+       designated port for DNS-over-TLS should avoid such interference.
        In general, clients that attempt TLS and fail can either fall
        back on unencrypted DNS, or wait and retry later, depending on
        their Privacy Profile and privacy requirements.
@@ -612,18 +612,34 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                [Page 11]
+Hu, et al.               Expires March 20, 2016                [Page 11]
 
 Internet-Draft                DNS over TLS                September 2015
 
 
-10.  Acknowledgments
+10.  Contributing Authors
+
+   The below individuals contributed significantly to the draft.  The
+   RFC Editor prefers a maximum of 5 names on the front page, and so we
+   have listed additional authors in this section.
+
+   Sara Dickinson
+   Sinodun Internet Technologies
+   Magdalen Centre
+   Oxford Science Park
+   Oxford  OX4 4GA
+   UK
+   Email: sara@sinodun.com
+   URI:   http://sinodun.com
+
+
+11.  Acknowledgments
 
    The authors would like to thank Stephane Bortzmeyer, John Dickinson,
-   Sara Dickinson, Daniel Kahn Gillmor, Brian Haberman, Kim-Minh Kaplan,
-   Bill Manning, George Michaelson, Eric Osterweil, and Glen Wiley for
-   reviewing this Internet-draft.  They also thank Nikita Somaiya for
-   early work on this idea.
+   Daniel Kahn Gillmor, Brian Haberman, Kim-Minh Kaplan, Bill Manning,
+   George Michaelson, Eric Osterweil, and Glen Wiley for reviewing this
+   Internet-draft.  They also thank Nikita Somaiya for early work on
+   this idea.
 
    Work by Zi Hu, Liang Zhu, and John Heidemann on this document is
    partially sponsored by the U.S. Dept. of Homeland Security (DHS)
@@ -633,9 +649,9 @@ Internet-Draft                DNS over TLS                September 2015
    number D08PC75599.
 
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [I-D.ietf-dnsop-5966bis]
               Dickinson, J., Dickinson, S., Bellis, R., Mankin, A., and
@@ -649,6 +665,14 @@ Internet-Draft                DNS over TLS                September 2015
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
+
+
+
+Hu, et al.               Expires March 20, 2016                [Page 12]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
               November 1987, <http://www.rfc-editor.org/info/rfc1035>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -665,13 +689,6 @@ Internet-Draft                DNS over TLS                September 2015
               (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/
               RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
-
-
-
-Hu, et al.               Expires March 19, 2016                [Page 12]
-
-Internet-Draft                DNS over TLS                September 2015
-
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
               Cheshire, "Internet Assigned Numbers Authority (IANA)
@@ -690,7 +707,7 @@ Internet-Draft                DNS over TLS                September 2015
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525,
               May 2015, <http://www.rfc-editor.org/info/rfc7525>.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [I-D.confidentialdns]
               Wijngaards, W., "Confidential DNS",
@@ -704,6 +721,13 @@ Internet-Draft                DNS over TLS                September 2015
               draft-ietf-dnsop-edns-tcp-keepalive-02 (work in progress),
               July 2015, <http://tools.ietf.org/html/
               draft-ietf-dnsop-edns-tcp-keepalive-02>.
+
+
+
+Hu, et al.               Expires March 20, 2016                [Page 13]
+
+Internet-Draft                DNS over TLS                September 2015
+
 
    [I-D.edns0-padding]
               Mayrhofer, A., "The EDNS(0) Padding Option",
@@ -721,14 +745,6 @@ Internet-Draft                DNS over TLS                September 2015
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, DOI 10.17487/
               RFC2818, May 2000,
-
-
-
-Hu, et al.               Expires March 19, 2016                [Page 13]
-
-Internet-Draft                DNS over TLS                September 2015
-
-
               <http://www.rfc-editor.org/info/rfc2818>.
 
    [RFC3118]  Droms, R. and W. Arbaugh., Ed., "Authentication for DHCP
@@ -761,6 +777,14 @@ Internet-Draft                DNS over TLS                September 2015
 
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258,
+
+
+
+Hu, et al.               Expires March 20, 2016                [Page 14]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
               May 2014, <http://www.rfc-editor.org/info/rfc7258>.
 
    [RFC7413]  Cheng, Y., Chu, J., Radhakrishnan, S., and A. Jain, "TCP
@@ -777,14 +801,6 @@ Internet-Draft                DNS over TLS                September 2015
 
    [dempsky-dnscurve]
               Dempsky, M., "DNSCurve", draft-dempsky-dnscurve-01 (work
-
-
-
-Hu, et al.               Expires March 19, 2016                [Page 14]
-
-Internet-Draft                DNS over TLS                September 2015
-
-
               in progress), August 2010,
               <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
@@ -811,6 +827,20 @@ Internet-Draft                DNS over TLS                September 2015
               ftp://ftp.isi.edu/isi-pubs/tr-688.pdf>.
 
 
+
+
+
+
+
+
+
+
+
+Hu, et al.               Expires March 20, 2016                [Page 15]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
 Authors' Addresses
 
    Zi Hu
@@ -833,14 +863,6 @@ Authors' Addresses
    Email: liangzhu@usc.edu
 
 
-
-
-
-Hu, et al.               Expires March 19, 2016                [Page 15]
-
-Internet-Draft                DNS over TLS                September 2015
-
-
    John Heidemann
    USC/Information Sciences Institute
    4676 Admiralty Way, Suite 1001
@@ -858,6 +880,21 @@ Internet-Draft                DNS over TLS                September 2015
 
    Phone: +1 703 948-3200
    Email: amankin@verisign.com
+
+
+
+
+
+
+
+
+
+
+
+
+Hu, et al.               Expires March 20, 2016                [Page 16]
+
+Internet-Draft                DNS over TLS                September 2015
 
 
    Duane Wessels
@@ -892,5 +929,24 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 19, 2016                [Page 16]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hu, et al.               Expires March 20, 2016                [Page 17]
 
