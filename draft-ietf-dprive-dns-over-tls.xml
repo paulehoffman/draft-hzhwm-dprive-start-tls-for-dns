@@ -294,7 +294,7 @@
 	To simplify the protocol, this document now
 	only uses a well-known port to specify TLS use,
 	omitting the upgrade approach.
-        willingness to upgrade to TLS.  The upgrade approach no longer
+        The upgrade approach no longer
         appears in this document, which now focuses exclusively on
         the use of a well-known port for DNS-over-TLS.
       </t>
@@ -356,6 +356,7 @@
           in the manner of HTTP/TLS <xref target="RFC2818"/>.  DANE <xref target="RFC6698"/> provides 
           mechanisms to root certificate trust with DNSSEC.
           The DNS queries in DANE authentication of the certificate for DNS-over-TLS will be in the
+<!-- XXX DW suggest MAY be -->
           clear to avoid trust recursion.
         </t>
         <t>
@@ -429,7 +430,7 @@
           DNS connections open, independent of timeouts or other
           recommendations for DNS-over-TCP without TLS.  In other words,
           software implementing this protocol is assumed to support idle,
-          persistent connections and will be prepared to manage
+          persistent connections and be prepared to manage
 	  multiple, potentially long-lived TCP connections.
         </t>
         <t>
@@ -455,7 +456,7 @@
 	  as discussed in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
                 target="RFC7413"/> is of benefit. DNS servers SHOULD enable fast 
           TLS session resumption <xref target="RFC5077"/> and this SHOULD
-          be used during reestablishing connections. 
+          be used when reestablishing connections. 
         </t>
         <t>
           When closing a connection, DNS servers SHOULD use the TLS
@@ -507,7 +508,7 @@
         <!-- XXX DW what does 'use only use one of those DNS providers' below mean? AJM: Modified -->
         <t>
           With pre-deployed privacy, a client retains a copy of the TLS
-          certificate (with other authentication credentials as
+          certificate (and/or other authentication credentials as
           appropriate) and IP address of each provider.  The client
           will only use DNS servers for which this information
           has been pre-configured.  The possession of a trusted,
@@ -560,7 +561,7 @@
             and servers should support connection keepalive (reuse) and
             out-of-order processing to amortize connection setup costs.
 	    Fast TLS connection         
-            nresumption <xref target="RFC5077"/> further reduces the
+            resumption <xref target="RFC5077"/> further reduces the
             setup delay and avoids the DNS server keeping per-client session state.  
             TLS False Start <xref target="draft-ietf-tls-falsestart"/> can also lead to a latency
             reduction in certain situations.
@@ -570,11 +571,11 @@
             The use of connection-oriented TCP requires keeping additional
             state at the server in both the kernel and application.
 	    The state requirements
-            are of particular concerns on servers with many clients,
+            are of particular concern on servers with many clients,
 	    although memory-optimized TLS can add only modest state over TCP.
             Smaller timeout values will reduce the number of concurrent
             connections, and servers can preemptively close connections
-            when resources limits are exceeded.
+            when resource limits are exceeded.
           </t>
           <t>
             Processing:
@@ -610,8 +611,8 @@
         and Transport Protocol Port Number Registry" registry in the System
         Range.  The registry for that range requires IETF Review or IESG Approval 
         <xref target="RFC6335"/> and such a review has been requested using the
-        Early Allocation process <xref target="RFC7120"/> for both the TCP port
-        for this document.
+        Early Allocation process <xref target="RFC7120"/> for the well-known TCP port
+        in this document.
         <!-- That
              registry is populated by expert review  <xref target="RFC6335"/>,
              and such a review will be requested if this document
@@ -675,7 +676,7 @@
 	before implementation and deployment.  Another anticipated
 	advantage is the expectation that DNS-over-TLS would work
 	over port 53.  That is, no need to "waste" another port and
-	need new firewall rules on middleboxes.
+	deploy new firewall rules on middleboxes.
       </t>
       <t>
 	However, at the same time, there was uncertainty whether
