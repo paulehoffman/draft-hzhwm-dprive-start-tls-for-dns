@@ -289,14 +289,16 @@
 
       <t>
         An earlier version of this document described a technique for
-        upgrading a DNS-over-TCP connection to a DNS-over-TLS session.
-        This was, essentially, "STARTTLS for DNS," which would have
-        used a newly defined bit in the EDNS0 flags field to signal
+        upgrading a DNS-over-TCP connection to a DNS-over-TLS session
+	with, essentially, "STARTTLS for DNS".
+	To simplify the protocol, this document now
+	only uses a well-known port to specify TLS use,
+	omitting the upgrade approach.
         willingness to upgrade to TLS.  The upgrade approach no longer
         appears in this document, which now focuses exclusively on
-        the use of a well-known port for DNS-over-TLS.  The same port
-        would be used by DNS-over-DTLS.
+        the use of a well-known port for DNS-over-TLS.
       </t>
+
     </section>
 
     <section title="Reserved Words">
@@ -315,7 +317,8 @@
       <section anchor="Initiation" title="Session Initiation">
         <t>
           A DNS server that supports DNS-over-TLS SHOULD listen for
-          and accept TCP connections on port TBD <xref target="IANA"/>.
+          and accept TCP connections on a designated port TBD
+	  identified in <xref target="IANA"/>.
         </t>
         <t>
           DNS clients desiring privacy from DNS-over-TLS from a
@@ -339,17 +342,21 @@
       <section anchor="handshake" title="TLS Handshake and Authentication">     
         <t>
           Once the DNS client succeeds in connecting via TCP on the well-known port for
-          DNS-over-TLS, it proceeds with the TLS handshake <xref target="RFC5246"/> (following
-          also the best practices specified in <xref target="RFC7525"/>). This document does 
-          not propose new ideas for certificate authentication for TLS in the context of DNS.
+          DNS-over-TLS, it proceeds with the TLS handshake <xref target="RFC5246"/>,
+	  following
+          the best practices specified in <xref target="RFC7525"/>).
+	</t>
+	<t>
+	  The client will then authenticate the certificate, if required.
+	  DNS-over-TLS does 
+          not propose new ideas for certificate authentication.
           Depending on the privacy profile in use <xref target="profiles"/>, the DNS client may
           choose not to require authentication of the certificate, or it may make use of a certificate
           that is part of the Certificate Authority infrastructure <xref target="RFC5280"/> authenticated 
           in the manner of HTTP/TLS <xref target="RFC2818"/>.  DANE <xref target="RFC6698"/> provides 
-          mechanisms to root certificate trust with DNSSEC.  Use of DANE for the certificate trust
-          chain may present issues in trust recursion, requiring careful analysis of use cases.
+          mechanisms to root certificate trust with DNSSEC.
           The DNS queries in DANE authentication of the certificate for DNS-over-TLS will be in the
-          clear. 
+          clear to avoid trust recursion.
         </t>
         <t>
           After TLS negotiation completes, the connection will be encrypted
@@ -422,7 +429,8 @@
           DNS connections open, independent of timeouts or other
           recommendations for DNS-over-TCP without TLS.  In other words,
           software implementing this protocol is assumed to support idle,
-          persistent connections and to have good connection management.
+          persistent connections and will be prepared to manage
+	  multiple, potentially long-lived TCP connections.
         </t>
         <t>
           This document does not make specific recommendations for timeout
@@ -438,13 +446,13 @@
           Clients and servers that keep idle connections open MUST be
           robust to termination of idle connection by either party.  As
           with current DNS-over-TCP, DNS servers MAY close the connection
-          at any time (e.g., due to resource constraints).  As with current
+          at any time (perhaps due to resource constraints).  As with current
           DNS-over-TCP, clients MUST handle abrupt closes and be prepared
           to reestablish connections and/or retry queries.
         </t>
         <t>
-          When reestablishing such a connection, as discussed in <xref
-                target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
+          When reestablishing a DNS-over-TCP connection that was terminated,
+	  as discussed in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
                 target="RFC7413"/> is of benefit. DNS servers SHOULD enable fast 
           TLS session resumption <xref target="RFC5077"/> and this SHOULD
           be used during reestablishing connections. 
@@ -471,15 +479,17 @@
       <section title="Opportunistic Privacy Profile">
         <t>
           For opportunistic privacy, analogous to SMTP opportunistic
-          encryption <xref target="RFC7435"/> one desires privacy when
-          possible, but does not require it.
+          encryption <xref target="RFC7435"/> one does not require privacy,
+	  but one desires privacy when
+          possible.
         </t>
         <t>
           With opportunistic privacy, a client might learn of a TLS-enabled
           recursive DNS resolver from an untrusted source (such as DHCP
           while roaming), it might or might not validate the TLS
           certificate.  These choices maximize availability and
-          performance, but they are vulnerable to on-path attacks.
+          performance, but they leave the client vulnerable to on-path attacks
+	  that remove privacy.
         </t>
         <t>
           Opportunistic privacy can be used by any current client, but
@@ -497,11 +507,11 @@
         <!-- XXX DW what does 'use only use one of those DNS providers' below mean? AJM: Modified -->
         <t>
           With pre-deployed privacy, a client retains a copy of the TLS
-          certificate (and/or other authentication credentials as
+          certificate (with other authentication credentials as
           appropriate) and IP address of each provider.  The client
           will only use DNS servers for which this information
-          has been pre-configured.  Because of possessing a trusted,
-          pre-deployed TLS certificate, the client may detect person-in-the-middle
+          has been pre-configured.  The possession of a trusted,
+          pre-deployed TLS certificate allows the client to detect person-in-the-middle
           and downgrade attacks.
         </t>
         <t>
@@ -544,11 +554,13 @@
             Latency:
             Compared to UDP, DNS-over-TCP requires an additional
             round-trip-time (RTT) of latency to establish a TCP connection.
-            TCP Fast Open <xref target="RFC7413"/> can eliminate that RTT for some users.
+            TCP Fast Open <xref target="RFC7413"/> can eliminate that RTT
+	    when information exists from prior connections.
             The TLS handshake adds another two RTTs of latency.  Clients
             and servers should support connection keepalive (reuse) and
-            out-of-order processing to amortize connection setup costs.Fast TLS connection         
-            resumption <xref target="RFC5077"/> further reduces the
+            out-of-order processing to amortize connection setup costs.
+	    Fast TLS connection         
+            nresumption <xref target="RFC5077"/> further reduces the
             setup delay and avoids the DNS server keeping per-client session state.  
             TLS False Start <xref target="draft-ietf-tls-falsestart"/> can also lead to a latency
             reduction in certain situations.
@@ -556,9 +568,10 @@
           <t>
             State:
             The use of connection-oriented TCP requires keeping additional
-            state in both kernels and applications.  TLS has marginal
-            increases in state over TCP alone.  The state requirements
-            are of particular concerns on servers with many clients.
+            state at the server in both the kernel and application.
+	    The state requirements
+            are of particular concerns on servers with many clients,
+	    although memory-optimized TLS can add only modest state over TCP.
             Smaller timeout values will reduce the number of concurrent
             connections, and servers can preemptively close connections
             when resources limits are exceeded.
@@ -583,7 +596,7 @@
         A full performance evaluation is outside the scope of this
         specification.  A more detailed analysis of the performance
         implications of DNS-over-TLS (and DNS-over-TCP) is discussed
-        in a technical report <xref target="tdns"/> and <xref
+        in <xref target="tdns"/> and <xref
               target="I-D.ietf-dnsop-5966bis"/>.
       </t>
 
@@ -598,12 +611,20 @@
         Range.  The registry for that range requires IETF Review or IESG Approval 
         <xref target="RFC6335"/> and such a review has been requested using the
         Early Allocation process <xref target="RFC7120"/> for both the TCP port
-        for this document and for a UDP port for DNS-over-DTLS. </t>
+        for this document.
         <!-- That
              registry is populated by expert review  <xref target="RFC6335"/>,
              and such a review will be requested if this document
              progresses.
-             -->
+        -->
+      </t>
+
+      <t>
+	We further recommend that IANA reserve the same port number over UDP
+	for the proposed DNS-over-DTLS protocol <xref
+           target="draft-ietf-dprive-dnsodtls"/>.
+      </t>
+
 
     <figure>
     <artwork><![CDATA[
@@ -629,7 +650,7 @@
       </t>
 
       <t>
-	As already mentioned, earlier versions of this document
+	Earlier versions of this document
 	proposed an upgrade-based approach to establishing a TLS
 	session.  The client would signal its interest in TLS by
 	setting a "TLS OK" bit in the EDNS0 flags field.  A server
@@ -769,18 +790,13 @@
           <t>
             Middleboxes <xref target="RFC3234"/> may be present in some
             networks and have been known to interfere with normal DNS
-            resolution; these may create problems for DNS-over-TLS.
+            resolution.
+	    Use of a designed port for DNS-over-TLS
+	    should avoid such interference.
             In general, clients that attempt TLS and fail can either fall
             back on unencrypted DNS, or wait and retry later, depending
             on their Privacy Profile and privacy requirements.
           </t> 
-          <t>
-            Any protocol interactions prior to the TLS handshake are
-            performed in the clear and can be modified by a person-in-the-middle
-            attacker.  For this reason, clients MAY discard cached
-            information about server capabilities advertised prior to
-            the start of the TLS handshake.
-          </t>
           <t>
             This document does not itself specify ideas to resist
             known traffic analysis or side channel leaks.  Even with encrypted
@@ -806,10 +822,20 @@
 
     <section anchor="Acknowledgments" title="Acknowledgments">
       <t>
-        The authors would like to thank Stephane Bortzmeyer, Brian
-        Haberman, Kim-Minh Kaplan, Bill Manning, George Michaelson,
-        Eric Osterweil, Glen Wiley, John Dickinson, Sara Dickinson, and
-        Daniel Kahn Gillmor for reviewing this Internet-draft, and
+        The authors would like to thank
+	Stephane Bortzmeyer,
+	John Dickinson,
+	Sara Dickinson, 
+        Daniel Kahn Gillmor,
+	Brian Haberman,
+	Kim-Minh Kaplan,
+	Bill Manning,
+	George Michaelson,
+        Eric Osterweil,
+	and
+	Glen Wiley
+	for reviewing this Internet-draft.
+	They also thank
         Nikita Somaiya for early work on this idea.
       </t>
 
