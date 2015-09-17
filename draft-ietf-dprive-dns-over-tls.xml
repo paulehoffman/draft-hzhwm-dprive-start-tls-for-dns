@@ -171,7 +171,7 @@
         for eavesdropping on DNS queries in the network, such as
         discussed in RFC 7258.  In addition, this document specifies
         two usage profiles for DNS-over-TLS and provides advice on
-        performance considerations to minimize overheads from using
+        performance considerations to minimize overhead from using
         TCP and TLS with DNS.
       </t>
 
@@ -789,7 +789,7 @@
             forward the query.
           </t>
           <t>
-            Middleboxes <xref target="RFC3234"/> may be present in some
+            Middleboxes <xref target="RFC3234"/> are be present in some
             networks and have been known to interfere with normal DNS
             resolution.
 	    Use of a designed port for DNS-over-TLS
