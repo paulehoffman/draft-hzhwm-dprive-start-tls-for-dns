@@ -262,7 +262,7 @@
         by some firewalls.  Clients will be expected to keep track
         of servers that support TLS and those that don't.  Clients and
         servers will adhere to the TLS implementation recommendations
-        and security considerations of <xref target="RFC7525"/>
+        and security considerations of <xref target="RFC7525"/>.
       </t>
       <!-- XXX AJM: instead of addressing any security issues of
            TLS, I think we need to refer all generic TLS items to the TLS BCP.  
@@ -385,12 +385,11 @@
 	</t>
 	<t>
 	  <!-- cut-n-paste from rfc5966-bis sec 7 -->
-	  Since pipelined responses may arrive out-of-order, clients
-	  must take care to match responses to outstanding queries,
-	  using the ID field, port number, query name/type/class,
-	  and any other relevant protocol features.  Failure by
-	  clients to properly match responses to outstanding queries
-	  can have serious consequences for interoperability (<xref
+	  Since pipelined responses can arrive out-of-order, clients
+	  MUST match responses to outstanding queries using the ID
+	  field and port number.  Failure by clients to properly
+	  match responses to outstanding queries can have serious
+	  consequences for interoperability (<xref
 	  target="I-D.ietf-dnsop-5966bis"/>, Section 7).
 	</t>
       </section>  
@@ -607,7 +606,7 @@
     <section anchor="IANA" title="IANA Considerations">
 
       <t>
-        IANA is requested add the following value to the "Service Name
+        IANA is requested to add the following value to the "Service Name
         and Transport Protocol Port Number Registry" registry in the System
         Range.  The registry for that range requires IETF Review or IESG Approval 
         <xref target="RFC6335"/> and such a review has been requested using the
@@ -779,7 +778,7 @@
             RFCs for discussion of these security issues.
             Clients and
             servers MUST adhere to the TLS implementation recommendations
-            and security considerations of <xref target="RFC7525"/>
+            and security considerations of <xref target="RFC7525"/>.
             DNS clients keeping track of servers known to support TLS (i.e.,
             "pinning") enables clients to detect downgrade attacks.
             For servers with no connection history and no apparent
@@ -792,7 +791,7 @@
             Middleboxes <xref target="RFC3234"/> are be present in some
             networks and have been known to interfere with normal DNS
             resolution.
-	    Use of a designed port for DNS-over-TLS
+	    Use of a designated port for DNS-over-TLS
 	    should avoid such interference.
             In general, clients that attempt TLS and fail can either fall
             back on unencrypted DNS, or wait and retry later, depending
