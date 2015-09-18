@@ -4,14 +4,14 @@
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: March 20, 2016                         USC/Information Sciences
+Expires: March 21, 2016                         USC/Information Sciences
                                                                Institute
                                                                A. Mankin
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                                    ICANN
-                                                      September 17, 2015
+                                                      September 18, 2015
 
 
         DNS over TLS: Initiation and Performance Considerations
@@ -41,7 +41,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 20, 2016.
+   This Internet-Draft will expire on March 21, 2016.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 1]
+Hu, et al.               Expires March 21, 2016                 [Page 1]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -93,7 +93,7 @@ Table of Contents
    12. References . . . . . . . . . . . . . . . . . . . . . . . . . . 12
      12.1. Normative References . . . . . . . . . . . . . . . . . . . 12
      12.2. Informative References . . . . . . . . . . . . . . . . . . 13
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 15
+   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 16
 
 
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 2]
+Hu, et al.               Expires March 21, 2016                 [Page 2]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -164,7 +164,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 3]
+Hu, et al.               Expires March 21, 2016                 [Page 3]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -220,14 +220,14 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 4]
+Hu, et al.               Expires March 21, 2016                 [Page 4]
 
 Internet-Draft                DNS over TLS                September 2015
 
 
    [RFC2818].  DANE [RFC6698] provides mechanisms to root certificate
    trust with DNSSEC.  The DNS queries in DANE authentication of the
-   certificate for DNS-over-TLS will be in the clear to avoid trust
+   certificate for DNS-over-TLS MAY be in the clear to avoid trust
    recursion.
 
    After TLS negotiation completes, the connection will be encrypted and
@@ -276,7 +276,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 5]
+Hu, et al.               Expires March 21, 2016                 [Page 5]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -332,7 +332,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 6]
+Hu, et al.               Expires March 21, 2016                 [Page 6]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -388,7 +388,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 7]
+Hu, et al.               Expires March 21, 2016                 [Page 7]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -444,7 +444,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 8]
+Hu, et al.               Expires March 21, 2016                 [Page 8]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -500,7 +500,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                 [Page 9]
+Hu, et al.               Expires March 21, 2016                 [Page 9]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -556,7 +556,7 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                [Page 10]
+Hu, et al.               Expires March 21, 2016                [Page 10]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -602,19 +602,27 @@ Internet-Draft                DNS over TLS                September 2015
        back on unencrypted DNS, or wait and retry later, depending on
        their Privacy Profile and privacy requirements.
 
-   3.  This document does not itself specify ideas to resist known
+   3.  Any protocol interactions prior to the TLS handshake are
+       performed in the clear and can be modified by a person-in-the-
+       middle attacker.  For this reason, clients MAY discard cached
+       information about server capabilities advertised prior to the
+       start of the TLS handshake.
+
+
+
+
+
+Hu, et al.               Expires March 21, 2016                [Page 11]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
+   4.  This document does not itself specify ideas to resist known
        traffic analysis or side channel leaks.  Even with encrypted
        messages, a well-positioned party may be able to glean certain
        details from an analysis of message timings and sizes.  Clients
        and servers may consider the use of a padding method to address
        privacy leakage due to message sizes [I-D.edns0-padding]
-
-
-
-
-Hu, et al.               Expires March 20, 2016                [Page 11]
-
-Internet-Draft                DNS over TLS                September 2015
 
 
 10.  Contributing Authors
@@ -657,6 +665,14 @@ Internet-Draft                DNS over TLS                September 2015
               Dickinson, J., Dickinson, S., Bellis, R., Mankin, A., and
               D. Wessels, "DNS Transport over TCP - Implementation
               Requirements", draft-ietf-dnsop-5966bis-02 (work in
+
+
+
+Hu, et al.               Expires March 21, 2016                [Page 12]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
               progress), July 2015.
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
@@ -665,14 +681,6 @@ Internet-Draft                DNS over TLS                September 2015
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
-
-
-
-Hu, et al.               Expires March 20, 2016                [Page 12]
-
-Internet-Draft                DNS over TLS                September 2015
-
-
               November 1987, <http://www.rfc-editor.org/info/rfc1035>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -713,6 +721,14 @@ Internet-Draft                DNS over TLS                September 2015
               Wijngaards, W., "Confidential DNS",
               draft-wijngaards-dnsop-confidentialdns-03 (work in
               progress), March 2015, <http://tools.ietf.org/html/
+
+
+
+Hu, et al.               Expires March 21, 2016                [Page 13]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
               draft-wijngaards-dnsop-confidentialdns-03>.
 
    [I-D.edns-tcp-keepalive]
@@ -721,13 +737,6 @@ Internet-Draft                DNS over TLS                September 2015
               draft-ietf-dnsop-edns-tcp-keepalive-02 (work in progress),
               July 2015, <http://tools.ietf.org/html/
               draft-ietf-dnsop-edns-tcp-keepalive-02>.
-
-
-
-Hu, et al.               Expires March 20, 2016                [Page 13]
-
-Internet-Draft                DNS over TLS                September 2015
-
 
    [I-D.edns0-padding]
               Mayrhofer, A., "The EDNS(0) Padding Option",
@@ -768,6 +777,14 @@ Internet-Draft                DNS over TLS                September 2015
 
    [RFC5966]  Bellis, R., "DNS Transport over TCP - Implementation
               Requirements", RFC 5966, DOI 10.17487/RFC5966,
+
+
+
+Hu, et al.               Expires March 21, 2016                [Page 14]
+
+Internet-Draft                DNS over TLS                September 2015
+
+
               August 2010, <http://www.rfc-editor.org/info/rfc5966>.
 
    [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
@@ -777,14 +794,6 @@ Internet-Draft                DNS over TLS                September 2015
 
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
               Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258,
-
-
-
-Hu, et al.               Expires March 20, 2016                [Page 14]
-
-Internet-Draft                DNS over TLS                September 2015
-
-
               May 2014, <http://www.rfc-editor.org/info/rfc7258>.
 
    [RFC7413]  Cheng, Y., Chu, J., Radhakrishnan, S., and A. Jain, "TCP
@@ -824,21 +833,15 @@ Internet-Draft                DNS over TLS                September 2015
               and N. Somaiya, "T-DNS: Connection-Oriented DNS to Improve
               Privacy and Security", Technical report ISI-TR-688,
               February 2014, <Technical report, ISI-TR-688,
-              ftp://ftp.isi.edu/isi-pubs/tr-688.pdf>.
 
 
 
-
-
-
-
-
-
-
-
-Hu, et al.               Expires March 20, 2016                [Page 15]
+Hu, et al.               Expires March 21, 2016                [Page 15]
 
 Internet-Draft                DNS over TLS                September 2015
+
+
+              ftp://ftp.isi.edu/isi-pubs/tr-688.pdf>.
 
 
 Authors' Addresses
@@ -889,10 +892,7 @@ Authors' Addresses
 
 
 
-
-
-
-Hu, et al.               Expires March 20, 2016                [Page 16]
+Hu, et al.               Expires March 21, 2016                [Page 16]
 
 Internet-Draft                DNS over TLS                September 2015
 
@@ -948,5 +948,5 @@ Internet-Draft                DNS over TLS                September 2015
 
 
 
-Hu, et al.               Expires March 20, 2016                [Page 17]
+Hu, et al.               Expires March 21, 2016                [Page 17]
 
