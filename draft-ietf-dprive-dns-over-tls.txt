@@ -455,7 +455,7 @@ Internet-Draft                DNS over TLS                September 2015
    We further recommend that IANA reserve the same port number over UDP
    for the proposed DNS-over-DTLS protocol [draft-ietf-dprive-dnsodtls].
 
-       Service Name            dnss
+       Service Name            domain-s
        Transport Protocol(s)   TCP/UDP
        Assignee                IESG
        Contact                 TBD

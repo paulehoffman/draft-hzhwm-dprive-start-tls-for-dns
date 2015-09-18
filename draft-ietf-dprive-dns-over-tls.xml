@@ -627,7 +627,7 @@
 
     <figure>
     <artwork><![CDATA[
-    Service Name            dnss
+    Service Name            domain-s
     Transport Protocol(s)   TCP/UDP
     Assignee                IESG
     Contact                 TBD
