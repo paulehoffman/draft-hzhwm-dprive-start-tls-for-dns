@@ -26,6 +26,13 @@ Abstract
    and provides advice on performance considerations to minimize
    overhead from using TCP and TLS with DNS.
 
+   Note: this document was formerly named
+   draft-ietf-dprive-start-tls-for-dns.  Its name has been changed to
+   better describe the mechanism now used.  Please refer to working
+   group archives under the former name for history and previous
+   discussion.  [RFC Editor: please remove this paragraph prior to
+   publication]
+
 Status of this Memo
 
    This Internet-Draft is submitted in full conformance with the
@@ -43,13 +50,6 @@ Status of this Memo
 
    This Internet-Draft will expire on March 21, 2016.
 
-Copyright Notice
-
-   Copyright (c) 2015 IETF Trust and the persons identified as the
-   document authors.  All rights reserved.
-
-   This document is subject to BCP 78 and the IETF Trust's Legal
-
 
 
 Hu, et al.               Expires March 21, 2016                 [Page 1]
@@ -57,6 +57,12 @@ Hu, et al.               Expires March 21, 2016                 [Page 1]
 Internet-Draft                DNS over TLS                September 2015
 
 
+Copyright Notice
+
+   Copyright (c) 2015 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
    (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
@@ -94,12 +100,6 @@ Table of Contents
      12.1. Normative References . . . . . . . . . . . . . . . . . . . 12
      12.2. Informative References . . . . . . . . . . . . . . . . . . 13
    Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 16
-
-
-
-
-
-
 
 
 
