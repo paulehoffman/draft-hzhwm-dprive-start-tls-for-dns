@@ -355,8 +355,7 @@
           that is part of the Certificate Authority infrastructure <xref target="RFC5280"/> authenticated 
           in the manner of HTTP/TLS <xref target="RFC2818"/>.  DANE <xref target="RFC6698"/> provides 
           mechanisms to root certificate trust with DNSSEC.
-          The DNS queries in DANE authentication of the certificate for DNS-over-TLS will be in the
-<!-- XXX DW suggest MAY be -->
+          The DNS queries in DANE authentication of the certificate for DNS-over-TLS MAY be in the
           clear to avoid trust recursion.
         </t>
         <t>
@@ -797,6 +796,22 @@
             back on unencrypted DNS, or wait and retry later, depending
             on their Privacy Profile and privacy requirements.
           </t> 
+	  <!--
+	    XXX The authors debated whether or not the following
+	    paragraph belongs in the document.  On one hand,
+	    person-in-the-middle attacks are generally about data
+	    integrity, which would be protected by DNSSEC rather
+	    than TLS.  On the other hand, it specifically calls out
+	    server capabilities, which is something that clients
+	    learn via responses and is not protected by DNSSEC.
+	   -->
+          <t>
+            Any protocol interactions prior to the TLS handshake are
+            performed in the clear and can be modified by a person-in-the-middle
+            attacker.  For this reason, clients MAY discard cached
+            information about server capabilities advertised prior to
+            the start of the TLS handshake.
+          </t>
           <t>
             This document does not itself specify ideas to resist
             known traffic analysis or side channel leaks.  Even with encrypted
