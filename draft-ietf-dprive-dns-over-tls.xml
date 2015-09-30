@@ -394,7 +394,7 @@
 	  <!-- cut-n-paste from rfc5966-bis sec 7 -->
 	  Since pipelined responses can arrive out-of-order, clients
 	  MUST match responses to outstanding queries using the ID
-	  field and port number.  Failure by clients to properly
+	  field, query name, type, and class.  Failure by clients to properly
 	  match responses to outstanding queries can have serious
 	  consequences for interoperability (<xref
 	  target="I-D.ietf-dnsop-5966bis"/>, Section 7).
@@ -403,7 +403,7 @@
 
       <section anchor="Connection" title="Connection Reuse, Close and Reestablishment">
         <t>
-          For DNS clients that use library functions such as "gethostbyname()",
+          For DNS clients that use library functions such as "getaddrinfo()" and "gethostbyname()",
           current implementations are known to open and close TCP connections each DNS
           call.  To avoid excess TCP connections, each with a single query,
           clients SHOULD reuse a single TCP connection to the
