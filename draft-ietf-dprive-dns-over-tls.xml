@@ -169,7 +169,9 @@
         This document describes the use of TLS to provide privacy
         for DNS.  Encryption provided by TLS eliminates opportunities
         for eavesdropping on DNS queries in the network, such as
-        discussed in RFC 7258.  In addition, this document specifies
+        discussed in RFC 7258.
+        TLS also protects against on-path tampering.
+        In addition, this document specifies
         two usage profiles for DNS-over-TLS and provides advice on
         performance considerations to minimize overhead from using
         TCP and TLS with DNS.
