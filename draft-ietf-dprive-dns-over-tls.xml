@@ -787,8 +787,8 @@
             Clients and
             servers MUST adhere to the TLS implementation recommendations
             and security considerations of <xref target="RFC7525"/>.
-            DNS clients keeping track of servers known to support TLS (i.e.,
-            "pinning") enables clients to detect downgrade attacks.
+            DNS clients keeping track of servers known to support TLS
+            enables clients to detect downgrade attacks.
             For servers with no connection history and no apparent
             support for TLS, clients depending on their Privacy
             Profile and privacy requirements may choose to (a) try another server when
