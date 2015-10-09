@@ -3,7 +3,6 @@
      which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   <!ENTITY RFC2119 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
-  <!ENTITY RFC3118 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3118.xml">
   <!ENTITY RFC1034 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1034.xml">
   <!ENTITY RFC1035 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1035.xml">
   <!ENTITY RFC4033 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4033.xml">
@@ -380,7 +379,10 @@
           <xref target="RFC1035"/>.
           For reasons of efficiency, DNS clients and servers SHOULD
           transmit the two-octet length field, and the message
-          described by that length field, in a single TCP segment
+          described by that length field, to the TCP layer at the
+          same time (e.g., in a single "write" system call) to make
+          it more likely that all the data will be transmitted in
+          a single TCP segment
           (<xref target="I-D.ietf-dnsop-5966bis"/>, Section 8).
         </t>
 	<t>
@@ -543,8 +545,7 @@
         <t>
           Methods for pre-deployment of the designated DNS provider are
           outside the scope of this document.  In corporate settings,
-          such information may be provided at system installation, for instance within
-          the authenticated DHCP exchange <xref target="RFC3118"/>. 
+          such information may be provided at system installation.
           <!-- Use
           of public DNS providers by end users in various settings suggests that end users are
           able to manually configure their DNS resolvers. -->
@@ -796,7 +797,7 @@
             forward the query.
           </t>
           <t>
-            Middleboxes <xref target="RFC3234"/> are be present in some
+            Middleboxes <xref target="RFC3234"/> are present in some
             networks and have been known to interfere with normal DNS
             resolution.
 	    Use of a designated port for DNS-over-TLS
@@ -938,7 +939,6 @@ URI:   http://sinodun.com
       <!-- &RFC2131; -->
       <!-- &RFC2595; -->
       &RFC2818;
-      &RFC3118;
       <!-- &RFC3207; -->
       &RFC3234;
       <!-- &RFC3501; -->
