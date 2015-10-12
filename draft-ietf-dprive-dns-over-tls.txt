@@ -15,7 +15,7 @@ Expires: April 13, 2016                         USC/Information Sciences
 
 
         DNS over TLS: Initiation and Performance Considerations
-                   draft-ietf-dprive-dns-over-tls-00
+                   draft-ietf-dprive-dns-over-tls-01
 
 Abstract
 
