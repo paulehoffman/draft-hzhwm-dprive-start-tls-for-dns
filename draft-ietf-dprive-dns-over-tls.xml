@@ -325,13 +325,12 @@
       <section anchor="Initiation" title="Session Initiation">
         <t>
           A DNS server that supports DNS-over-TLS SHOULD listen for
-          and accept TCP connections on a designated port TBD
-	  identified in <xref target="IANA"/>.
+          and accept TCP connections on port 853.
         </t>
         <t>
           DNS clients desiring privacy from DNS-over-TLS from a
           particular server SHOULD establish a TCP connection to
-          port TBD on the server.  Upon successful establishment
+          port 853 on the server.  Upon successful establishment
           of the TCP connection, client and server SHOULD immediately
           initiate a TLS handshake using the procedure described
           in <xref target="RFC5246"/>.
@@ -618,14 +617,9 @@
         IANA is requested to add the following value to the "Service Name
         and Transport Protocol Port Number Registry" registry in the System
         Range.  The registry for that range requires IETF Review or IESG Approval 
-        <xref target="RFC6335"/> and such a review has been requested using the
+        <xref target="RFC6335"/> and such a review was requested using the
         Early Allocation process <xref target="RFC7120"/> for the well-known TCP port
         in this document.
-        <!-- That
-             registry is populated by expert review  <xref target="RFC6335"/>,
-             and such a review will be requested if this document
-             progresses.
-        -->
       </t>
 
       <t>
@@ -634,21 +628,27 @@
            target="draft-ietf-dprive-dnsodtls"/>.
       </t>
 
+      <t>
+        IANA responded to the early allocation request with the following
+	TEMPORARY assignment:
+      </t>
 
     <figure>
     <artwork><![CDATA[
     Service Name            domain-s
+    Port Number             853
     Transport Protocol(s)   TCP/UDP
-    Assignee                IESG
-    Contact                 TBD
-    Description             DNS query-response protocol run over TLS
+    Assignee                IETF DPRIVE Chairs
+    Contact                 Paul Hoffman
+    Description             DNS query-response protocol run over TLS/DTLS
     Reference               This document
       ]]></artwork>
     </figure>
 
-
-
-
+      <t>
+        The TEMPORARY assignment expires 2016-10-08.  IANA is requested to make the
+	assigmnent permanent upon publication of this document as an RFC.
+      </t>
 
     </section>
 
@@ -816,9 +816,11 @@
 	    learn via responses and is not protected by DNSSEC.
 	   -->
           <t>
-            Any protocol interactions prior to the TLS handshake are
-            performed in the clear and can be modified by a person-in-the-middle
-            attacker.  For this reason, clients MAY discard cached
+            Any DNS protocol interactions prior to the TLS handshake that are
+            performed in the clear can be modified by a person-in-the-middle
+            attacker.  For example, unencrypted queries and responses
+            might take place over port 53 between a client and server
+            prior to TLS.  For this reason, clients MAY discard cached
             information about server capabilities advertised prior to
             the start of the TLS handshake.
           </t>
