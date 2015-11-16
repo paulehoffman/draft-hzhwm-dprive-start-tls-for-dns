@@ -558,7 +558,7 @@
 	  and servers (e.g., stub-to-recursive in enterprise
 	  networks).
 	  In this profile, clients authenticate servers by matching
-	  a Subject Public Key Info (SPKI) Fingerprint in an analagous
+	  Subject Public Key Info (SPKI) Fingerprints in an analagous
 	  manner to that described in <xref target="RFC7469"/>.
 	</t>
 	<t>
@@ -576,6 +576,17 @@
 	  allows the client to detect person-in-the-middle and
 	  downgrade attacks.
 	</t>
+        <t>
+          However, a configured DNS server may be temporarily unavailable
+          when configuring a network.  For example, for clients on
+          networks that require authentication through web-based login,
+          such authentication may rely on DNS interception and spoofing.
+          Techniques such as those used by DNSSEC-trigger <xref
+                target="dnssec-trigger"/> MAY be used during network
+          configuration, with the intent to transition to the designated
+          DNS provider after authentication.  The user MUST be alerted
+          that the DNS is not private during such bootstrap.
+	</t>
 	<!-- t>
 	  DNS clients configured for trusted relationship privacy MUST
 	  authenticate the SPKI from the server certificate as follows
@@ -592,7 +603,7 @@
 	  the Server Certificate message).
 	</t -->
 	<t>
-	  Upon establishing a connection, the client computes the
+	  Upon successful TLS connection and handshake, the client computes the
 	  SPKI Fingerprints for the server's certificate.  If a
 	  computed fingerprint exactly matches an out-of-band
 	  configured fingerprint, the client continues with the
