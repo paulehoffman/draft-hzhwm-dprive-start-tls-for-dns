@@ -1,5 +1,4 @@
 TXTS=\
-draft-ietf-dprive-start-tls-for-dns.txt \
 draft-ietf-dprive-dns-over-tls.txt
 
 all: ${TXTS}
