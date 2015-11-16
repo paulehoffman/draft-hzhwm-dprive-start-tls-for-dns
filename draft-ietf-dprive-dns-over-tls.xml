@@ -293,6 +293,10 @@
         This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
         privacy profile and a pre-deployed profile.
+	It is expected that a future document based on [TBD] will further
+	describe additional privacy profiles for DNS over both TLS and DTLS.
+	[Note to RFC Editor: informative reference for that document will
+	be forthcoming]
       </t>
 
       <t>
@@ -791,8 +795,8 @@
             DNS clients keeping track of servers known to support TLS
             enables clients to detect downgrade attacks.
             For servers with no connection history and no apparent
-            support for TLS, clients depending on their Privacy
-            Profile and privacy requirements may choose to (a) try another server when
+            support for TLS, depending on their Privacy
+            Profile and privacy requirements, clients may choose to (a) try another server when
             available, (b) continue without TLS, or (c) refuse to
             forward the query.
           </t>
