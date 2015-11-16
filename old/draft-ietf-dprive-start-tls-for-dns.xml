@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+     which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3118 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3118.xml">
+<!ENTITY RFC1034 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1034.xml">
+<!ENTITY RFC1035 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1035.xml">
+<!ENTITY RFC4033 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4033.xml">
+<!ENTITY RFC6698 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6698.xml">
+<!ENTITY RFC5246 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5246.xml">
+<!ENTITY RFC2595 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2595.xml">
+<!ENTITY RFC3501 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3501.xml">
+<!ENTITY RFC3207 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3207.xml">
+<!ENTITY RFC3234 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3234.xml">
+<!ENTITY RFC1939 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1939.xml">
+<!ENTITY RFC5280 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5280.xml">
+<!ENTITY RFC2818 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2818.xml">
+<!ENTITY RFC2131 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2131.xml">
+<!ENTITY RFC6891 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6891.xml">
+<!ENTITY RFC4892 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4892.xml">
+<!ENTITY RFC5077 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5077.xml">
+<!ENTITY RFC6335 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
+<!ENTITY RFC5966 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5966.xml">
+<!ENTITY RFC7258 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7258.xml">
+<!ENTITY RFC7413 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7413.xml">
+<!ENTITY RFC7435 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7435.xml">
+]>
+
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs), 
+     please see http://xml.resource.org/authoring/README.html. -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes"?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space 
+     (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="yes" ?>
+<?rfc toc="yes" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+<rfc category="std" docName="draft-ietf-dprive-start-tls-for-dns-01" ipr="trust200902">
+  <!-- category values: std, bcp, info, exp, and historic
+     ipr values: full3667, noModification3667, noDerivatives3667
+     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+     they will automatically be output with "(if approved)" -->
+
+  <!-- ***** FRONT MATTER ***** -->
+
+  <front>
+    <!-- The abbreviated title is used in the page header - it is only necessary if the 
+         full title is longer than 39 characters -->
+    <title abbrev="TLS for DNS">TLS for DNS: Initiation and Performance Considerations</title>
+
+    <author fullname="Zi Hu" initials="Z." surname="Hu">
+      <organization>USC/Information Sciences Institute</organization>
+      <address>
+        <postal>
+          <street>4676 Admiralty Way, Suite 1133</street>
+          <city>Marina del Rey</city>
+          <region>CA</region>
+          <code>90292</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1 213 587-1057</phone>
+        <email>zihu@usc.edu</email>
+      </address>
+    </author>
+
+    <author fullname="Liang Zhu" initials="L." surname="Zhu">
+      <organization>USC/Information Sciences Institute</organization>
+      <address>
+        <postal>
+          <street>4676 Admiralty Way, Suite 1133</street>
+          <city>Marina del Rey</city>
+          <region>CA</region>
+          <code>90292</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1 310 448-8323</phone>
+        <email>liangzhu@usc.edu</email>
+      </address>
+    </author>
+
+    <author fullname="John Heidemann" initials="J." surname="Heidemann">
+      <organization>USC/Information Sciences Institute</organization>
+      <address>
+        <postal>
+          <street>4676 Admiralty Way, Suite 1001</street>
+          <city>Marina del Rey</city>
+          <region>CA</region>
+          <code>90292</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1 310 822-1511</phone>
+        <email>johnh@isi.edu</email>
+      </address>
+    </author>
+
+    <author fullname="Allison Mankin" initials="A." surname="Mankin">
+      <organization>Verisign Labs</organization>
+      <address>
+	<postal>
+	  <street>12061 Bluemont Way</street>
+	  <city>Reston</city>
+	  <region>VA</region>
+	  <code>20190</code>
+	</postal>
+	<phone>+1 703 948-3200</phone>
+        <email>amankin@verisign.com</email>
+      </address>
+    </author>
+
+    <author fullname="Duane Wessels" initials="D." surname="Wessels">
+      <organization>Verisign Labs</organization>
+      <address>
+	<postal>
+	  <street>12061 Bluemont Way</street>
+	  <city>Reston</city>
+	  <region>VA</region>
+	  <code>20190</code>
+	</postal>
+	<phone>+1 703 948-3200</phone>
+        <email>dwessels@verisign.com</email>
+      </address>
+    </author>
+
+    <author fullname="Paul Hoffman" initials="P." surname="Hoffman">
+        <organization>ICANN</organization>
+        <address>
+            <email>paul.hoffman@icann.org</email>
+        </address>
+    </author>
+
+    <date year="2015" />
+
+    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill 
+         in the current day for you. If only the current year is specified, xml2rfc will fill 
+	 in the current day and month for you. If the year is not the current one, it is 
+	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the 
+	 purpose of calculating the expiry date).  With drafts it is normally sufficient to 
+	 specify just the year. -->
+
+    <!-- Meta-data Declarations -->
+
+    <area>Internet</area>
+
+    <!-- WG name at the upperleft corner of the doc,
+         IETF is fine for individual submissions. 
+	 If this element is not present, the default is "Network Working Group",
+         which is used by the RFC Editor as a nod to the history of the IETF. -->
+
+    <keyword>template</keyword>
+
+    <!-- Keywords will be incorporated into HTML output
+         files in a meta tag but they have no effect on text or nroff
+         output. If you submit your draft to the RFC Editor, the
+         keywords will be used for the search engine. -->
+
+<!--	This document describes a technique for upgrading a DNS TCP
+	connection to use Transport Layer Security (TLS) over
+	standard ports.  Encryption provided by DNS-over-TLS
+	eliminates opportunities for eavesdropping of DNS queries
+	in the network.  The proposed mechanism is backwards
+	compatible with clients and servers that are not aware of
+	DNS-over-TLS. -->
+
+
+    <abstract>
+      <t>
+	This document offers an approach to initiating TLS for DNS:
+        use of a dedicated DNS-over-TLS port, and fallback to a 
+        mechanism for upgrading a DNS-over-TCP connection over the
+        standard port (TCP/53) to a DNS-over-TLS connection.
+	Encryption provided by TLS eliminates opportunities for
+	eavesdropping on DNS queries in the network, such as
+        discussed in RFC 7258.  In addition it specifies two usage
+        profiles for DNS-over-TLS.  Finally, it provides advice on
+	performance considerations to minimize overheads from using
+	TCP and TLS with DNS, pertaining to both approaches.
+      </t>
+
+    </abstract>
+  </front>
+
+
+
+<middle>
+  <section anchor="Intro" title="Introduction">
+
+<t>
+  Today, nearly all DNS queries (<xref target="RFC1034"/> and <xref target="RFC1035"/>)
+  are sent unencrypted, which makes them
+  vulnerable to eavesdropping by an attacker that has access to the network channel,
+  reducing the privacy of the querier.
+  Recent news reports have elevated these concerns,
+  and ongoing efforts are beginning to identify privacy 
+  concerns about DNS (<xref target="I-D.ietf-dprive-problem-statement"/>).
+</t>
+
+<t>
+  Prior work has addressed some aspects of DNS security,
+  but until recently
+  there has been little work on privacy between a DNS client and server.
+  DNS Security Extensions (DNSSEC, <xref target="RFC4033"/>)
+  provide <spanx style="emph">response integrity</spanx>
+	by defining mechanisms to cryptographically sign zones,
+  allowing end-users (or their first-hop resolver) to verify replies are correct. 
+  By intention, DNSSEC does not protect request and response privacy.
+  Traditionally, either privacy was not considered a requirement for DNS traffic,
+     or it was assumed that network traffic was sufficiently private,
+     however these perceptions are evolving due to recent events <xref target="RFC7258"/>.
+</t>
+
+<t>
+  DNSCurve <xref target="draft-dempsky-dnscurve"/> 
+  defines a method to add confidentiality to the link
+	 between DNS clients and servers;
+  however, it does so with a new cryptographic protocol
+    and does not take advantage of an existing standard protocol such as TLS.
+  ConfidentialDNS <xref target="draft-wijngaards-confidentialdns"/>
+	and IPSECA <xref target="draft-osterweil-dane-ipsec"/>
+  use opportunistic encryption to offer privacy for
+  DNS queries and responses.
+  Finally, others have suggested DNS-over-TLS.
+  Unbound DNS software <xref target="unbound"/> includes a DNS-over-TLS implementation.
+  The present document goes beyond past DNS-over-TLS discussions by providing two modes of
+  initiation for DNS-over-TLS: use of a well-known port, and use of a negotiation mechanism
+  in an established connection.
+</t>
+
+<t>
+  Protocol changes proposed here must consider potential interactions with
+  middle boxes.
+  The port-based initiation of TLS is very straightforward, but might be blocked by
+  firewalls or be unwelcome to some DNS client or server implementations. 
+  If port-based initiation of TLS fails, the negotiation mechanism
+  allows DNS clients and servers to
+  upgrade an existing DNS-over-TCP connection to a DNS-over-TLS connection,
+  analogous to upgrade mechanisms in other uses of TLS, such as 
+  STARTTLS <xref target="RFC2595"/> used in SMTP <xref target="RFC3207"/>, 
+  IMAP <xref target="RFC3501"/> and POP <xref target="RFC1939"/>, 
+  to name just a few of many.
+  Adding TLS to DNS-over-TCP avoids port blocking,
+  but maybe interact poorly with middle boxes that inspect DNS traffic.
+  As is generally the case with TLS, both approaches are subject to downgrade attacks,
+  as discussed in <xref target="downgrade"/>.
+</t>
+
+<t>
+  The protocol described here works for any DNS client to server communication using DNS-over-TCP.
+  There can be different profiles providing different levels of privacy,
+  as discussed in <xref target="profiles"/>.
+  The protocol may be used for any DNS communication
+  both from stub to recursive, and from recursive to authoritative servers,
+  but different protocols may be preferable for different environments.
+</t>
+
+<t>
+This document describes two profiles <xref target="profiles"/> providing different levels of
+assurance of privacy: an opportunistic privacy profile and a pre-deployed profile. 
+</t>
+      <section title="Reserved Words">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in <xref
+        target="RFC2119">RFC 2119</xref>.</t>
+      </section>
+
+  </section>
+	
+
+<section anchor="protocol_changes" title="Protocol Changes">
+  <t>
+    The only changes required for port-based DNS-over-TLS
+    are those optimizing TCP and TLS performance discussed in 
+    the following.  The DNS protocol itself is unchanged.
+  </t>
+  <t>
+      DISCUSSION: Draft authors seek input from the working group 
+      regarding the need for both port- and upgrade-based approaches.
+      Removing the upgrade-based technique would simplify this
+      document and implementations.  However, there may perhaps
+      be situations where the upgrade-based technique works
+      (over port 53) that a port-based technique would not work
+      (i.e., due to aggressive port blocking by firewalls).
+  </t>
+  <t>
+    Clients and servers negotiate upgrade-based DNS-over-TLS
+    by setting a bit in the Flags field of the
+    EDNS0 <xref target="RFC6891"/> OPT meta-RR.  The "TLS OK"
+    (TO) bit is defined as the second bit of the third and fourth
+    bytes of the "extended RCODE and flags" portion of the EDNS0
+    OPT meta-RR, immediately adjacent to the "DNSSEC OK" (DO) bit
+    <xref target="RFC4033"/>:
+    <figure>
+    <artwork><![CDATA[
+                  +0 (MSB)                +1 (LSB)
+           +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+        0: |   EXTENDED-RCODE      |       VERSION         |
+           +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+        2: |DO|TO|                  Z                      |
+           +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    ]]></artwork>
+    </figure>
+  </t>
+
+<section anchor="client_use" title="Use by DNS Clients">
+
+  <t>
+    DNS clients first try port-based DNS-over-TLS. If that connection fails, they try
+    upgrade-based DNS-over-TLS.
+  </t>
+
+ <section anchor="client_port_based" title="Port-Based DNS-over-TLS for Clients">
+     <t> 
+        DNS clients SHOULD first try using port-based DNS-over-TLS by establishing the
+        TCP connection to the dedicated port TBD (number to be defined in <xref target="IANA"/>).
+        Clients MAY try STARTTLS upgrade before the dedicated port
+        if there is information that this ordering is preferred.
+        It SHOULD be an implementation and/or local determination as to whether to
+        attempt TLS via the dedicated port first and then fall back to
+        STARTTLS use, or to choose some other order of attempts and
+        fallbacks.
+    </t>
+ </section>
+
+ <section anchor="client_queries" title="Sending Queries for Upgrade-Based DNS-over-TLS">
+
+  <t>
+    Setting the TO bit in queries sent using UDP transport has no protocol meaning.  However,
+    the client MAY set the TO bit when using UDP transport. The server MUST ignore the TO bit
+    when receiving UDP transport.
+  </t>
+  <!-- Document authors are willing to remove/change the above "UDP client MAY set TO=1"
+       if the working group decides it is a bad idea. -->
+  <t>
+    DNS clients set the TO bit in the initial query sent to a
+    server using TCP transport to signal their desire that the
+    TCP connection be upgraded to TLS.  DNS clients SHOULD NOT set
+    the TO bit on queries when using TLS transport
+	because doing so has no meaning in this protocol.
+  </t>
+  <t>
+    Since the motivation for upgrade-based DNS-over-TLS is to preserve privacy,
+    DNS clients SHOULD use an initial (unprotected) query that reveals no private
+    information in the initial TO=1
+    query to a server.
+    To provide a standard "dummy" query,
+    it is RECOMMENDED to send the initial query
+    with RD=0, QNAME="STARTTLS", QCLASS=CH, and QTYPE=TXT
+    ("STARTTLS/CH/TXT") analogous to administrative queries already
+    in widespread use <xref target="RFC4892"/>.
+    (For some profiles, the client MUST use a dummy query for the initial query.)
+  </t>
+  <t>
+    After sending the initial TO=1 query using TCP transport, DNS
+    clients MUST wait for the initial response before sending any
+    subsequent queries over the same TCP connection.
+  </t>
+ </section>
+ <section anchor="client_responses" title="Receiving Responses for Upgrade-Based DNS-over-TLS">
+  <t>
+   A DNS client that receives a response using UDP transport that
+   has the TO bit set handles that response as usual.
+	It MAY record the server's support for DNS-over-TLS
+   and use that information as part of its server selection algorithm
+   in the case where multiple servers are available to service a
+   particular query.
+  </t>
+  <t>
+    A DNS client that receives a response to its initial query using
+    TCP transport that has the TO bit clear MUST NOT initiate a TLS
+    handshake and MAY utilize the existing TCP connection
+    for subsequent (unencrypted) queries.  DNS clients SHOULD remember server IP
+    addresses that don't support upgrade-based DNS-over-TLS, including TLS handshake
+    failures, and not request DNS-over-TLS from them for
+	a reasonable period (such as one hour per server).
+  </t>
+  <t>
+   A DNS client that has sent the TO bit using TCP transport and receives a response
+   to its initial query that has the TO bit set MUST immediately initiate
+   a TLS handshake using the procedure described in <xref
+   target="RFC5246"/>.
+   If the TLS handshake does not succeed, the client MUST close the
+   connection and treat the server as described above for future
+   queries.
+  </t>
+ </section>
+
+<section anchor="server_use" title="Use by DNS Servers">
+  <t>
+    A DNS server that supports DNS-over-TLS SHOULD support port-based DNS-over-TLS, and SHOULD
+    support upgrade-based DNS-over-TLS.
+  </t>
+
+ <section anchor="server_queries" title="Receiving Queries for Upgrade-Based DNS-over-TLS ">
+  <t>
+    A DNS server receiving a query over UDP with the TO bit ignores that bit.
+    A DNS server receiving a query over an existing TLS connection with the TO bit ignores that bit.
+  </t>
+  <t>
+    A DNS server receiving an initial query over TCP that has the TO
+    bit set MAY inform the client it is willing to establish a TLS
+    session, as described in the next section.
+  </t>
+  <t>
+    A DNS server receiving subsequent queries over TCP MUST ignore the TO bit.
+	(A client wishing to start TLS after the initial query
+	MUST open a new TCP connection to do so.)
+  </t>
+ </section>
+ <section anchor="server_responses" title="Sending Responses">
+  <t>
+    A DNS server sending a response over UDP to a query that had an OPT meta-RR SHOULD set the TO bit
+    to indicate its general support for DNS-over-TLS, as long as
+    it is willing and able to support a TLS connection with the
+    particular client.
+  </t>
+  <t>
+    A DNS server receiving an initial query over TCP that has the TO
+    bit set MAY set the TO bit in its response. 
+	The server MUST then proceed with the TLS handshake protocol.
+  </t>
+  <t>
+    A DNS server receiving a "dummy" STARTTLS/CH/TXT query over TCP
+    MUST respond with RCODE=0 and a TXT RR in
+    the Answer section.
+    Contents of the TXT RR are strictly informative (for humans) and MUST NOT
+    be interpreted by the client software.
+    Recommended TXT RDATA values are "STARTTLS" or "NO_TLS".
+  </t>
+ </section>
+</section>
+
+<section anchor="established" title="Established Sessions">
+  <t>
+    After TLS negotiation completes, the connection will be encrypted
+    and is now protected
+    from eavesdropping. At this point, normal DNS queries SHOULD take place.
+    All messages (requests and responses) in the established TLS session
+    MUST use the two-octet length field described in Section 4.2.2 of
+    <xref target="RFC1035"/>.
+    For reasons of efficiency, DNS clients and servers SHOULD
+    transmit the request in a single TCP segment (<xref
+    target="I-D.ietf-dnsop-5966bis"/>, Section 8).
+  </t>
+  <t>
+    For DNS clients that use library functions such as "gethostbyname()",
+    current implementations are known to open and close UDP connections each DNS
+    call.  To avoid many TCP connections, each with a single query,
+    clients SHOULD reuse a single TCP connection to the
+    recursive resolver.  Alternatively they may prefer to use UDP
+    to a DNS-over-TLS enabled caching resolver on the same machine
+    that then uses a system-wide TCP connection to the recursive
+    resolver.
+  </t>
+  <t>
+    In order to amortize TCP and TLS connetion setup costs, clients
+    and servers SHOULD NOT immediately close a connection after
+    each response.  Instead, clients and servers SHOULD reuse
+    existing connections for subsequent queries as long as they
+    have sufficient resources.  In some cases, this means that
+    clients and servers may need to keep idle connections open for
+    some amount of time.
+  </t>
+  <t>
+    Proper management of established and idle connections is important
+    to the healthy operation of a DNS server.  An implementor of
+    DNS-over-TLS SHOULD follow best practices for DNS-over-TCP, as
+    described in <xref target="I-D.ietf-dnsop-5966bis"/>.  Failure
+    to do so may lead to resource exhaustion and denial-of-service.
+  </t>
+  <t>
+    Whereas client and server implementations from the <xref
+    target="RFC1035"/> era are known to have poor TCP connection
+    management, this document stipulates that successful negotation
+    of TLS indicates the willingness of both parties to keep idle
+    DNS connections open, independent of timeouts or other
+    recommendations for DNS-over-TCP without TLS.  In other words,
+    software implemeting this protocol is assumed to support idle,
+    persistent connections and to have good connection management.
+  </t>
+  <t>
+    This document does not make specific recommendations for timeout
+    values on idle connections.  Clients and servers should reuse
+    and/or close connections depending on the level of available
+    resources.  Timeouts may be longer during periods of low activity
+    and shorter during periods of high activity.  Current work in
+    this area may also assist DNS-over-TLS clients and servers
+    select useful timeout values <xref
+    target="draft-wouters-edns-tcp-keepalive"/> <xref target="tdns"/>.
+  </t>
+  <t>
+    Clients and servers that keep idle connections open MUST be	
+    robust to termination of idle connection by either party.  As
+    with current DNS-over-TCP, DNS servers MAY close the connection
+    at any time (e.g., due to resource constraints).  As with current
+    DNS-over-TCP, clients MUST handle abrupt closes and be prepared
+    to reestablish connections and/or retry queries.
+  </t>
+  <t>
+    When closing a connection, DNS servers SHOULD use the TLS
+    close-notify request to shift TCP TIME-WAIT state to the clients.
+    Additional requirements and guidance for optimizing DNS-over-TCP
+    are provided by <xref target="RFC5966"/>, <xref
+    target="I-D.ietf-dnsop-5966bis"/>.  As discussed in <xref
+    target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
+    target="RFC7413"/> is of benefit.
+  </t>
+
+</section>
+
+
+
+</section>
+
+<section anchor="downgrade" title="Downgrade Attacks and Middleboxes">
+  <t>
+    Middleboxes <xref target="RFC3234"/> may be present in some
+    networks and have been known to interfere with normal DNS resolution and create
+    problems for DNS-over-TLS.
+    Remarkably, downgrade attacks can affect plaintext protocols that utilize
+    "STARTTLS" signaling in a similar way.
+    A DNS client attempting upgrade-based DNS-over-TLS
+    through a middlebox, or in the presence of a downgrade attack, could have one of the following outcomes.
+    (These outcomes are similar to those discussed in prior RFCs, such as <xref target="RFC3207"/>.)
+
+    <list style="symbols">
+      <t>
+        The DNS client sends a TO=1 query and receives a TO=0 response.  In this
+        case there is no upgrade to TLS and DNS resolution occurs normally, without
+        encryption.
+      </t>
+      <t>
+        The DNS client sends a TO=1 query and receives a TO=1 response,
+	but the middlebox does not understand the TLS negotiation
+	and does not allow the TLS handshake packets to pass.
+	Clients SHOULD retry DNS without TO set if negotiation fails,
+  and then retry with TLS after a reasonable period (see <xref target="client_responses"/>).
+      </t>
+      <t>
+        The DNS client sends a TO=1 query but receives no response
+        at all.  The middlebox might be silently dropping the query
+	due to the presence of the TO bit, when it should, in fact,
+        ignore and pass through unknown flag bits <xref target="RFC6891"/>.
+        The client SHOULD fall back
+        to normal (unencrypted) DNS for a reasonable period (as discussed in <xref target="client_responses"/>).
+      </t>
+    </list>
+  In general, clients that attempt TLS and fail
+	can either fall back on unencrypted DNS,
+	or wait and retry later,
+	depending on their privacy requirements.
+  </t>
+</section>
+</section>
+
+<section anchor="profiles" title="Usage Profiles">
+  <t>
+    This protocol provides flexibility to accommodate several different use cases.
+    Two usage profiles are defined here to identify specific
+    design points in performance and privacy.
+    Other profiles are possible but are outside the scope of this document.
+  </t>
+
+  <section title="Opportunistic Privacy Profile">
+    <t>
+      For opportunistic privacy, analogous to
+      SMTP opportunistic encryption 
+      <xref target="RFC7435"/>
+      one desires privacy when possible,
+      but does not require it.
+    </t>
+    <t>
+      With opportunistic privacy, a client might acquire a recursive DNS resolver
+      from an untrusted source (such as DHCP while roaming),
+      it might or might not validate the TLS certificate,
+      and it might not use a dummy value for the initial query.
+      These choices maximize availability and performance,
+      but they are vulnerable to on-path attacks.
+    </t>
+    <t>
+      Opportunistic privacy can be used by any current client,
+      but it only provides privacy when there are no on-path active attackers.
+    </t>
+  </section>
+
+  <section title="Pre-Deployed Profile">
+    <t>
+      For pre-deployed privacy,
+      the DNS client has one or more trusted
+      recursive DNS providers.
+      This profile provides strong privacy guarantees to the user.
+    </t>
+    <t>
+      With pre-deployed privacy, a client
+      retains a copy of the TLS certificate (and/or other authentication
+      credentials as appropriate) and IP address
+      of each provider.
+      The client will only use one of those DNS providers.
+      Because it has a pre-deployed TLS certificate,
+      it may detect person-in-the-middle and downgrade attacks.
+    </t>
+
+    <t>
+      With pre-deployed privacy, the DNS client MUST signal to the user
+      when none of the designated DNS servers are available, and MUST NOT
+      provide DNS service until one of the designated DNS servers becomes available.
+    </t>
+    <t>
+      The designated DNS provider may be temporarily unavailable
+      when configuring a network.
+      For example, for clients on networks that require
+      authentication through web-based login, such authentication
+      may require DNS interception and spoofing.
+      Techniques such as those used by DNSSEC-trigger <xref target="dnssec-trigger"/>
+      MAY be used during network configuration,
+      with the intent to transition to the designated DNS provider
+      after authentication.
+      The user MUST be alerted that the DNS is not private during such
+      bootstrap.
+    </t>
+    <t>
+	Methods for pre-deployment of the designated DNS provider are
+	outside the scope of this document.
+	In corporate settings, such information may be provided at system installation.
+	Use of multiple public DNS providers suggests that end users are able to
+	configure DNS by hand.
+     </t>
+  </section>
+</section>
+
+<section anchor="Performance" title="Performance Considerations">
+  <t>
+  DNS-over-TLS incurs additional latency at session startup.  It also requires
+  additional state (memory) and increased processing (CPU).
+  <list style="numbers">
+	<t>
+  Latency:
+  Compared to UDP, DNS-over-TCP requires an additional round-trip-time (RTT) of
+  latency to establish the connection.  The TLS handshake adds another two
+  RTTs of latency.
+  Clients and servers should support connection keepalive (reuse) and out-of-order processing to amortize connection setup costs.
+  Moreover, TLS connection resumption can further reduce the setup delay.
+  DNS servers SHOULD enable fast TLS session resumption <xref target="RFC5077"/>
+  to avoid keeping per-client session state.
+  TLS False Start <xref target="draft-tls-falsestart"/> can also lead to a latency
+  reduction in certain situations.
+	</t>
+	<t>
+  State:
+  The use of connection-oriented TCP requires keeping additional state in both
+  kernels and applications.  TLS has marginal increases in state over TCP alone.
+  The state requirements are of particular concerns on servers with many clients.
+  Smaller timeout values will reduce the number of concurrent connections,
+	and servers can preemptively close connections when resources limits are exceeded.
+	</t>
+	<t>
+  Processing:
+  Use of TLS encryption algorithms results in slightly higher CPU usage.  Servers can
+  choose to refuse new DNS-over-TCP clients if processing limits are exceeded.
+        </t>
+	<t>
+	  Number of connections:
+	  To minimize state on DNS servers and connection startup time,
+	  clients SHOULD
+	  minimize creation of new TCP connections.
+	  Use of a local DNS request aggregator
+	  (a particular type of forwarder)
+	  allows a single active DNS-over-TLS
+	  connection from any given client computer to its server.
+	  Additional guidance can be found in <xref target="I-D.ietf-dnsop-5966bis"/>.
+	</t>
+
+  </list>
+	A full performance evaluation is outside the scope of this specification.
+  A more detailed analysis of the performance implications
+  of DNS-over-TLS (and DNS-over-TCP)
+  is discussed in a technical report <xref target="tdns"/>
+  and <xref target="I-D.ietf-dnsop-5966bis"/>.
+  </t>
+
+</section>
+
+
+<section anchor="IANA" title="IANA Considerations">
+  <t>
+    This document defines a new bit ("TO") in the Flags field of the EDNS0 OPT meta-RR.
+   At the time
+   of approval of this draft in the standards track, as per the IANA 
+   Considerations of RFC 6891, IANA is requested to reserve the second 
+   leftmost bit of the flags as the TO bit, immediately adjacent to the DNSSEC DO bit,
+   as shown in <xref target="protocol_changes"/>.
+  </t>
+
+  <t>
+      IANA is requested add the following value to the "Service Name and
+      Transport Protocol Port Number Registry" registry.  That registry is
+      populated by expert review  <xref target="RFC6335" />, and such a review will be requested if
+      this document progresses. 
+
+    <figure>
+    <artwork><![CDATA[
+    Service Name            DNS-over-TLS
+    Transport Protocol(s)   TCP
+    Assignee                IESG
+    Contact                 TBD
+    Description             DNS query-response protocol run over TLS
+    Reference               This document
+    ]]></artwork>
+    </figure>
+
+      </t>
+
+</section>
+
+<section anchor="Implementation" title="Implementation Status">
+  <t>
+    [Note to RFC Editor: please remove this section and reference to
+    RFC 6982 prior to publication.]
+  </t>
+  <t>
+    This section records the status of known implementations of the
+    protocol defined by this specification at the time of posting
+    of this Internet-Draft, and is based on a proposal described
+    in RFC 6982.  The description of implementations in this section
+    is intended to assist the IETF in its decision processes in
+    progressing drafts to RFCs.  Please note that the listing of
+    any individual implementation here does not imply endorsement
+    by the IETF.  Furthermore, no effort has been spent to verify
+    the information presented here that was supplied by IETF
+    contributors.  This is not intended as, and must not be construed
+    to be, a catalog of available implementations or their features.
+    Readers are advised to note that other implementations may
+    exist.
+  </t>
+  <t>
+    According to RFC 6982, "this will allow reviewers and working
+    groups to assign due consideration to documents that have the
+    benefit of running code, which may serve as evidence of valuable
+    experimentation and feedback that have made the implemented
+    protocols more mature.  It is up to the individual working
+    groups to use this information as they see fit".
+  </t>
+  <section title="Unbound">
+    <t>
+      The Unbound recursive name server software added support for port-based
+      DNS-over-TLS in version 1.4.14.  The unbound.conf configuration file
+      has the following configuration directives: ssl-port, ssl-service-key,
+      ssl-service-pem, ssl-upstream.  See https://unbound.net/documentation/unbound.conf.html.
+    </t>
+    <t>
+      Sinodun Internet Technologies has implemented
+      upgrade-based DNS-over-TLS in Unbound-1.5.1 (patch available
+      at
+      https://portal.sinodun.com/stash/projects/TDNS/repos/dns-over-tls_patches/browse)
+      for both stub-to-recursive and recursive-to-authoritative.
+    </t>
+  </section>
+  <section title="ldns">
+    <t>
+      Sinodun Internet Technologies has implemented
+      both upgrade-based and port-based DNS-over-TLS in the ldns library
+      from NLnetLabs.  This also gives DNS-over-TLS support to the
+      drill DNS client program.
+      Patches available at https://portal.sinodun.com/stash/projects/TDNS/repos/dns-over-tls_patches/browse.
+    </t>
+  </section>
+  <section title="digit">
+    <t>
+      The digit DNS client from USC/ISI supports both port- and upgrade-based DNS-over-TLS.
+      Source code available at http://www.isi.edu/ant/software/tdns/index.html.
+    </t>
+  </section>
+  <section title="getdns">
+    <t>
+      The getdns API implementation supports both port- and upgrade-based DNS-over-TLS.
+      Upgrade-based operation requires linking getdns with a patched version of libunbound.
+      Source code available at https://getdnsapi.net.
+    </t>
+  </section>
+</section>
+
+<section anchor="Security" title="Security Considerations">
+  <t>
+    Use of TLS for DNS addresses is designed to address the privacy
+    risks arise
+    because DNS queries may be eavesdropped upon.
+    It does not address other security issues in DNS,
+    and there are a number of residual risks that may affect its success
+    at protecting privacy:
+
+	  <list style="numbers">
+	<t>
+    There are known attacks on TLS, such as person-in-the-middle and
+    protocol downgrade.
+    These are general attacks on TLS and not specific to DNS-over-TLS;
+    please refer to the TLS RFCs for discussion of these security issues.
+	</t>
+    <t>
+   Any protocol interactions prior to the TLS handshake are performed in
+   the clear and can be modified by a man-in-the-middle attacker.  For
+   this reason, clients MAY discard cached information about server
+   capabilities advertised prior to the start of the TLS handshake.
+    </t>
+
+    <t>
+	As with other uses of STARTTLS-upgrade to TLS, the
+	  mechanism specified here is susceptible to downgrade attacks,
+	where a person-in-the-middle prevents a successful TLS upgrade.
+	Keeping track of servers known to support TLS (i.e., "pinning")
+	enables clients to detect downgrade attacks.
+	For servers with no connection history, 
+  	clients may choose to refuse non-TLS DNS,
+	or they may continue without TLS,
+	depending on their privacy requirements.
+    </t>
+
+    <t>
+      This document does not propose new ideas to provide resistance
+      to known traffic analysis techniques.  Even with encrypted
+      messages, a well-positioned party may be able to glean certain
+      details from an analysis of message timings and sizes.
+    </t>
+
+<t>
+  This document does not propose new ideas for certificate authentication
+     for TLS in the context of DNS.
+  Several external methods are possible, although each has weaknesses.
+  The current Certificate Authority infrastructure <xref target="RFC5280"/>
+  is used by HTTP/TLS <xref target="RFC2818"/>.
+  With many trusted CAs, this approach has recognized weaknesses <xref target="CA_Compromise"/>.
+  Some work is underway to partially address these concerns (for example,
+  with certificate pinning <xref target="certificate_pinning"/>,
+	but more work is needed.
+  DANE <xref target="RFC6698"/> provides mechanisms to root certificate trust
+	with DNSSEC.
+  That use here must be carefully evaluated to address potential issues in
+	trust recursion.
+  For stub-to-recursive resolver use,
+	certificate authentication is sometimes either easy or nearly impossible.
+  If the recursive resolver is manually configured, its certificate
+	can be authenticated when it is configured.
+  If the recursive resolver is automatically configured (such as with DHCP <xref target="RFC2131"/>),
+	it could use DHCP authentication mechanisms <xref target="RFC3118"/>).
+</t>
+
+
+	  </list>
+</t>
+<t>
+	Ongoing discussion and development of opportunistic TLS
+	 (connections without CA validation, <xref target="RFC7435"/>)
+	may be relevant to DNS-over-TLS. 
+</t>
+
+</section>
+
+
+
+<section anchor="Acknowledgments" title="Acknowledgments">
+  <t>
+	The authors would like to thank Stephane Bortzmeyer, Brian Haberman, 
+	Kim-Minh Kaplan, Bill Manning, George Michaelson, Eric Osterweil, Glen Wiley,
+	John Dickinson, Sara Dickinson, and Daniel Kahn Gillmor
+	for reviewing this Internet-draft,
+	and Nikita Somaiya for early work on this idea.
+  </t>
+
+<t>
+  Work by Zi Hu, Liang Zhu, and John Heidemann in this paper
+  is partially sponsored by the U.S. Dept. of
+  Homeland Security (DHS) Science and Technology Directorate, 
+  HSARPA,
+  Cyber Security Division,
+  BAA 11-01-RIKA and Air Force Research
+  Laboratory, Information Directorate under agreement number
+  FA8750-12-2-0344, and contract number D08PC75599.
+</t>
+</section>
+
+</middle> 
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+
+    <references title="Normative References">
+      &RFC2119;
+      &RFC1034;
+      &RFC1035;
+      &RFC5246;
+      &RFC6891;
+      &RFC5077;
+      &RFC6335;
+      &RFC5966;
+    </references>
+
+    <references title="Informative References">
+    &RFC1939;
+    &RFC2131;
+    &RFC2595;
+    &RFC2818;
+    &RFC3118;
+    &RFC3207;
+    &RFC3234;
+    &RFC3501;
+    &RFC4033;
+    &RFC4892;
+    &RFC5280;
+    &RFC6698;
+    &RFC7258;
+    &RFC7413;
+    &RFC7435;
+
+    <reference anchor='I-D.ietf-dnsop-5966bis'>
+        <front>
+            <title>DNS Transport over TCP - Implementation Requirements</title>
+            <author initials='J' surname='Dickinson' fullname='John Dickinson'>
+                <organization />
+            </author>
+            <author initials='R' surname='Bellis' fullname='Ray Bellis'>
+                <organization />
+            </author>
+            <author initials='A' surname='Mankin' fullname='Allison Mankin'>
+                <organization />
+            </author>
+            <author initials='D' surname='Wessels' fullname='Duane Wessels'>
+                <organization />
+            </author>
+            <date month='December' day='4' year='2014' />
+        </front>
+        <seriesInfo name='Internet-Draft' value='draft-ietf-dnsop-5966bis-01' />
+        <format type='TXT'
+            target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-01.txt' />
+    </reference>
+
+    <reference anchor='I-D.ietf-dprive-problem-statement'>
+	<front>
+	  <title>DNS privacy considerations</title>
+	  <author initials='S' surname='Bortzmeyer' fullname='Stephane Bortzmeyer'>
+	    <organization />
+	  </author>
+	  <date month='October' day='26' year='2014' />
+	</front>
+
+	<seriesInfo name='Internet-Draft' value='draft-ietf-dprive-problem-statement-06' />
+	<format type='TXT'
+		target='http://www.ietf.org/internet-drafts/draft-ietf-dprive-problem-statement-06.txt' />
+      </reference>
+
+    <reference anchor="draft-osterweil-dane-ipsec" target="http://tools.ietf.org/html/draft-osterweil-dane-ipsec-00">
+    <front>
+    <title>Opportunistic Encryption with DANE Semantics and IPsec: IPSECA</title>
+    <author initials="E." surname="Osterweil" fullname="Eric Osterweil">
+    <organization abbrev="VeriSign">VeriSign, Inc</organization>
+    <address></address>
+    </author>
+    <author initials="G." surname="Wiley" fullname="Glen Wiley">
+    <organization abbrev="VeriSign">VeriSign, Inc</organization>
+    <address></address>
+    </author>
+    <author initials="D." surname="Mitchell" fullname="Dave Mitchell">
+    <organization abbrev="Twitter">Twitter</organization>
+    <address></address>
+    </author>
+    <author initials="A" surname="Newton" fullname="Andrew Newton">
+    <organization abbrev="ARIN">American Registry for Internet Numbers</organization>
+    <address></address>
+    </author>
+    <date month="February" year="2014" />
+    </front>
+    <seriesInfo name="Internet-Draft" value="draft-osterweil-dane-ipsec-00"/>
+    </reference>
+
+    <reference anchor="unbound" target="http://unbound.net/">
+    <front>
+    <title>Unbound</title>
+    <author>
+    <organization abbrev="NLnet_Verisign">NLnet Labs, Verisign labs</organization>
+    <address></address>
+    </author>
+    <date month="December" year="2013" />
+    </front>
+    </reference>
+
+    <reference anchor="dnssec-trigger" target="https://www.nlnetlabs.nl/projects/dnssec-trigger/">
+    <front>
+    <title>Dnssec-Trigger</title>
+    <author>
+    <organization abbrev="NLnet">NLnet Labs</organization>
+    <address></address>
+    </author>
+    <date month="May" year="2014" />
+    </front>
+    </reference>
+
+    <reference anchor="draft-dempsky-dnscurve" target="http://tools.ietf.org/html/draft-dempsky-dnscurve-01">
+    <front>
+    <title>DNSCurve</title>
+    <author initials="M." surname="Dempsky" fullname="Matthew Dempsky">
+    <organization abbrev="OpenDNS">OpenDNS, INC.</organization>
+    <address></address>
+    </author>
+    <date month="August" year="2010" />
+    </front>
+    <seriesInfo name="Internet-Draft" value="draft-dempsky-dnscurve-01" />
+    </reference>
+
+    <reference anchor="CA_Compromise" target="http://www.infosecisland.com/blogview/19782-Web-Authentication-A-Broken-Trust-with-No-Easy-Fix.html">
+    <front>
+    <title>CA Compromise</title>
+    <author>
+    <organization abbrev="Infosec">Infosec Island Admin</organization>
+    <address></address>
+    </author>
+    <date month="January" year="2012" />
+    </front>
+    </reference>
+
+    <!-- reference anchor="crime-attack" target="https://community.qualys.com/blogs/securitylabs/2012/09/14/crime-information-leakage-attack-against-ssltls">
+    <front>
+    <title>The CRIME attack against TLS</title>
+    <author initials="J." surname="Rizzo" fullname="Juliano Rizzo">
+    <address/>
+    </author>
+    <author initials="T." surname="Duong" fullname="Thai Duong">
+    <address/>
+    </author>
+    <date month="September" year="2012" />
+    </front>
+    </reference -->
+
+    <reference anchor="certificate_pinning" target="https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning">
+    <front>
+    <title>Certificate and Public Key Pinning</title>
+    <author>
+    <organization abbrev="OWASP">OWASP</organization>
+    <address></address>
+    </author>
+    <date year="2014" />  <!-- Needed for xml2rfcv2 processing -->
+    </front>
+    </reference>
+
+    <reference anchor="draft-wijngaards-confidentialdns" target="http://tools.ietf.org/html/draft-wijngaards-dnsop-confidentialdns-03">
+    <front>
+    <title>Confidential DNS</title>
+    <author initials="W." surname="Wijngaards" fullname="Wouter Wijngaards">
+    <organization abbrev="NLnet Labs">NLnet Labs</organization>
+    <address></address>
+    </author>
+    <date month="November" year="2013" />
+    </front>
+    <seriesInfo name="Internet-Draft" value="draft-wijngaards-dnsop-confidentialdns-03" />
+    </reference>
+
+    <reference anchor="draft-wouters-edns-tcp-keepalive" target="http://tools.ietf.org/html/draft-wouters-edns-tcp-keepalive-00">
+      <front>
+        <title>The edns-tcp-keepalive EDNS0 Option</title>
+        <author initials="P." surname="Wouters" fullname="Paul Wouters">
+          <organization abbrev="Red Hat">Red Hat</organization>
+          <address></address>
+        </author>
+        <author initials="J." surname="Abley" fullname="Joe Abley">
+          <organization abbrev="Dyn Inc.">Dyn Inc.</organization>
+          <address></address>
+        </author>
+        <date month="October" year="2013" />
+      </front>
+      <seriesInfo name="Internet-Draft" value="draft-wouters-edns-tcp-keepalive-00" />
+    </reference>
+
+    <reference anchor="tdns" target="Technical report, ISI-TR-688, ftp://ftp.isi.edu/isi-pubs/tr-688.pdf">
+    <front>
+    <title>T-DNS: Connection-Oriented DNS to Improve Privacy and Security</title>
+    <author initials="L." surname="Zhu" fullname="Liang Zhu"/>
+    <author initials="Z." surname="Hu" fullname="Zi Hu"/>
+    <author initials="J." surname="Heidemann" fullname="John Heidemann"/>
+    <author initials="D." surname="Wessels" fullname="Duane Wessels"/>
+    <author initials="A." surname="Mankin" fullname="Allison Mankin"/>
+    <author initials="N." surname="Somaiya" fullname="Nikita Somaiya"/>
+    <date month="February" year="2014" />
+    </front>
+    <seriesInfo name="Technical report" value="ISI-TR-688" />
+    </reference>
+
+    <reference anchor="draft-tls-falsestart" target="http://tools.ietf.org/html/draft-bmoeller-tls-falsestart-01">
+      <front>
+        <title>Transport Layer Security (TLS) False Start</title>
+        <author initials="B." surname="Moeller" fullname="Bodo Moeller">
+          <organization abbrev="Google">Google Switzerland GmbH</organization>
+          <address></address>
+        </author>
+        <author initials="A." surname="Langley" fullname="Adam Langley">
+          <organization abbrev="Google">Google Inc.</organization>
+          <address></address>
+        </author>
+        <date month="November" year="2014" />
+      </front>
+      <seriesInfo name="Internet-Draft" value="draft-bmoeller-tls-falsestart-01" />
+    </reference>
+
+    </references>
+
+  </back>
+</rfc>
+
+<!-- LocalWords:  Rey McClintock RTH subdomain scalable johnh DNSEXT TXT
+-->
+<!-- LocalWords:  ns Vixie subdomains RRs querier's DNSSEC  TLS SMTP
+-->
+<!-- LocalWords:  hostname EDNS ISC IANA wrt conf Ds Verisign Reston
+-->
+<!--  LocalWords:  Bluemont DNSCurve ConfidentialDNS IMAP IETF RCODE
+-->
+<!--  LocalWords:  QNAME QCLASS QTYPE RDATA CAs Bortzmeyer Haberman
+-->
+<!--  LocalWords:  Minh Kaplan Michaelson AFNIC NLnet Infosec OWASP
+-->
+<!--  LocalWords:  edns tcp keepalive Dyn IPSECA pre TBD fallbacks Hu
+-->
+<!--  LocalWords:  gethostbyname Stephane Osterweil Somaiya Liang Zhu
+-->
+<!--  LocalWords:  HSARPA RIKA FA8750 D08PC75599 IPsec VeriSign
+-->
