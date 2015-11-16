@@ -25,6 +25,7 @@
   <!ENTITY RFC7258 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7258.xml">
   <!ENTITY RFC7413 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7413.xml">
   <!ENTITY RFC7435 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7435.xml">
+  <!ENTITY RFC7469 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7469.xml">
   <!ENTITY RFC7525 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7525.xml">
   <!ENTITY RFC7626 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7626.xml">
   ]>
@@ -292,7 +293,7 @@
       <t>
         This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
-        privacy profile and a pre-deployed profile.
+        privacy profile and a trusted relationship privacy profile.
 	It is expected that a future document based on [TBD] will further
 	describe additional privacy profiles for DNS over both TLS and DTLS.
 	[Note to RFC Editor: informative reference for that document will
@@ -344,7 +345,7 @@
           support DNS-over-TLS, including timeouts, connection
           refusals, and TLS handshake failures, and not request
           DNS-over-TLS from them for a reasonable period (such as
-          one hour per server).  DNS clients following a pre-deployed
+          one hour per server).  DNS clients following a trusted relationship
           privacy profile MAY be more aggressive about retrying
           DNS-over-TLS connection failures.
         </t>
@@ -511,13 +512,12 @@
         </t>
       </section>
 
-      <section title="Pre-Deployed Profile">
+      <!-- section title="Pre-Deployed Profile">
         <t>
           For pre-deployed privacy, the DNS client has one or more
           trusted recursive DNS providers.  This profile provides strong
           privacy guarantees to the user.
         </t>
-        <!-- XXX DW what does 'use only use one of those DNS providers' below mean? AJM: Modified -->
         <t>
           With pre-deployed privacy, a client retains a copy of the TLS
           certificate (and/or other authentication credentials as
@@ -544,16 +544,64 @@
           DNS provider after authentication.  The user MUST be alerted
           that the DNS is not private during such bootstrap.
         </t>
-        <!-- XXX DW What does "Use of multiple ... by hand' below mean?  AJM: commented out -->
         <t>
           Methods for pre-deployment of the designated DNS provider are
           outside the scope of this document.  In corporate settings,
           such information may be provided at system installation.
-          <!-- Use
-          of public DNS providers by end users in various settings suggests that end users are
-          able to manually configure their DNS resolvers. -->
         </t>
+      </section -->
+
+      <section title="Trusted Relationship Privacy Profile">
+	<t>
+	  The trusted relationship privacy profile can be used in
+	  environments where trust already exists between DNS clients
+	  and servers (e.g., stub-to-recursive in enterprise
+	  networks).
+	  In this profile, clients authenticate servers by matching
+	  a Subject Public Key Info (SPKI) Fingerprint in an analagous
+	  manner to that described in <xref target="RFC7469"/>.
+	</t>
+	<t>
+	  With trusted relationship privacy, client administrators
+	  MUST deploy one or more SPKI Fingerprints using a secure
+	  out-of-band (i.e., non-DNS) mechanism.
+	  It is RECOMMENDED that administrators deploy at least two
+	  fingerprints at any given time in order to support
+	  certificate rollover.
+	</t>
+	<t>
+	  The client will only use DNS servers for which SPKI
+	  Fingerprints have been provided.
+	  The possession of trusted pre-deployed SPKI Fingerprints
+	  allows the client to detect person-in-the-middle and
+	  downgrade attacks.
+	</t>
+	<!-- t>
+	  DNS clients configured for trusted relationship privacy MUST
+	  authenticate the SPKI from the server certificate as follows
+	  (based on section 2.6 of <xref target="RFC7469"/>):
+	</t -->
+	<!-- t>
+	  When a client connects to a server over TLS, if the TLS connection
+	  has errors, the client MUST terminate the connection without
+	  transmitting any queries to the server.
+	</t -->
+	<!-- t>
+	  If the connection has no errors, the client MUST check the SPKI
+	  Fingerprint as soon as possible (e.g., immediately after receiving
+	  the Server Certificate message).
+	</t -->
+	<t>
+	  Upon establishing a connection, the client computes the
+	  SPKI Fingerprints for the server's certificate.  If a
+	  computed fingerprint exactly matches an out-of-band
+	  configured fingerprint, the client continues with the
+	  connection as normal.  Otherwise, the client MUST treat
+	  the SPKI validation failure as a non-recoverable error.
+	</t>
+
       </section>
+
     </section>
 
     <section anchor="Performance" title="Performance Considerations">
@@ -937,6 +985,7 @@ URI:   http://sinodun.com
                 target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-02.txt' />
       </reference>
       &RFC7120;
+      &RFC7469;
       &RFC7525;
     </references>
 
