@@ -270,7 +270,7 @@
         by some firewalls.  Clients will be expected to keep track
         of servers that support TLS and those that don't.  Clients and
         servers will adhere to the TLS implementation recommendations
-        and security considerations of <xref target="RFC7525"/>.
+        and security considerations of <xref target="RFC7525"/> or its successor.
       </t>
       <!-- XXX AJM: instead of addressing any security issues of
            TLS, I think we need to refer all generic TLS items to the TLS BCP.  
@@ -355,7 +355,7 @@
           Once the DNS client succeeds in connecting via TCP on the well-known port for
           DNS-over-TLS, it proceeds with the TLS handshake <xref target="RFC5246"/>,
 	  following
-          the best practices specified in <xref target="RFC7525"/>).
+          the best practices specified in <xref target="RFC7525"/>) or its successor.
 	</t>
 	<t>
 	  The client will then authenticate the certificate, if required.
@@ -791,7 +791,7 @@
             RFCs for discussion of these security issues.
             Clients and
             servers MUST adhere to the TLS implementation recommendations
-            and security considerations of <xref target="RFC7525"/>.
+            and security considerations of <xref target="RFC7525"/> or its successor.
             DNS clients keeping track of servers known to support TLS
             enables clients to detect downgrade attacks.
             For servers with no connection history and no apparent
