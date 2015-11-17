@@ -618,6 +618,19 @@
 	  non-recoverable error.
 	</t>
 
+        <t>
+          Note that in <xref target="RFC7469">HPKP</xref>, the client
+          verifies both the identity of the certificate and the
+          presence of a pinned SPKI in the cert chain.  In this
+          privacy profile for DNS-over-TLS, the client verifies only
+          the presence of a pinned SPKI in the cert chain.  Operators
+          of DNS-over-TLS service in this profile SHOULD provide pins
+          that are specific to the service being pinned (i.e., public
+          keys belonging directly to the end-entity or to a
+          service-specific private CA) and not to public key(s) of a
+          generic public CA.
+        </t>
+          
         <section title="Example">
           <t>
             A DNS client system is configured with an Out-of-Band
