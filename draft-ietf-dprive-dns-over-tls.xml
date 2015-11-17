@@ -567,7 +567,7 @@
 	  out-of-band (i.e., non-DNS) mechanism.
 	  It is RECOMMENDED that administrators deploy at least two
 	  fingerprints at any given time in order to support
-	  certificate rollover.
+	  key rollover.
 	</t>
 	<t>
 	  The client will only use DNS servers for which SPKI
