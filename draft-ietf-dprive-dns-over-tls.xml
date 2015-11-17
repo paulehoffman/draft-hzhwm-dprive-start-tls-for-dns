@@ -554,14 +554,17 @@
       <section title="Trusted Relationship Privacy Profile">
 	<t>
 	  The trusted relationship privacy profile can be used in
-	  environments where trust already exists between DNS clients
-	  and servers (e.g., stub-to-recursive in enterprise
-	  networks).
+	  environments where
+	  the DNS client already has a trust relationship with the server
+	  (for example, stub-to-recursive in enterprise
+	  networks, or a client using a public DNS resolver).
+	  The result of this profile is that the client has strong guarantees
+	  about the privacy of its DNS data by talking only to known servers.
+	</t>
+	<t>
 	  In this profile, clients authenticate servers by matching
 	  Subject Public Key Info (SPKI) Fingerprints in an analagous
 	  manner to that described in <xref target="RFC7469"/>.
-	</t>
-	<t>
 	  With trusted relationship privacy, client administrators
 	  MUST deploy one or more SPKI Fingerprints using a secure
 	  out-of-band (i.e., non-DNS) mechanism.
