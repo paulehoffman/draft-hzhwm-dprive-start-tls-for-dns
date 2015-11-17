@@ -356,7 +356,7 @@
           Once the DNS client succeeds in connecting via TCP on the well-known port for
           DNS-over-TLS, it proceeds with the TLS handshake <xref target="RFC5246"/>,
 	  following
-          the best practices specified in <xref target="RFC7525"/>) or its successor.
+          the best practices specified in <xref target="RFC7525"/> or its successor.
 	</t>
 	<t>
 	  The client will then authenticate the certificate, if required.

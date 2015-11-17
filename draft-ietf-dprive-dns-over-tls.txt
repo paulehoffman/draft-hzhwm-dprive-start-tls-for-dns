@@ -213,10 +213,10 @@ Internet-Draft                DNS over TLS                 November 2015
 
    Once the DNS client succeeds in connecting via TCP on the well-known
    port for DNS-over-TLS, it proceeds with the TLS handshake [RFC5246],
-   following the best practices specified in [RFC7525]) or its
-   successor.
+   following the best practices specified in [RFC7525] or its successor.
 
    The client will then authenticate the certificate, if required.  DNS-
+   over-TLS does not propose new ideas for certificate authentication.
 
 
 
@@ -225,7 +225,6 @@ Hu, et al.                Expires May 19, 2016                  [Page 4]
 Internet-Draft                DNS over TLS                 November 2015
 
 
-   over-TLS does not propose new ideas for certificate authentication.
    Depending on the privacy profile in use Section 4, the DNS client may
    choose not to require authentication of the certificate, or it may
    make use of a certificate that is part of the Certificate Authority
@@ -273,6 +272,7 @@ Internet-Draft                DNS over TLS                 November 2015
    recursive resolver.
 
    In order to amortize TCP and TLS connection setup costs, clients and
+   servers SHOULD NOT immediately close a connection after each
 
 
 
@@ -281,7 +281,6 @@ Hu, et al.                Expires May 19, 2016                  [Page 5]
 Internet-Draft                DNS over TLS                 November 2015
 
 
-   servers SHOULD NOT immediately close a connection after each
    response.  Instead, clients and servers SHOULD reuse existing
    connections for subsequent queries as long as they have sufficient
    resources.  In some cases, this means that clients and servers may
@@ -326,6 +325,7 @@ Internet-Draft                DNS over TLS                 November 2015
    notify request to shift TCP TIME-WAIT state to the clients.
    Additional requirements and guidance for optimizing DNS-over-TCP are
    provided by [RFC5966], [I-D.ietf-dnsop-5966bis].
+
 
 
 
