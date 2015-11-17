@@ -563,9 +563,9 @@
 	</t>
 	<t>
 	  With trusted relationship privacy, client administrators
-	  MUST deploy one or more SPKI Fingerprints using a secure
+	  MUST deploy two or more SPKI Fingerprints using a secure
 	  out-of-band (i.e., non-DNS) mechanism.
-	  It is RECOMMENDED that administrators deploy at least two
+	  Administrators MUST deploy at least two
 	  fingerprints at any given time in order to support
 	  key rollover.
 	</t>
