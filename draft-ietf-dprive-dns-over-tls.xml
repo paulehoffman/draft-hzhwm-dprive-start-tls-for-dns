@@ -618,6 +618,57 @@
 	  non-recoverable error.
 	</t>
 
+        <section title="Example">
+          <t>
+            A DNS client system is configured with an Out-of-Band
+            Key-Pinned privacy profile from a network service, using a
+            pinset containing two pins.  Represented in <xref
+            target="RFC7469">HPKP</xref> style, the pins are:
+            <list style="symbols">
+              <t>
+                pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
+              </t>
+              <t>
+                pin-sha256="dFSY3wdPU8L0u/8qECuz5wtlSgnorYV2f66L6GNQg6w="
+              </t>
+            </list>
+          </t>
+          <t>
+            The client also configures the IP addresses of its
+            expected DNS server, 192.0.2.3 and 192.0.2.4.
+          </t>
+          <t>
+            The client connects to 192.0.2.3 on TCP port 853 and
+            begins the TLS handshake, negotiation TLS 1.2 with a
+            diffie-hellman key exchange.  The server sends a
+            Certificate message with a list of three certificates (A,
+            B, and C), and signs the ServerKeyExchange message
+            correctly with the public key found certificate A.
+          </t>
+          <t>
+            The client now takes the SHA-256 digest of the SPKI in
+            cert A, and compares it against both pins in the pinset.
+            If either pin matches, the verification is successful; the
+            client continues with the TLS connection and can make its
+            first DNS query.
+          </t>
+          <t>
+            If neither pin matches the SPKI of cert A, the client
+            verifies that cert A is actually issued by cert B.  If it
+            is, it takes the SHA-256 digest of the SPKI in cert B and
+            compares it against both pins in the pinset.  If either
+            pin matches, the verification is successful.  Otherwise,
+            it verifes that B was issued by C, and then compares the
+            pins against the digest of C's SPKI.
+          </t>
+          <t>
+            If none of the SPKIs in the cryptographically-valid chain
+            of certs match any pin in the pinset, the client closes
+            the connection with an error, and marks the IP address as
+            failed.
+          </t>
+        </section>
+        
       </section>
 
     </section>
