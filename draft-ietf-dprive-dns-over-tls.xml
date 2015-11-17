@@ -524,7 +524,7 @@
           appropriate) and IP address of each provider.  The client
           will only use DNS servers for which this information
           has been pre-configured.  The possession of a trusted,
-          pre-deployed TLS certificate allows the client to detect person-in-the-middle
+          pre-deployed TLS certificate allows the client to detect machine-in-the-middle
           and downgrade attacks.
         </t>
         <t>
@@ -573,7 +573,7 @@
 	  The client will only use DNS servers for which SPKI
 	  Fingerprints have been provided.
 	  The possession of trusted pre-deployed SPKI Fingerprints
-	  allows the client to detect person-in-the-middle and
+	  allows the client to detect machine-in-the-middle and
 	  downgrade attacks.
 	</t>
         <t>
@@ -844,7 +844,7 @@
 
         <list style="numbers">
           <t>
-            There are known attacks on TLS, such as person-in-the-middle
+            There are known attacks on TLS, such as machine-in-the-middle
             and protocol downgrade.  These are general attacks on TLS
             and not specific to DNS-over-TLS; please refer to the TLS
             RFCs for discussion of these security issues.
@@ -872,7 +872,7 @@
 	  <!--
 	    XXX The authors debated whether or not the following
 	    paragraph belongs in the document.  On one hand,
-	    person-in-the-middle attacks are generally about data
+	    machine-in-the-middle attacks are generally about data
 	    integrity, which would be protected by DNSSEC rather
 	    than TLS.  On the other hand, it specifically calls out
 	    server capabilities, which is something that clients
@@ -880,7 +880,7 @@
 	   -->
           <t>
             Any DNS protocol interactions prior to the TLS handshake that are
-            performed in the clear can be modified by a person-in-the-middle
+            performed in the clear can be modified by a machine-in-the-middle
             attacker.  For example, unencrypted queries and responses
             might take place over port 53 between a client and server
             prior to TLS.  For this reason, clients MAY discard cached
