@@ -558,7 +558,7 @@
 	  and servers (e.g., stub-to-recursive in enterprise
 	  networks).
 	  In this profile, clients authenticate servers by matching
-	  Subject Public Key Info (SPKI) Fingerprints in an analagous
+	  Subject Public Key Info (SPKI) Fingerprints in an analogous
 	  manner to that described in <xref target="RFC7469"/>.
 	</t>
 	<t>
