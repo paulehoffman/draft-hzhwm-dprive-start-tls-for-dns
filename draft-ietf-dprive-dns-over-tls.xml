@@ -293,7 +293,7 @@
       <t>
         This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
-        privacy profile and a trusted relationship privacy profile.
+        privacy profile and an out-of-band key-pinned relationship privacy profile.
 	It is expected that a future document based on [TBD] will further
 	describe additional privacy profiles for DNS over both TLS and DTLS.
 	[Note to RFC Editor: informative reference for that document will
@@ -345,7 +345,7 @@
           support DNS-over-TLS, including timeouts, connection
           refusals, and TLS handshake failures, and not request
           DNS-over-TLS from them for a reasonable period (such as
-          one hour per server).  DNS clients following a trusted relationship
+          one hour per server).  DNS clients following an out-of-band key-pinned relationship
           privacy profile MAY be more aggressive about retrying
           DNS-over-TLS connection failures.
         </t>
@@ -524,7 +524,7 @@
           appropriate) and IP address of each provider.  The client
           will only use DNS servers for which this information
           has been pre-configured.  The possession of a trusted,
-          pre-deployed TLS certificate allows the client to detect person-in-the-middle
+          pre-deployed TLS certificate allows the client to detect machine-in-the-middle
           and downgrade attacks.
         </t>
         <t>
@@ -551,29 +551,34 @@
         </t>
       </section -->
 
-      <section title="Trusted Relationship Privacy Profile">
+      <section title="Out-of-band Key-Pinned Privacy Profile">
 	<t>
-	  The trusted relationship privacy profile can be used in
-	  environments where trust already exists between DNS clients
-	  and servers (e.g., stub-to-recursive in enterprise
-	  networks).
+	  The out-of-band key-pinned privacy profile can be used in
+	  environments where an established trust relationship already
+	  exists between DNS clients and servers (e.g.,
+	  stub-to-recursive in enterprise networks or
+	  actively-maintained contractual service relationships).
 	  In this profile, clients authenticate servers by matching
-	  Subject Public Key Info (SPKI) Fingerprints in an analagous
+	  a set of Subject Public Key Info (SPKI) Fingerprints in an analogous
 	  manner to that described in <xref target="RFC7469"/>.
 	</t>
 	<t>
-	  With trusted relationship privacy, client administrators
-	  MUST deploy one or more SPKI Fingerprints using a secure
-	  out-of-band (i.e., non-DNS) mechanism.
-	  It is RECOMMENDED that administrators deploy at least two
-	  fingerprints at any given time in order to support
-	  certificate rollover.
+	  With out-of-band key-pinned privacy, client administrators
+	  MUST deploy a pinset containing two or more pins using a
+	  secure out-of-band (i.e., non-DNS) mechanism.  This minimum
+	  pinset size is required for key rollover, so that a server
+	  operator does not have to coordinate key transitions with
+	  all its clients simultaneously.  After a change of keys on
+	  the server, an updated pinset should be distributed to all
+	  clients in some secure way in preparation for future key
+	  rollover.  The mechanism for out-of-band pinset update is
+	  out of scope for this document.
 	</t>
 	<t>
-	  The client will only use DNS servers for which SPKI
-	  Fingerprints have been provided.
-	  The possession of trusted pre-deployed SPKI Fingerprints
-	  allows the client to detect person-in-the-middle and
+	  Such a client will only use DNS servers for which an SPKI
+	  Fingerprint pinset have been provided.
+	  The possession of trusted pre-deployed pinset
+	  allows the client to detect and prevent machine-in-the-middle and
 	  downgrade attacks.
 	</t>
         <t>
@@ -603,14 +608,80 @@
 	  the Server Certificate message).
 	</t -->
 	<t>
-	  Upon successful TLS connection and handshake, the client computes the
-	  SPKI Fingerprints for the server's certificate.  If a
-	  computed fingerprint exactly matches an out-of-band
-	  configured fingerprint, the client continues with the
-	  connection as normal.  Otherwise, the client MUST treat
-	  the SPKI validation failure as a non-recoverable error.
+	  Upon successful TLS connection and handshake, the client
+	  computes the cryptographic digest for the public key found
+	  in the server's certificate (or in the raw public key, if
+	  the server provides that instead).  If a computed
+	  fingerprint exactly matches one of the configured pins
+	  client continues with the connection as normal.  Otherwise,
+	  the client MUST treat the SPKI validation failure as a
+	  non-recoverable error.
 	</t>
 
+        <t>
+          Note that in <xref target="RFC7469">HPKP</xref>, the client
+          verifies both the identity of the certificate and the
+          presence of a pinned SPKI in the cert chain.  In this
+          privacy profile for DNS-over-TLS, the client verifies only
+          the presence of a pinned SPKI in the cert chain.  Operators
+          of DNS-over-TLS service in this profile SHOULD provide pins
+          that are specific to the service being pinned (i.e., public
+          keys belonging directly to the end-entity or to a
+          service-specific private CA) and not to public key(s) of a
+          generic public CA.
+        </t>
+          
+        <section title="Example">
+          <t>
+            A DNS client system is configured with an Out-of-Band
+            Key-Pinned privacy profile from a network service, using a
+            pinset containing two pins.  Represented in <xref
+            target="RFC7469">HPKP</xref> style, the pins are:
+            <list style="symbols">
+              <t>
+                pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
+              </t>
+              <t>
+                pin-sha256="dFSY3wdPU8L0u/8qECuz5wtlSgnorYV2f66L6GNQg6w="
+              </t>
+            </list>
+          </t>
+          <t>
+            The client also configures the IP addresses of its
+            expected DNS server, 192.0.2.3 and 192.0.2.4.
+          </t>
+          <t>
+            The client connects to 192.0.2.3 on TCP port 853 and
+            begins the TLS handshake, negotiation TLS 1.2 with a
+            diffie-hellman key exchange.  The server sends a
+            Certificate message with a list of three certificates (A,
+            B, and C), and signs the ServerKeyExchange message
+            correctly with the public key found certificate A.
+          </t>
+          <t>
+            The client now takes the SHA-256 digest of the SPKI in
+            cert A, and compares it against both pins in the pinset.
+            If either pin matches, the verification is successful; the
+            client continues with the TLS connection and can make its
+            first DNS query.
+          </t>
+          <t>
+            If neither pin matches the SPKI of cert A, the client
+            verifies that cert A is actually issued by cert B.  If it
+            is, it takes the SHA-256 digest of the SPKI in cert B and
+            compares it against both pins in the pinset.  If either
+            pin matches, the verification is successful.  Otherwise,
+            it verifes that B was issued by C, and then compares the
+            pins against the digest of C's SPKI.
+          </t>
+          <t>
+            If none of the SPKIs in the cryptographically-valid chain
+            of certs match any pin in the pinset, the client closes
+            the connection with an error, and marks the IP address as
+            failed.
+          </t>
+        </section>
+        
       </section>
 
     </section>
@@ -844,7 +915,7 @@
 
         <list style="numbers">
           <t>
-            There are known attacks on TLS, such as person-in-the-middle
+            There are known attacks on TLS, such as machine-in-the-middle
             and protocol downgrade.  These are general attacks on TLS
             and not specific to DNS-over-TLS; please refer to the TLS
             RFCs for discussion of these security issues.
@@ -872,7 +943,7 @@
 	  <!--
 	    XXX The authors debated whether or not the following
 	    paragraph belongs in the document.  On one hand,
-	    person-in-the-middle attacks are generally about data
+	    machine-in-the-middle attacks are generally about data
 	    integrity, which would be protected by DNSSEC rather
 	    than TLS.  On the other hand, it specifically calls out
 	    server capabilities, which is something that clients
@@ -880,7 +951,7 @@
 	   -->
           <t>
             Any DNS protocol interactions prior to the TLS handshake that are
-            performed in the clear can be modified by a person-in-the-middle
+            performed in the clear can be modified by a machine-in-the-middle
             attacker.  For example, unencrypted queries and responses
             might take place over port 53 between a client and server
             prior to TLS.  For this reason, clients MAY discard cached
