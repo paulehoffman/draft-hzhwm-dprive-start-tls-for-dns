@@ -676,10 +676,11 @@ Internet-Draft                DNS over TLS                 November 2015
 11.  Acknowledgments
 
    The authors would like to thank Stephane Bortzmeyer, John Dickinson,
-   Daniel Kahn Gillmor, Brian Haberman, Kim-Minh Kaplan, Bill Manning,
-   George Michaelson, Eric Osterweil, and Glen Wiley for reviewing this
-   Internet-draft.  They also thank Nikita Somaiya for early work on
-   this idea.
+   Daniel Kahn Gillmor, Brian Haberman, Shumon Huque, Kim-Minh Kaplan,
+   Simon Joseffson, Simon Kelley, Warren Kumari, John Levine, Ilari
+   Liusvaara, Bill Manning, George Michaelson, Eric Osterweil, Jinmei
+   Tatuya, Tim Wicinski, and Glen Wiley for reviewing this Internet-
+   draft.  They also thank Nikita Somaiya for early work on this idea.
 
    Work by Zi Hu, Liang Zhu, and John Heidemann on this document is
    partially sponsored by the U.S. Dept. of Homeland Security (DHS)
@@ -720,7 +721,6 @@ Internet-Draft                DNS over TLS                 November 2015
    [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
               (TLS) Protocol Version 1.2", RFC 5246, DOI 10.17487/
               RFC5246, August 2008,
-              <http://www.rfc-editor.org/info/rfc5246>.
 
 
 
@@ -728,6 +728,8 @@ Hu, et al.                Expires May 22, 2016                 [Page 13]
 
 Internet-Draft                DNS over TLS                 November 2015
 
+
+              <http://www.rfc-editor.org/info/rfc5246>.
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
               Cheshire, "Internet Assigned Numbers Authority (IANA)
@@ -775,8 +777,6 @@ Internet-Draft                DNS over TLS                 November 2015
               Osterweil, E., Wiley, G., Okubo, T., Lavu, R., and A.
               Mohaisen, "Opportunistic Encryption with DANE Semantics
               and IPsec: IPSECA", draft-osterweil-dane-ipsec-03 (work in
-              progress), July 2015,
-              <http://tools.ietf.org/html/
 
 
 
@@ -785,6 +785,8 @@ Hu, et al.                Expires May 22, 2016                 [Page 14]
 Internet-Draft                DNS over TLS                 November 2015
 
 
+              progress), July 2015,
+              <http://tools.ietf.org/html/
               draft-osterweil-dane-ipsec-03>.
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, DOI 10.17487/
@@ -831,8 +833,6 @@ Internet-Draft                DNS over TLS                 November 2015
               DOI 10.17487/RFC7626, August 2015,
               <http://www.rfc-editor.org/info/rfc7626>.
 
-   [dempsky-dnscurve]
-              Dempsky, M., "DNSCurve", draft-dempsky-dnscurve-01 (work
 
 
 
@@ -841,6 +841,8 @@ Hu, et al.                Expires May 22, 2016                 [Page 15]
 Internet-Draft                DNS over TLS                 November 2015
 
 
+   [dempsky-dnscurve]
+              Dempsky, M., "DNSCurve", draft-dempsky-dnscurve-01 (work
               in progress), August 2010,
               <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
@@ -879,14 +881,12 @@ Authors' Addresses
    Email: zihu@usc.edu
 
 
-   Liang Zhu
-   USC/Information Sciences Institute
-   4676 Admiralty Way, Suite 1133
-   Marina del Rey, CA  90292
-   USA
 
-   Phone: +1 310 448-8323
-   Email: liangzhu@usc.edu
+
+
+
+
+
 
 
 
@@ -895,6 +895,16 @@ Authors' Addresses
 Hu, et al.                Expires May 22, 2016                 [Page 16]
 
 Internet-Draft                DNS over TLS                 November 2015
+
+
+   Liang Zhu
+   USC/Information Sciences Institute
+   4676 Admiralty Way, Suite 1133
+   Marina del Rey, CA  90292
+   USA
+
+   Phone: +1 310 448-8323
+   Email: liangzhu@usc.edu
 
 
    John Heidemann
@@ -929,16 +939,6 @@ Internet-Draft                DNS over TLS                 November 2015
    ICANN
 
    Email: paul.hoffman@icann.org
-
-
-
-
-
-
-
-
-
-
 
 
 
