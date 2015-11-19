@@ -4,14 +4,14 @@
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: May 19, 2016                           USC/Information Sciences
+Expires: May 22, 2016                           USC/Information Sciences
                                                                Institute
                                                                A. Mankin
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                                    ICANN
-                                                       November 16, 2015
+                                                       November 19, 2015
 
 
         DNS over TLS: Initiation and Performance Considerations
@@ -48,11 +48,11 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 19, 2016.
+   This Internet-Draft will expire on May 22, 2016.
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 1]
+Hu, et al.                Expires May 22, 2016                  [Page 1]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -95,7 +95,7 @@ Table of Contents
      8.4.  getdns . . . . . . . . . . . . . . . . . . . . . . . . . . 11
    9.  Security Considerations  . . . . . . . . . . . . . . . . . . . 11
    10. Contributing Authors . . . . . . . . . . . . . . . . . . . . . 12
-   11. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 12
+   11. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 13
    12. References . . . . . . . . . . . . . . . . . . . . . . . . . . 13
      12.1. Normative References . . . . . . . . . . . . . . . . . . . 13
      12.2. Informative References . . . . . . . . . . . . . . . . . . 14
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 2]
+Hu, et al.                Expires May 22, 2016                  [Page 2]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -164,7 +164,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 3]
+Hu, et al.                Expires May 22, 2016                  [Page 3]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -220,7 +220,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 4]
+Hu, et al.                Expires May 22, 2016                  [Page 4]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -276,7 +276,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 5]
+Hu, et al.                Expires May 22, 2016                  [Page 5]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -332,7 +332,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 6]
+Hu, et al.                Expires May 22, 2016                  [Page 6]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -363,16 +363,19 @@ Internet-Draft                DNS over TLS                 November 2015
 4.2.  Trusted Relationship Privacy Profile
 
    The trusted relationship privacy profile can be used in environments
-   where trust already exists between DNS clients and servers (e.g.,
-   stub-to-recursive in enterprise networks).  In this profile, clients
-   authenticate servers by matching Subject Public Key Info (SPKI)
-   Fingerprints in an analagous manner to that described in [RFC7469].
+   where the DNS client already has a trust relationship with the server
+   (for example, stub-to-recursive in enterprise networks, or a client
+   using a public DNS resolver).  The result of this profile is that the
+   client has strong guarantees about the privacy of its DNS data by
+   talking only to known servers.
 
-   With trusted relationship privacy, client administrators MUST deploy
-   one or more SPKI Fingerprints using a secure out-of-band (i.e., non-
-   DNS) mechanism.  It is RECOMMENDED that administrators deploy at
-   least two fingerprints at any given time in order to support
-   certificate rollover.
+   In this profile, clients authenticate servers by matching Subject
+   Public Key Info (SPKI) Fingerprints in an analagous manner to that
+   described in [RFC7469].  With trusted relationship privacy, client
+   administrators MUST deploy one or more SPKI Fingerprints using a
+   secure out-of-band (i.e., non-DNS) mechanism.  It is RECOMMENDED that
+   administrators deploy at least two fingerprints at any given time in
+   order to support certificate rollover.
 
    The client will only use DNS servers for which SPKI Fingerprints have
    been provided.  The possession of trusted pre-deployed SPKI
@@ -382,17 +385,17 @@ Internet-Draft                DNS over TLS                 November 2015
    However, a configured DNS server may be temporarily unavailable when
    configuring a network.  For example, for clients on networks that
    require authentication through web-based login, such authentication
-   may rely on DNS interception and spoofing.  Techniques such as those
-   used by DNSSEC-trigger [dnssec-trigger] MAY be used during network
-   configuration, with the intent to transition to the designated DNS
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 7]
+Hu, et al.                Expires May 22, 2016                  [Page 7]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+   may rely on DNS interception and spoofing.  Techniques such as those
+   used by DNSSEC-trigger [dnssec-trigger] MAY be used during network
+   configuration, with the intent to transition to the designated DNS
    provider after authentication.  The user MUST be alerted that the DNS
    is not private during such bootstrap.
 
@@ -438,17 +441,17 @@ Internet-Draft                DNS over TLS                 November 2015
        TCP connections.  Use of a local DNS request aggregator (a
        particular type of forwarder) allows a single active DNS-over-TLS
        connection from any given client computer to its server.
-       Additional guidance can be found in [I-D.ietf-dnsop-5966bis].
-
-   A full performance evaluation is outside the scope of this
 
 
 
-Hu, et al.                Expires May 19, 2016                  [Page 8]
+Hu, et al.                Expires May 22, 2016                  [Page 8]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+       Additional guidance can be found in [I-D.ietf-dnsop-5966bis].
+
+   A full performance evaluation is outside the scope of this
    specification.  A more detailed analysis of the performance
    implications of DNS-over-TLS (and DNS-over-TCP) is discussed in
    [tdns] and [I-D.ietf-dnsop-5966bis].
@@ -494,16 +497,16 @@ Internet-Draft                DNS over TLS                 November 2015
 
    Since we assume the client doesn't want to reveal (leak) any
    information prior to securing the channel, we proposed the use of a
-   "dummy query" that clients could send for this purpose.  The proposed
-   query name was STARTTLS, query type TXT, and query class CH.
 
 
 
-
-Hu, et al.                Expires May 19, 2016                  [Page 9]
+Hu, et al.                Expires May 22, 2016                  [Page 9]
 
 Internet-Draft                DNS over TLS                 November 2015
 
+
+   "dummy query" that clients could send for this purpose.  The proposed
+   query name was STARTTLS, query type TXT, and query class CH.
 
    The TLS OK signaling approach has both advantages and disadvantages.
    One important advantage is that clients and servers could negotiate
@@ -550,17 +553,17 @@ Internet-Draft                DNS over TLS                 November 2015
    supplied by IETF contributors.  This is not intended as, and must not
    be construed to be, a catalog of available implementations or their
    features.  Readers are advised to note that other implementations may
-   exist.
-
-   According to RFC 6982, "this will allow reviewers and working groups
 
 
 
-Hu, et al.                Expires May 19, 2016                 [Page 10]
+Hu, et al.                Expires May 22, 2016                 [Page 10]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+   exist.
+
+   According to RFC 6982, "this will allow reviewers and working groups
    to assign due consideration to documents that have the benefit of
    running code, which may serve as evidence of valuable experimentation
    and feedback that have made the implemented protocols more mature.
@@ -606,17 +609,17 @@ Internet-Draft                DNS over TLS                 November 2015
        specific to DNS-over-TLS; please refer to the TLS RFCs for
        discussion of these security issues.  Clients and servers MUST
        adhere to the TLS implementation recommendations and security
-       considerations of [RFC7525] or its successor.  DNS clients
-       keeping track of servers known to support TLS enables clients to
-       detect downgrade attacks.  For servers with no connection history
 
 
 
-Hu, et al.                Expires May 19, 2016                 [Page 11]
+Hu, et al.                Expires May 22, 2016                 [Page 11]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+       considerations of [RFC7525] or its successor.  DNS clients
+       keeping track of servers known to support TLS enables clients to
+       detect downgrade attacks.  For servers with no connection history
        and no apparent support for TLS, depending on their Privacy
        Profile and privacy requirements, clients may choose to (a) try
        another server when available, (b) continue without TLS, or (c)
@@ -661,18 +664,19 @@ Internet-Draft                DNS over TLS                 November 2015
    URI:   http://sinodun.com
 
 
-11.  Acknowledgments
-
-   The authors would like to thank Stephane Bortzmeyer, John Dickinson,
-   Daniel Kahn Gillmor, Brian Haberman, Kim-Minh Kaplan, Bill Manning,
 
 
 
-Hu, et al.                Expires May 19, 2016                 [Page 12]
+
+Hu, et al.                Expires May 22, 2016                 [Page 12]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+11.  Acknowledgments
+
+   The authors would like to thank Stephane Bortzmeyer, John Dickinson,
+   Daniel Kahn Gillmor, Brian Haberman, Kim-Minh Kaplan, Bill Manning,
    George Michaelson, Eric Osterweil, and Glen Wiley for reviewing this
    Internet-draft.  They also thank Nikita Somaiya for early work on
    this idea.
@@ -718,17 +722,16 @@ Internet-Draft                DNS over TLS                 November 2015
               RFC5246, August 2008,
               <http://www.rfc-editor.org/info/rfc5246>.
 
-   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
-              Cheshire, "Internet Assigned Numbers Authority (IANA)
-              Procedures for the Management of the Service Name and
 
 
-
-Hu, et al.                Expires May 19, 2016                 [Page 13]
+Hu, et al.                Expires May 22, 2016                 [Page 13]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+   [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
+              Cheshire, "Internet Assigned Numbers Authority (IANA)
+              Procedures for the Management of the Service Name and
               Transport Protocol Port Number Registry", BCP 165,
               RFC 6335, DOI 10.17487/RFC6335, August 2011,
               <http://www.rfc-editor.org/info/rfc6335>.
@@ -774,17 +777,17 @@ Internet-Draft                DNS over TLS                 November 2015
               and IPsec: IPSECA", draft-osterweil-dane-ipsec-03 (work in
               progress), July 2015,
               <http://tools.ietf.org/html/
-              draft-osterweil-dane-ipsec-03>.
-
-   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, DOI 10.17487/
 
 
 
-Hu, et al.                Expires May 19, 2016                 [Page 14]
+Hu, et al.                Expires May 22, 2016                 [Page 14]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+              draft-osterweil-dane-ipsec-03>.
+
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, DOI 10.17487/
               RFC2818, May 2000,
               <http://www.rfc-editor.org/info/rfc2818>.
 
@@ -830,16 +833,16 @@ Internet-Draft                DNS over TLS                 November 2015
 
    [dempsky-dnscurve]
               Dempsky, M., "DNSCurve", draft-dempsky-dnscurve-01 (work
-              in progress), August 2010,
-              <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
 
 
-
-Hu, et al.                Expires May 19, 2016                 [Page 15]
+Hu, et al.                Expires May 22, 2016                 [Page 15]
 
 Internet-Draft                DNS over TLS                 November 2015
 
+
+              in progress), August 2010,
+              <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
    [dnssec-trigger]
               NLnet Labs, "Dnssec-Trigger", May 2014,
@@ -889,10 +892,7 @@ Authors' Addresses
 
 
 
-
-
-
-Hu, et al.                Expires May 19, 2016                 [Page 16]
+Hu, et al.                Expires May 22, 2016                 [Page 16]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -948,5 +948,5 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 19, 2016                 [Page 17]
+Hu, et al.                Expires May 22, 2016                 [Page 17]
 
