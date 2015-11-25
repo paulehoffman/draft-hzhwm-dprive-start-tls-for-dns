@@ -359,16 +359,12 @@
           the best practices specified in <xref target="RFC7525"/> or its successor.
 	</t>
 	<t>
-	  The client will then authenticate the certificate, if required.
-	  DNS-over-TLS does 
-          not propose new ideas for certificate authentication.
+	  The client will then authenticate the server, if required.
+	  This document does 
+          not propose new ideas for authentication.
           Depending on the privacy profile in use <xref target="profiles"/>, the DNS client may
-          choose not to require authentication of the certificate, or it may make use of a certificate
-          that is part of the Certificate Authority infrastructure <xref target="RFC5280"/> authenticated 
-          in the manner of HTTP/TLS <xref target="RFC2818"/>.  DANE <xref target="RFC6698"/> provides 
-          mechanisms to root certificate trust with DNSSEC.
-          The DNS queries in DANE authentication of the certificate for DNS-over-TLS MAY be in the
-          clear to avoid trust recursion.
+          choose not to require authentication of the server, or it may make use of 
+          trusted a SPKI Fingerprint pinset.
         </t>
         <t>
           After TLS negotiation completes, the connection will be encrypted
@@ -500,8 +496,8 @@
         <t>
           With opportunistic privacy, a client might learn of a TLS-enabled
           recursive DNS resolver from an untrusted source (such as DHCP
-          while roaming), it might or might not validate the TLS
-          certificate.  These choices maximize availability and
+          while roaming), it might or might not validate the
+          resolver.  These choices maximize availability and
           performance, but they leave the client vulnerable to on-path attacks
 	  that remove privacy.
         </t>
