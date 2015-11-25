@@ -610,14 +610,13 @@
 	</t -->
 	<t>
 	  Upon successful TLS connection and handshake, the client
-	  computes the cryptographic digest for the public key found
-	  in the server's certificate (or in the raw public key, if
+	  computes the cryptographic digests for the public keys found
+	  in the validated server's certificate chain (or in the raw public key, if
 	  the server provides that instead).  If a computed
-	  fingerprint exactly matches one of the configured pins
-	  client continues with the connection as normal (no other checks to 
-	  verify the identity of the certificate are required).  Otherwise,
+	  fingerprint exactly matches one of the configured pins the
+	  client continues with the connection as normal.  Otherwise,
 	  the client MUST treat the SPKI validation failure as a
-	  non-recoverable error. <xref target="example"/> provides an example
+	  non-recoverable error. <xref target="example"/> provides a detailed example
 	  of how this authentication could be performed in practice.
 	</t>
         
@@ -1254,7 +1253,12 @@ URI:   http://sinodun.com
     <section title="Trusted Relationship Privacy Profile Example" anchor="example">
       <t>This section presents an example of how the Trusted Relationship
           privacy profile could work in practice based on a minimal 
-          pinset (two pins).</t>
+          pinset (two pins). Operators
+          of a DNS-over-TLS service in this profile should provide pins
+          that are specific to the service being pinned (i.e., public
+          keys belonging directly to the end-entity or to a
+          service-specific private CA) and not to public key(s) of a
+          generic public CA.</t>
       <t>
       	  A DNS client system is configured with a Trusted Relationship privacy 
       	  profile from a network service, using a
