@@ -155,13 +155,13 @@ Internet-Draft                DNS over TLS                 November 2015
    queries and responses between stub clients and recursive servers as
    well as between recursive clients and authoritative servers.
 
-   providing different levels of assurance of privacy: an opportunistic
-   privacy profile and a trusted relationship privacy profile (based on
-   an out-of-band key-pinning mechanism).  It is expected that a future
-   document based on [TBD] will further describe additional privacy
-   profiles for DNS over both TLS and DTLS.  [Note to RFC Editor:
-   informative reference for that document will be forthcoming]
-
+   This document describes two profiles in Section 4 providing different
+   levels of assurance of privacy: an opportunistic privacy profile and
+   a trusted relationship privacy profile (based on an out-of-band key-
+   pinning mechanism).  It is expected that a future document based on
+   [TBD] will further describe additional privacy profiles for DNS over
+   both TLS and DTLS.  [Note to RFC Editor: informative reference for
+   that document will be forthcoming]
 
 
 
