@@ -376,7 +376,7 @@ Internet-Draft                DNS over TLS                 November 2015
    document.
 
    Such a client will only use DNS servers for which an SPKI Fingerprint
-   pinset have been provided.  The possession of trusted pre-deployed
+   pinset has been provided.  The possession of trusted pre-deployed
    pinset allows the client to detect and prevent person-in-the-middle
    and downgrade attacks.
 
@@ -398,13 +398,13 @@ Internet-Draft                DNS over TLS                 November 2015
    is not private during such bootstrap.
 
    Upon successful TLS connection and handshake, the client computes the
-   cryptographic digests for the public keys found in the validated
-   server's certificate chain (or in the raw public key, if the server
-   provides that instead).  If a computed fingerprint exactly matches
-   one of the configured pins the client continues with the connection
-   as normal.  Otherwise, the client MUST treat the SPKI validation
-   failure as a non-recoverable error.  Appendix A provides a detailed
-   example of how this authentication could be performed in practice.
+   SPKI Fingerprints for the public keys found in the validated server's
+   certificate chain (or in the raw public key, if the server provides
+   that instead).  If a computed fingerprint exactly matches one of the
+   configured pins the client continues with the connection as normal.
+   Otherwise, the client MUST treat the SPKI validation failure as a
+   non-recoverable error.  Appendix A provides a detailed example of how
+   this authentication could be performed in practice.
 
 5.  Performance Considerations
 
