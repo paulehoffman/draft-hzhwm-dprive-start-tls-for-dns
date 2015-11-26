@@ -554,11 +554,13 @@
 	  exists between DNS clients and servers (e.g.,
 	  stub-to-recursive in enterprise networks or
 	  actively-maintained contractual service relationships).
+	  The result of this profile is that the client has strong guarantees 
+	  about the privacy of its DNS data by talking only to known servers.
+	</t>
+	<t>
 	  In this profile, clients authenticate servers by matching
 	  a set of Subject Public Key Info (SPKI) Fingerprints in an analogous
 	  manner to that described in <xref target="RFC7469"/>.
-	</t>
-	<t>
 	  With this trusted relationship privacy profile, client administrators
 	  MUST deploy a pinset containing two or more pins (specific to the
 	  service being pinned) using a
@@ -703,13 +705,13 @@
 
     <figure>
     <artwork><![CDATA[
-    Service Name            domain-s
-    Port Number             853
-    Transport Protocol(s)   TCP/UDP
-    Assignee                IETF DPRIVE Chairs
-    Contact                 Paul Hoffman
-    Description             DNS query-response protocol run over TLS/DTLS
-    Reference               This document
+    Service Name           domain-s
+    Port Number            853
+    Transport Protocol(s)  TCP/UDP
+    Assignee               IETF DPRIVE Chairs
+    Contact                Paul Hoffman
+    Description            DNS query-response protocol run over TLS/DTLS
+    Reference              This document
       ]]></artwork>
     </figure>
 
@@ -1250,7 +1252,7 @@ URI:   http://sinodun.com
       <t>This section presents an example of how the Trusted Relationship
           privacy profile could work in practice based on a minimal 
           pinset (two pins). Operators
-          of a DNS-over-TLS service in this profile should provide pins
+          of a DNS-over-TLS service in this profile are expected to provide pins
           that are specific to the service being pinned (i.e., public
           keys belonging directly to the end-entity or to a
           service-specific private CA) and not to public key(s) of a

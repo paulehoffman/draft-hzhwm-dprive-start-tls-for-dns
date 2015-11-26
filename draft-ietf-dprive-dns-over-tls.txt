@@ -5,13 +5,13 @@
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: May 28, 2016                 USC/Information Sciences Institute
+Expires: May 29, 2016                 USC/Information Sciences Institute
                                                                A. Mankin
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                                    ICANN
-                                                       November 25, 2015
+                                                       November 26, 2015
 
 
         DNS over TLS: Initiation and Performance Considerations
@@ -47,13 +47,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 28, 2016.
+   This Internet-Draft will expire on May 29, 2016.
 
 
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 1]
+Hu, et al.                Expires May 29, 2016                  [Page 1]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 2]
+Hu, et al.                Expires May 29, 2016                  [Page 2]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -165,7 +165,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 3]
+Hu, et al.                Expires May 29, 2016                  [Page 3]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -221,7 +221,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 4]
+Hu, et al.                Expires May 29, 2016                  [Page 4]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -277,7 +277,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 5]
+Hu, et al.                Expires May 29, 2016                  [Page 5]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -333,7 +333,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 6]
+Hu, et al.                Expires May 29, 2016                  [Page 6]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -359,21 +359,22 @@ Internet-Draft                DNS over TLS                 November 2015
    The trusted relationship privacy profile can be used in environments
    where an established trust relationship already exists between DNS
    clients and servers (e.g., stub-to-recursive in enterprise networks
-   or actively-maintained contractual service relationships).  In this
-   profile, clients authenticate servers by matching a set of Subject
-   Public Key Info (SPKI) Fingerprints in an analogous manner to that
-   described in [RFC7469].
+   or actively-maintained contractual service relationships).  The
+   result of this profile is that the client has strong guarantees about
+   the privacy of its DNS data by talking only to known servers.
 
-   With this trusted relationship privacy profile, client administrators
-   MUST deploy a pinset containing two or more pins (specific to the
-   service being pinned) using a secure out-of-band (i.e., non-DNS)
-   mechanism.  This minimum pinset size is required for key rollover, so
-   that a server operator does not have to coordinate key transitions
-   with all its clients simultaneously.  After a change of keys on the
-   server, an updated pinset should be distributed to all clients in
-   some secure way in preparation for future key rollover.  The
-   mechanism for out-of-band pinset update is out of scope for this
-   document.
+   In this profile, clients authenticate servers by matching a set of
+   Subject Public Key Info (SPKI) Fingerprints in an analogous manner to
+   that described in [RFC7469].  With this trusted relationship privacy
+   profile, client administrators MUST deploy a pinset containing two or
+   more pins (specific to the service being pinned) using a secure out-
+   of-band (i.e., non-DNS) mechanism.  This minimum pinset size is
+   required for key rollover, so that a server operator does not have to
+   coordinate key transitions with all its clients simultaneously.
+   After a change of keys on the server, an updated pinset should be
+   distributed to all clients in some secure way in preparation for
+   future key rollover.  The mechanism for out-of-band pinset update is
+   out of scope for this document.
 
    Such a client will only use DNS servers for which an SPKI Fingerprint
    pinset has been provided.  The possession of trusted pre-deployed
@@ -385,15 +386,15 @@ Internet-Draft                DNS over TLS                 November 2015
    require authentication through web-based login, such authentication
    may rely on DNS interception and spoofing.  Techniques such as those
    used by DNSSEC-trigger [dnssec-trigger] MAY be used during network
-   configuration, with the intent to transition to the designated DNS
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 7]
+Hu, et al.                Expires May 29, 2016                  [Page 7]
 
 Internet-Draft                DNS over TLS                 November 2015
 
 
+   configuration, with the intent to transition to the designated DNS
    provider after authentication.  The user MUST be alerted that the DNS
    is not private during such bootstrap.
 
@@ -444,8 +445,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-
-Hu, et al.                Expires May 28, 2016                  [Page 8]
+Hu, et al.                Expires May 29, 2016                  [Page 8]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -470,13 +470,13 @@ Internet-Draft                DNS over TLS                 November 2015
    IANA responded to the early allocation request with the following
    TEMPORARY assignment:
 
-    Service Name            domain-s
-    Port Number             853
-    Transport Protocol(s)   TCP/UDP
-    Assignee                IETF DPRIVE Chairs
-    Contact                 Paul Hoffman
-    Description             DNS query-response protocol run over TLS/DTLS
-    Reference               This document
+    Service Name           domain-s
+    Port Number            853
+    Transport Protocol(s)  TCP/UDP
+    Assignee               IETF DPRIVE Chairs
+    Contact                Paul Hoffman
+    Description            DNS query-response protocol run over TLS/DTLS
+    Reference              This document
 
    The TEMPORARY assignment expires 2016-10-08.  IANA is requested to
    make the assigmnent permanent upon publication of this document as an
@@ -501,7 +501,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                  [Page 9]
+Hu, et al.                Expires May 29, 2016                  [Page 9]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -557,7 +557,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 10]
+Hu, et al.                Expires May 29, 2016                 [Page 10]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -613,7 +613,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 11]
+Hu, et al.                Expires May 29, 2016                 [Page 11]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -669,7 +669,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 12]
+Hu, et al.                Expires May 29, 2016                 [Page 12]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -725,7 +725,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 13]
+Hu, et al.                Expires May 29, 2016                 [Page 13]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -781,7 +781,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 14]
+Hu, et al.                Expires May 29, 2016                 [Page 14]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -837,7 +837,7 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 15]
+Hu, et al.                Expires May 29, 2016                 [Page 15]
 
 Internet-Draft                DNS over TLS                 November 2015
 
@@ -858,10 +858,11 @@ Appendix A.  Trusted Relationship Privacy Profile Example
 
    This section presents an example of how the Trusted Relationship
    privacy profile could work in practice based on a minimal pinset (two
-   pins).  Operators of a DNS-over-TLS service in this profile should
-   provide pins that are specific to the service being pinned (i.e.,
-   public keys belonging directly to the end-entity or to a service-
-   specific private CA) and not to public key(s) of a generic public CA.
+   pins).  Operators of a DNS-over-TLS service in this profile are
+   expected to provide pins that are specific to the service being
+   pinned (i.e., public keys belonging directly to the end-entity or to
+   a service-specific private CA) and not to public key(s) of a generic
+   public CA.
 
    A DNS client system is configured with a Trusted Relationship privacy
    profile from a network service, using a pinset containing two pins.
@@ -885,23 +886,18 @@ Appendix A.  Trusted Relationship Privacy Profile Example
    the verification is successful; the client continues with the TLS
    connection and can make its first DNS query.
 
-
-
-
-
-
-
-
-
-Hu, et al.                Expires May 28, 2016                 [Page 16]
-
-Internet-Draft                DNS over TLS                 November 2015
-
-
    If neither pin matches the SPKI of cert A, the client verifies that
    cert A is actually issued by cert B.  If it is, it takes the SHA-256
    digest of the SPKI in cert B and compares it against both pins in the
    pinset.  If either pin matches, the verification is successful.
+
+
+
+Hu, et al.                Expires May 29, 2016                 [Page 16]
+
+Internet-Draft                DNS over TLS                 November 2015
+
+
    Otherwise, it verifes that B was issued by C, and then compares the
    pins against the digest of C's SPKI.
 
@@ -941,19 +937,6 @@ Authors' Addresses
    Email: johnh@isi.edu
 
 
-
-
-
-
-
-
-
-
-Hu, et al.                Expires May 28, 2016                 [Page 17]
-
-Internet-Draft                DNS over TLS                 November 2015
-
-
    Allison Mankin
    Verisign Labs
    12061 Bluemont Way
@@ -961,6 +944,14 @@ Internet-Draft                DNS over TLS                 November 2015
 
    Phone: +1 703 948-3200
    Email: amankin@verisign.com
+
+
+
+
+
+Hu, et al.                Expires May 29, 2016                 [Page 17]
+
+Internet-Draft                DNS over TLS                 November 2015
 
 
    Duane Wessels
@@ -1005,4 +996,13 @@ Internet-Draft                DNS over TLS                 November 2015
 
 
 
-Hu, et al.                Expires May 28, 2016                 [Page 18]
+
+
+
+
+
+
+
+
+
+Hu, et al.                Expires May 29, 2016                 [Page 18]
