@@ -553,8 +553,9 @@
 	  The trusted relationship privacy profile can be used in
 	  environments where an established trust relationship already
 	  exists between DNS clients and servers (e.g.,
-	  stub-to-recursive in enterprise networks or
-	  actively-maintained contractual service relationships).
+	  stub-to-recursive in enterprise networks,
+	  actively-maintained contractual service relationships,
+	  or a client using a public DNS resolver).
 	  The result of this profile is that the client has strong guarantees 
 	  about the privacy of its DNS data by
 	  connecting only to servers it can authenticate.
