@@ -482,9 +482,17 @@
     <section anchor="profiles" title="Usage Profiles">
       <t>
         This protocol provides flexibility to accommodate several different use cases.
+        <!--
         Two usage profiles are defined here to identify specific
         design points in performance and privacy.
         Other profiles are possible but are outside the scope of this document.
+	-->
+	This document defines the Opportunistic Privacy Profile and
+	one method of authentication that may be used to obtain
+	stronger privacy guarantees if the client has a trusted
+	relationship with a privacy providing DNS server.  Additional
+	methods of authentication will be defined in a forthcoming
+	draft [TBD].
       </t>
 
       <section title="Opportunistic Privacy Profile">
