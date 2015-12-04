@@ -290,10 +290,10 @@
         servers.
       </t>
 
-      <t>
-        This document describes two profiles in <xref target="profiles"/>
+      <t> This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
-        privacy profile and a trusted relationship privacy profile.
+        privacy profile and a trusted relationship privacy profile (based on
+        an out-of-band key-pinning mechanism).
 	It is expected that a future document based on [TBD] will further
 	describe additional privacy profiles for DNS over both TLS and DTLS.
 	[Note to RFC Editor: informative reference for that document will
@@ -359,16 +359,12 @@
           the best practices specified in <xref target="RFC7525"/> or its successor.
 	</t>
 	<t>
-	  The client will then authenticate the certificate, if required.
-	  DNS-over-TLS does 
-          not propose new ideas for certificate authentication.
+	  The client will then authenticate the server, if required.
+	  This document does 
+          not propose new ideas for authentication.
           Depending on the privacy profile in use <xref target="profiles"/>, the DNS client may
-          choose not to require authentication of the certificate, or it may make use of a certificate
-          that is part of the Certificate Authority infrastructure <xref target="RFC5280"/> authenticated 
-          in the manner of HTTP/TLS <xref target="RFC2818"/>.  DANE <xref target="RFC6698"/> provides 
-          mechanisms to root certificate trust with DNSSEC.
-          The DNS queries in DANE authentication of the certificate for DNS-over-TLS MAY be in the
-          clear to avoid trust recursion.
+          choose not to require authentication of the server, or it may make use of 
+          trusted a SPKI Fingerprint pinset.
         </t>
         <t>
           After TLS negotiation completes, the connection will be encrypted
@@ -500,8 +496,8 @@
         <t>
           With opportunistic privacy, a client might learn of a TLS-enabled
           recursive DNS resolver from an untrusted source (such as DHCP
-          while roaming), it might or might not validate the TLS
-          certificate.  These choices maximize availability and
+          while roaming), it might or might not validate the
+          resolver.  These choices maximize availability and
           performance, but they leave the client vulnerable to on-path attacks
 	  that remove privacy.
         </t>
@@ -554,29 +550,34 @@
       <section title="Trusted Relationship Privacy Profile">
 	<t>
 	  The trusted relationship privacy profile can be used in
-	  environments where
-	  the DNS client already has a trust relationship with the server
-	  (for example, stub-to-recursive in enterprise
-	  networks, or a client using a public DNS resolver).
-	  The result of this profile is that the client has strong guarantees
+	  environments where an established trust relationship already
+	  exists between DNS clients and servers (e.g.,
+	  stub-to-recursive in enterprise networks or
+	  actively-maintained contractual service relationships).
+	  The result of this profile is that the client has strong guarantees 
 	  about the privacy of its DNS data by talking only to known servers.
 	</t>
 	<t>
 	  In this profile, clients authenticate servers by matching
-	  Subject Public Key Info (SPKI) Fingerprints in an analagous
+	  a set of Subject Public Key Info (SPKI) Fingerprints in an analogous
 	  manner to that described in <xref target="RFC7469"/>.
-	  With trusted relationship privacy, client administrators
-	  MUST deploy one or more SPKI Fingerprints using a secure
-	  out-of-band (i.e., non-DNS) mechanism.
-	  It is RECOMMENDED that administrators deploy at least two
-	  fingerprints at any given time in order to support
-	  certificate rollover.
+	  With this trusted relationship privacy profile, client administrators
+	  MUST deploy a pinset containing two or more pins (specific to the
+	  service being pinned) using a
+	  secure out-of-band (i.e., non-DNS) mechanism.  This minimum
+	  pinset size is required for key rollover, so that a server
+	  operator does not have to coordinate key transitions with
+	  all its clients simultaneously.  After a change of keys on
+	  the server, an updated pinset should be distributed to all
+	  clients in some secure way in preparation for future key
+	  rollover.  The mechanism for out-of-band pinset update is
+	  out of scope for this document.
 	</t>
 	<t>
-	  The client will only use DNS servers for which SPKI
-	  Fingerprints have been provided.
-	  The possession of trusted pre-deployed SPKI Fingerprints
-	  allows the client to detect person-in-the-middle and
+	  Such a client will only use DNS servers for which an SPKI
+	  Fingerprint pinset has been provided.
+	  The possession of trusted pre-deployed pinset
+	  allows the client to detect and prevent person-in-the-middle and
 	  downgrade attacks.
 	</t>
         <t>
@@ -606,14 +607,17 @@
 	  the Server Certificate message).
 	</t -->
 	<t>
-	  Upon successful TLS connection and handshake, the client computes the
-	  SPKI Fingerprints for the server's certificate.  If a
-	  computed fingerprint exactly matches an out-of-band
-	  configured fingerprint, the client continues with the
-	  connection as normal.  Otherwise, the client MUST treat
-	  the SPKI validation failure as a non-recoverable error.
+	  Upon successful TLS connection and handshake, the client
+	  computes the SPKI Fingerprints for the public keys found
+	  in the validated server's certificate chain (or in the raw public key, if
+	  the server provides that instead).  If a computed
+	  fingerprint exactly matches one of the configured pins the
+	  client continues with the connection as normal.  Otherwise,
+	  the client MUST treat the SPKI validation failure as a
+	  non-recoverable error. <xref target="example"/> provides a detailed example
+	  of how this authentication could be performed in practice.
 	</t>
-
+        
       </section>
 
     </section>
@@ -701,13 +705,13 @@
 
     <figure>
     <artwork><![CDATA[
-    Service Name            domain-s
-    Port Number             853
-    Transport Protocol(s)   TCP/UDP
-    Assignee                IETF DPRIVE Chairs
-    Contact                 Paul Hoffman
-    Description             DNS query-response protocol run over TLS/DTLS
-    Reference               This document
+    Service Name           domain-s
+    Port Number            853
+    Transport Protocol(s)  TCP/UDP
+    Assignee               IETF DPRIVE Chairs
+    Contact                Paul Hoffman
+    Description            DNS query-response protocol run over TLS/DTLS
+    Reference              This document
       ]]></artwork>
     </figure>
 
@@ -1243,6 +1247,65 @@ URI:   http://sinodun.com
       </reference>
 
     </references>
+
+    <section title="Trusted Relationship Privacy Profile Example" anchor="example">
+      <t>This section presents an example of how the Trusted Relationship
+          privacy profile could work in practice based on a minimal 
+          pinset (two pins). Operators
+          of a DNS-over-TLS service in this profile are expected to provide pins
+          that are specific to the service being pinned (i.e., public
+          keys belonging directly to the end-entity or to a
+          service-specific private CA) and not to public key(s) of a
+          generic public CA.</t>
+      <t>
+      	  A DNS client system is configured with a Trusted Relationship privacy 
+      	  profile from a network service, using a
+        pinset containing two pins.  Represented in <xref
+        target="RFC7469">HPKP</xref> style, the pins are:
+        <list style="symbols">
+          <t>
+            pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
+          </t>
+          <t>
+            pin-sha256="dFSY3wdPU8L0u/8qECuz5wtlSgnorYV2f66L6GNQg6w="
+          </t>
+        </list>
+      </t>
+      <t>
+        The client also configures the IP addresses of its
+        expected DNS server, 192.0.2.3 and 192.0.2.4.
+      </t>
+      <t>
+        The client connects to 192.0.2.3 on TCP port 853 and
+        begins the TLS handshake, negotiation TLS 1.2 with a
+        diffie-hellman key exchange.  The server sends a
+        Certificate message with a list of three certificates (A,
+        B, and C), and signs the ServerKeyExchange message
+        correctly with the public key found certificate A.
+      </t>
+      <t>
+        The client now takes the SHA-256 digest of the SPKI in
+        cert A, and compares it against both pins in the pinset.
+        If either pin matches, the verification is successful; the
+        client continues with the TLS connection and can make its
+        first DNS query.
+      </t>
+      <t>
+        If neither pin matches the SPKI of cert A, the client
+        verifies that cert A is actually issued by cert B.  If it
+        is, it takes the SHA-256 digest of the SPKI in cert B and
+        compares it against both pins in the pinset.  If either
+        pin matches, the verification is successful.  Otherwise,
+        it verifes that B was issued by C, and then compares the
+        pins against the digest of C's SPKI.
+      </t>
+      <t>
+        If none of the SPKIs in the cryptographically-valid chain
+        of certs match any pin in the pinset, the client closes
+        the connection with an error, and marks the IP address as
+        failed.
+      </t>
+    </section>
 
   </back>
 </rfc>
