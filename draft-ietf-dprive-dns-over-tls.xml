@@ -293,8 +293,7 @@
       <t>
 	This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
-        privacy profile and a trusted relationship privacy profile (based on
-        an out-of-band key-pinning mechanism).
+        privacy profile and an out-of-band key-pinned privacy profile.
 	It is expected that a future document based on [TBD] will further
 	describe additional privacy profiles for DNS over both TLS and DTLS.
 	[Note to RFC Editor: informative reference for that document will
@@ -346,7 +345,7 @@
           support DNS-over-TLS, including timeouts, connection
           refusals, and TLS handshake failures, and not request
           DNS-over-TLS from them for a reasonable period (such as
-          one hour per server).  DNS clients following a trusted relationship
+          one hour per server).  DNS clients following an out-of-band key-pinned
           privacy profile MAY be more aggressive about retrying
           DNS-over-TLS connection failures.
         </t>
@@ -488,9 +487,9 @@
         Other profiles are possible but are outside the scope of this document.
 	-->
 	This document defines the Opportunistic Privacy Profile and
-	one method of authentication that may be used to obtain
+	one authentication method, out-of-band key-pinned authentication, that may be used to obtain
 	stronger privacy guarantees if the client has a trusted
-	relationship with a privacy providing DNS server.  Additional
+	relationship with a DNS server supporting TLS.  Additional
 	methods of authentication will be defined in a forthcoming
 	draft [TBD].
       </t>
@@ -556,9 +555,9 @@
         </t>
       </section -->
 
-      <section title="Trusted Relationship Privacy Profile">
+      <section title="Out-of-band Key-pinned Privacy Profile">
 	<t>
-	  The trusted relationship privacy profile can be used in
+	  The out-of-band key-pinned privacy profile can be used in
 	  environments where an established trust relationship already
 	  exists between DNS clients and servers (e.g.,
 	  stub-to-recursive in enterprise networks,
@@ -572,7 +571,7 @@
 	  In this profile, clients authenticate servers by matching
 	  a set of Subject Public Key Info (SPKI) Fingerprints in an analogous
 	  manner to that described in <xref target="RFC7469"/>.
-	  With this trusted relationship privacy profile, client administrators
+	  With this out-of-band key-pinned privacy profile, client administrators
 	  MUST deploy a pinset containing two or more pins (specific to the
 	  service being pinned) using a
 	  secure out-of-band (i.e., non-DNS) mechanism.  This minimum
@@ -603,7 +602,7 @@
           that the DNS is not private during such bootstrap.
 	</t>
 	<!-- t>
-	  DNS clients configured for trusted relationship privacy MUST
+	  DNS clients configured for out-of-band key-pinned privacy MUST
 	  authenticate the SPKI from the server certificate as follows
 	  (based on section 2.6 of <xref target="RFC7469"/>):
 	</t -->
@@ -1264,9 +1263,9 @@ USA
 
     </references>
 
-    <section title="Trusted Relationship Privacy Profile Example" anchor="example">
+    <section title="Out-of-band Key-pinned Privacy Profile Example" anchor="example">
       <t>
-	This section presents an example of how the Trusted Relationship
+	This section presents an example of how the out-of-band key-pinned
 	privacy profile could work in practice based on a minimal 
 	pinset (two pins). Operators
 	of a DNS-over-TLS service in this profile are expected to provide pins
@@ -1276,7 +1275,7 @@ USA
 	generic public CA.
       </t>
       <t>
-	A DNS client system is configured with a Trusted Relationship privacy 
+	A DNS client system is configured with an out-of-band key-pinned privacy 
 	profile from a network service, using a
         pinset containing two pins.  Represented in <xref
         target="RFC7469">HPKP</xref> style, the pins are:
