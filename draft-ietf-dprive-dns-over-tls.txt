@@ -4,18 +4,18 @@
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: June 6, 2016                           USC/Information Sciences
+Expires: June 9, 2016                           USC/Information Sciences
                                                                Institute
                                                                A. Mankin
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                                    ICANN
-                                                        December 4, 2015
+                                                        December 7, 2015
 
 
         DNS over TLS: Initiation and Performance Considerations
-                   draft-ietf-dprive-dns-over-tls-01
+                   draft-ietf-dprive-dns-over-tls-02
 
 Abstract
 
@@ -48,11 +48,11 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 6, 2016.
+   This Internet-Draft will expire on June 9, 2016.
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 1]
+Hu, et al.                Expires June 9, 2016                  [Page 1]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 2]
+Hu, et al.                Expires June 9, 2016                  [Page 2]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -164,7 +164,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 3]
+Hu, et al.                Expires June 9, 2016                  [Page 3]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -220,7 +220,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 4]
+Hu, et al.                Expires June 9, 2016                  [Page 4]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -276,7 +276,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 5]
+Hu, et al.                Expires June 9, 2016                  [Page 5]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -325,14 +325,14 @@ Internet-Draft                DNS over TLS                 December 2015
 4.  Usage Profiles
 
    This protocol provides flexibility to accommodate several different
-   use cases.  This document defines the Opportunistic Privacy Profile
-   and one authentication method, out-of-band key-pinned authentication,
-   that may be used to obtain stronger privacy guarantees if the client
+   use cases.  This document defines two usage profiles: (1)
+   opportunistic privacy, and (2) out-of-band key-pinned authentication
+   that can be used to obtain stronger privacy guarantees if the client
    has a trusted relationship with a DNS server supporting TLS.
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 6]
+Hu, et al.                Expires June 9, 2016                  [Page 6]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -388,7 +388,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 7]
+Hu, et al.                Expires June 9, 2016                  [Page 7]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -444,7 +444,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 8]
+Hu, et al.                Expires June 9, 2016                  [Page 8]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -500,7 +500,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                  [Page 9]
+Hu, et al.                Expires June 9, 2016                  [Page 9]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -556,7 +556,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 10]
+Hu, et al.                Expires June 9, 2016                 [Page 10]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -612,7 +612,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 11]
+Hu, et al.                Expires June 9, 2016                 [Page 11]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -668,7 +668,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 12]
+Hu, et al.                Expires June 9, 2016                 [Page 12]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -724,7 +724,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 13]
+Hu, et al.                Expires June 9, 2016                 [Page 13]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -780,7 +780,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 14]
+Hu, et al.                Expires June 9, 2016                 [Page 14]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -836,7 +836,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 15]
+Hu, et al.                Expires June 9, 2016                 [Page 15]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -892,7 +892,7 @@ Appendix A.  Out-of-band Key-pinned Privacy Profile Example
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 16]
+Hu, et al.                Expires June 9, 2016                 [Page 16]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -948,7 +948,7 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 17]
+Hu, et al.                Expires June 9, 2016                 [Page 17]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -1004,7 +1004,7 @@ Authors' Addresses
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 18]
+Hu, et al.                Expires June 9, 2016                 [Page 18]
 
 Internet-Draft                DNS over TLS                 December 2015
 
@@ -1060,5 +1060,5 @@ Internet-Draft                DNS over TLS                 December 2015
 
 
 
-Hu, et al.                Expires June 6, 2016                 [Page 19]
+Hu, et al.                Expires June 9, 2016                 [Page 19]
 
