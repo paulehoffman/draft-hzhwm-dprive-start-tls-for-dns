@@ -339,6 +339,12 @@
           initiate a TLS handshake using the procedure described
           in <xref target="RFC5246"/>.
         </t>
+
+        <t>DNS clients MUST NOT send and DNS servers MUST NOT respond to clear text
+            DNS messages over TCP on port
+            853. There are significant security issues in mixing protected
+            and unprotected data and for this reason TCP on port 853 is reserved purely
+            for encrypted communications. </t>
         <t>
 	  DNS clients MUST NOT send and DNS servers MUST NOT respond
 	  to clear text DNS messages over TCP on port 853. There
@@ -386,9 +392,8 @@
           For reasons of efficiency, DNS clients and servers SHOULD
           pass the two-octet length field, and the message
           described by that length field, to the TCP layer at the
-          same time (e.g., in a single "write" system call) to make
-          it more likely that all the data will be transmitted in
-          a single TCP segment
+          same time (e.g., in a single "write" system call) to make it more
+          likely that all the data will be transmitted in a single TCP segment
           (<xref target="I-D.ietf-dnsop-5966bis"/>, Section 8).
         </t>
 	<t>
