@@ -294,10 +294,8 @@
 	This document describes two profiles in <xref target="profiles"/>
         providing different levels of assurance of privacy: an opportunistic
         privacy profile and an out-of-band key-pinned privacy profile.
-	It is expected that a future document based on [TBD] will further
+	It is expected that a future document based on <xref target="dgr-dprive-dtls-and-tls-profiles"/> will further
 	describe additional privacy profiles for DNS over both TLS and DTLS.
-	[Note to RFC Editor: informative reference for that document will
-	be forthcoming]
       </t>
 
       <t>
@@ -334,18 +332,27 @@
         </t>
         <t>
           DNS clients desiring privacy from DNS-over-TLS from a
-          particular server MUST establish a TCP connection to
-          port 853 on the server. The client and server MUST immediately
-          initiate a TLS handshake using the procedure described
+          particular server MUST establish a TCP connection which SHOULD be to
+          port 853 on the server.  This is a SHOULD rather than a
+          MUST because a server MAY also offer DNS-over-TLS service
+          on another port by agreement with its client.  Such an
+          additional port MUST NOT be port 53, but MAY be from the
+          FCFS port range.  The first data exchange on this TCP
+          connection MUST be the client and server
+          initiating a TLS handshake using the procedure described
           in <xref target="RFC5246"/>.
         </t>
         <t>
-	  DNS clients MUST NOT send and DNS servers MUST NOT respond
-	  to clear text DNS messages over TCP on port 853. There
-	  are significant security issues in mixing protected and
-	  unprotected data and for this reason TCP on port 853 is
-	  reserved purely for encrypted communications.
-	</t>
+          DNS clients and servers MUST NOT use port 853 to transport
+          clear text DNS messages.  DNS clients MUST NOT send and
+          DNS servers MUST NOT respond to clear text DNS messages
+          on any port used for DNS-over-TLS (including, for example,
+          after a failed TLS handshake).  There are significant
+          security issues in mixing protected and unprotected data
+          and for this reason TCP connections on a port designated
+          by a given server for DNS-over-TLS are reserved purely
+          for encrypted communications.
+        </t>
         <t>
           DNS clients SHOULD remember server IP addresses that don't
           support DNS-over-TLS, including timeouts, connection
@@ -469,7 +476,13 @@
         <t>
           When reestablishing a DNS-over-TCP connection that was terminated,
 	  as discussed in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
-                target="RFC7413"/> is of benefit. DNS servers SHOULD enable fast 
+                target="RFC7413"/> is of benefit.
+          Underlining the requirement for sending only encrypted
+          DNS data on a DNS-over-TLS port (Section 3.2), when
+          using TCP Fast Open the client and server MUST immediately
+          initiate or resume a TLS handshake (clear text DNS MUST
+          NOT be exchanged).
+          DNS servers SHOULD enable fast 
           TLS session resumption <xref target="RFC5077"/> and this SHOULD
           be used when reestablishing connections. 
         </t>
@@ -497,7 +510,7 @@
 	stronger privacy guarantees if the client has a trusted
 	relationship with a DNS server supporting TLS.  Additional
 	methods of authentication will be defined in a forthcoming
-	draft [TBD].
+	draft <xref target="dgr-dprive-dtls-and-tls-profiles"/>.
       </t>
 
       <section title="Opportunistic Privacy Profile">
@@ -906,7 +919,7 @@
             attacker.  For example, unencrypted queries and responses
             might take place over port 53 between a client and server.
             For this reason, clients MAY discard cached
-            information about server capabilities advertised on port 53.
+            information about server capabilities advertised in clear text.
           </t>
           <t>
             This document does not itself specify ideas to resist
@@ -1128,6 +1141,26 @@ USA
           <date month="August" year="2010" />
         </front>
         <seriesInfo name="Internet-Draft" value="draft-dempsky-dnscurve-01" />
+      </reference>
+
+      <reference anchor="dgr-dprive-dtls-and-tls-profiles" target="https://tools.ietf.org/html/draft-dgr-dprive-dtls-and-tls-profiles-00">
+        <front>
+          <title>Authentication	and (D)TLS Profile for DNS-over-TLS and DNS-over-DTLS</title>
+          <author initials="S." surname="Dickinson" fullname="Sara Dickinson">
+            <organization abbrev="Sinodun">Sinodun Internet Technologies</organization>
+            <address></address>
+          </author>
+          <author initials="D." surname="Gillmor" fullname="Dan Gillmor">
+            <organization abbrev="ACLU">ACLU</organization>
+            <address></address>
+          </author>
+          <author initials="T." surname="Reddy" fullname="Tirumaleswar Reddy">
+            <organization abbrev="Cisco">Cisco Systems, Inc.</organization>
+            <address></address>
+          </author>
+          <date month="December" year="2015"/>
+        </front>
+        <seriesInfo name="Internet-Draft" value="draft-dgr-dprive-dtls-and-tls-profiles-00" />
       </reference>
 
       <reference anchor="I-D.edns0-padding" target="http://tools.ietf.org/html/draft-mayrhofer-edns0-padding-01">
