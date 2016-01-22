@@ -884,11 +884,11 @@ Internet-Draft                DNS over TLS                  January 2016
               draft-dgr-dprive-dtls-and-tls-profiles-00>.
 
    [dnscrypt-website]
-              Denis, F., "DNSCrypt", <https://www.dnscrypt.org/>.
+              Denis, F., "DNSCrypt", December 2015,
+              <https://www.dnscrypt.org/>.
 
    [dnssec-trigger]
               NLnet Labs, "Dnssec-Trigger", May 2014,
-              <https://www.nlnetlabs.nl/projects/dnssec-trigger/>.
 
 
 
@@ -896,6 +896,8 @@ Hu, et al.                Expires July 25, 2016                [Page 16]
 
 Internet-Draft                DNS over TLS                  January 2016
 
+
+              <https://www.nlnetlabs.nl/projects/dnssec-trigger/>.
 
    [draft-ietf-dprive-dnsodtls]
               Reddy, T., Wing, D., and P. Patil, "DNS over DTLS
@@ -943,8 +945,6 @@ Appendix A.  Out-of-band Key-pinned Privacy Profile Example
    certificates (A, B, and C), and signs the ServerKeyExchange message
    correctly with the public key found certificate A.
 
-   The client now takes the SHA-256 digest of the SPKI in cert A, and
-   compares it against both pins in the pinset.  If either pin matches,
 
 
 
@@ -953,6 +953,8 @@ Hu, et al.                Expires July 25, 2016                [Page 17]
 Internet-Draft                DNS over TLS                  January 2016
 
 
+   The client now takes the SHA-256 digest of the SPKI in cert A, and
+   compares it against both pins in the pinset.  If either pin matches,
    the verification is successful; the client continues with the TLS
    connection and can make its first DNS query.
 
@@ -998,8 +1000,6 @@ Authors' Addresses
 
    Phone: +1 310 822-1511
    Email: johnh@isi.edu
-
-
 
 
 
