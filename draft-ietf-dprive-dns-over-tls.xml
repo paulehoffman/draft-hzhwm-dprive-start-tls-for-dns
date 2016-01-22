@@ -247,6 +247,7 @@
         Other work that has offered the potential to encrypt 
         between DNS clients and servers includes 
         DNSCurve <xref target="dempsky-dnscurve"/>,  
+        DNSCrypt <xref target="dnscrypt-website"/>,
         ConfidentialDNS <xref target="I-D.confidentialdns"/> 
         and IPSECA <xref target="I-D.ipseca"/>. 
         In addition to the present draft, the DPRIVE working group
@@ -1141,6 +1142,16 @@ USA
           <date month="August" year="2010" />
         </front>
         <seriesInfo name="Internet-Draft" value="draft-dempsky-dnscurve-01" />
+      </reference>
+
+      <reference anchor="dnscrypt-website" target="https://www.dnscrypt.org/">
+        <front>
+          <title>DNSCrypt</title>
+          <author initials="F." surname="Denis" fullname="Frank Denis">
+            <organization></organization>
+            <address></address>
+          </author>
+        </front>
       </reference>
 
       <reference anchor="dgr-dprive-dtls-and-tls-profiles" target="https://tools.ietf.org/html/draft-dgr-dprive-dtls-and-tls-profiles-00">
