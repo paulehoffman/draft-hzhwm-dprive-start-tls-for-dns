@@ -329,16 +329,17 @@
       <section anchor="Initiation" title="Session Initiation">
         <t>
           A DNS server that supports DNS-over-TLS MUST listen for
-          and accept TCP connections on port 853.
+          and accept TCP connections on port 853.  By mutual agreement
+          with its clients, the server MAY, instead, use a port other than
+          853 for DNS-over-TLS.
         </t>
         <t>
           DNS clients desiring privacy from DNS-over-TLS from a
-          particular server MUST establish a TCP connection which SHOULD be to
-          port 853 on the server.  This is a SHOULD rather than a
-          MUST because a server MAY also offer DNS-over-TLS service
-          on another port by agreement with its client.  Such an
-          additional port MUST NOT be port 53, but MAY be from the
-          FCFS port range.  The first data exchange on this TCP
+          particular server MUST establish a TCP connection to
+          port 853 on the server.  By mutual agreement with its server,
+          the client MAY, instead, use a port other than port 853 for DNS-over-TLS.
+          Such an other port MUST NOT be port 53, but MAY be from the
+          "first-come, first-served" port range.  The first data exchange on this TCP
           connection MUST be the client and server
           initiating a TLS handshake using the procedure described
           in <xref target="RFC5246"/>.
