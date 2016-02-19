@@ -169,11 +169,16 @@
         This document describes the use of TLS to provide privacy
         for DNS.  Encryption provided by TLS eliminates opportunities
         for eavesdropping and on-path tampering with DNS queries in the network, such as
-        discussed in RFC 7258.
+        discussed in <xref target="RFC7258"/>.
         In addition, this document specifies
         two usage profiles for DNS-over-TLS and provides advice on
         performance considerations to minimize overhead from using
         TCP and TLS with DNS.
+      </t>
+      <t>
+	This document focuses on securing stub-to-recursive traffic, as per the
+	charter of the DPRIVE working group.  It does not prevent future applications
+	of the protocol to recursive-to-authoritative traffic.
       </t>
       <t>
 	Note: this document was formerly named
@@ -284,11 +289,12 @@
 
 
       <t>
-        The protocol described here works for any DNS client to server
-        communication using DNS-over-TCP.  That is, it may be used
+        The protocol described here works
         for queries and responses between stub clients and recursive
-        servers as well as between recursive clients and authoritative
-        servers.
+        servers.   It might work equally between recursive clients
+        and authoritative servers, but this application of the
+        protocol is out of scope for the DNS PRIVate Exchange
+        (DPRIVE) Working Group per its current charter.
       </t>
 
       <t>
