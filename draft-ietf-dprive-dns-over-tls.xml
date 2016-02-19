@@ -367,7 +367,7 @@
           refusals, and TLS handshake failures, and not request
           DNS-over-TLS from them for a reasonable period (such as
           one hour per server).  DNS clients following an out-of-band key-pinned
-          privacy profile MAY be more aggressive about retrying
+          privacy profile (<xref target="oobkppp"/>) MAY be more aggressive about retrying
           DNS-over-TLS connection failures.
         </t>
       </section>
@@ -582,7 +582,7 @@
         </t>
       </section -->
 
-      <section title="Out-of-band Key-pinned Privacy Profile">
+      <section title="Out-of-band Key-pinned Privacy Profile" anchor="oobkppp">
 	<t>
 	  The out-of-band key-pinned privacy profile can be used in
 	  environments where an established trust relationship already
