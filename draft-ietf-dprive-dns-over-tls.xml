@@ -46,7 +46,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-dprive-dns-over-tls-06" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-dprive-dns-over-tls-07" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
        ipr values: full3667, noModification3667, noDerivatives3667
        you can add the attributes updates="NNNN" and obsoletes="NNNN"
@@ -67,9 +67,9 @@
           <city>Marina del Rey</city>
           <region>CA</region>
           <code>90292</code>
-          <country>USA</country>
+          <country>United States</country>
         </postal>
-        <phone>+1 213 587-1057</phone>
+        <phone>+1 213 587 1057</phone>
         <email>zihu@usc.edu</email>
       </address>
     </author>
@@ -82,9 +82,9 @@
           <city>Marina del Rey</city>
           <region>CA</region>
           <code>90292</code>
-          <country>USA</country>
+          <country>United States</country>
         </postal>
-        <phone>+1 310 448-8323</phone>
+        <phone>+1 310 448 8323</phone>
         <email>liangzhu@usc.edu</email>
       </address>
     </author>
@@ -97,24 +97,24 @@
           <city>Marina del Rey</city>
           <region>CA</region>
           <code>90292</code>
-          <country>USA</country>
+          <country>United States</country>
         </postal>
-        <phone>+1 310 822-1511</phone>
+        <phone>+1 310 822 1511</phone>
         <email>johnh@isi.edu</email>
       </address>
     </author>
 
     <author fullname="Allison Mankin" initials="A." surname="Mankin">
-      <organization>Verisign Labs</organization>
+      <organization></organization>
       <address>
         <postal>
-          <street>12061 Bluemont Way</street>
-          <city>Reston</city>
-          <region>VA</region>
-          <code>20190</code>
+          <street></street>
+          <city></city>
+          <region></region>
+          <code></code>
         </postal>
-        <phone>+1 703 948-3200</phone>
-        <email>amankin@verisign.com</email>
+        <phone>+1 301 728 7198</phone>
+        <email>Allison.mankin@gmail.com</email>
       </address>
     </author>
 
@@ -127,7 +127,7 @@
           <region>VA</region>
           <code>20190</code>
         </postal>
-        <phone>+1 703 948-3200</phone>
+        <phone>+1 703 948 3200</phone>
         <email>dwessels@verisign.com</email>
       </address>
     </author>
@@ -964,7 +964,7 @@ Sinodun Internet Technologies
 Magdalen Centre
 Oxford Science Park
 Oxford  OX4 4GA
-UK
+United Kingdom
 Email: sara@sinodun.com
 URI:   http://sinodun.com
 
@@ -972,7 +972,7 @@ Daniel Kahn Gillmor
 ACLU
 125 Broad Street, 18th Floor
 New York, NY  10004
-USA
+United States
       ]]></artwork>
     </figure>
     </section>
