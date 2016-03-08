@@ -424,13 +424,14 @@ Internet-Draft                DNS over TLS                    March 2016
    [RFC7435] one does not require privacy, but one desires privacy when
    possible.
 
-   With opportunistic privacy, a client might simply try port 853 on a
-   normally configured recursive DNS resolver, or it might learn of a
-   TLS-enabled recursive DNS resolver from an untrusted source (such as
-   with a yet-to-be-defined DHCP extension or ICMPv6 type).  The client
-   might or might not validate the resolver.  These choices maximize
-   availability and performance, but they leave the client vulnerable to
-   on-path attacks that remove privacy.
+   With opportunistic privacy, a client might learn of a TLS-enabled
+   recursive DNS resolver from an untrusted source (such as DHCP's DNS
+   server option [RFC3646] to discover the IP address followed by
+   attemting the DNS-over-TLS on port 853, or with a future DHCP option
+   that specifics DNS port).  With such an discovered DNS server, the
+   client might or might not validate the resolver.  These choices
+   maximize availability and performance, but they leave the client
+   vulnerable to on-path attacks that remove privacy.
 
    Opportunistic privacy can be used by any current client, but it only
    provides guaranteed privacy when there are no on-path active
@@ -440,7 +441,6 @@ Internet-Draft                DNS over TLS                    March 2016
 
    The out-of-band key-pinned privacy profile can be used in
    environments where an established trust relationship already exists
-   between DNS clients and servers (e.g., stub-to-recursive in
 
 
 
@@ -449,6 +449,7 @@ Hu, et al.              Expires September 9, 2016               [Page 8]
 Internet-Draft                DNS over TLS                    March 2016
 
 
+   between DNS clients and servers (e.g., stub-to-recursive in
    enterprise networks, actively-maintained contractual service
    relationships, or a client using a public DNS resolver).  The result
    of this profile is that the client has strong guarantees about the
@@ -496,7 +497,6 @@ Internet-Draft                DNS over TLS                    March 2016
 
    DNS-over-TLS incurs additional latency at session startup.  It also
    requires additional state (memory) and increased processing (CPU).
-
 
 
 
@@ -900,6 +900,11 @@ Internet-Draft                DNS over TLS                    March 2016
               Issues", RFC 3234, DOI 10.17487/RFC3234, February 2002,
               <http://www.rfc-editor.org/info/rfc3234>.
 
+   [RFC3646]  Droms, R., Ed., "DNS Configuration options for Dynamic
+              Host Configuration Protocol for IPv6 (DHCPv6)", RFC 3646,
+              DOI 10.17487/RFC3646, December 2003,
+              <http://www.rfc-editor.org/info/rfc3646>.
+
    [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
               Rose, "DNS Security Introduction and Requirements",
               RFC 4033, DOI 10.17487/RFC4033, March 2005,
@@ -941,11 +946,6 @@ Internet-Draft                DNS over TLS                    March 2016
               in progress), August 2010,
               <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
-   [dgr-dprive-dtls-and-tls-profiles]
-              Dickinson, S., Gillmor, D., and T. Reddy,
-              "Authentication	and (D)TLS Profile for DNS-over-TLS and
-              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
-
 
 
 Hu, et al.              Expires September 9, 2016              [Page 17]
@@ -953,6 +953,10 @@ Hu, et al.              Expires September 9, 2016              [Page 17]
 Internet-Draft                DNS over TLS                    March 2016
 
 
+   [dgr-dprive-dtls-and-tls-profiles]
+              Dickinson, S., Gillmor, D., and T. Reddy,
+              "Authentication	and (D)TLS Profile for DNS-over-TLS and
+              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
               (work in progress), December 2015, <https://
               tools.ietf.org/html/
               draft-dgr-dprive-dtls-and-tls-profiles-00>.
@@ -998,16 +1002,14 @@ Appendix A.  Out-of-band Key-pinned Privacy Profile Example
    privacy profile from a network service, using a pinset containing two
    pins.  Represented in HPKP [RFC7469] style, the pins are:
 
-   o  pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
-
-
-
 
 
 Hu, et al.              Expires September 9, 2016              [Page 18]
 
 Internet-Draft                DNS over TLS                    March 2016
 
+
+   o  pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
 
    o  pin-sha256="dFSY3wdPU8L0u/8qECuz5wtlSgnorYV2f66L6GNQg6w="
 
@@ -1047,8 +1049,6 @@ Authors' Addresses
 
    Phone: +1 213 587 1057
    Email: zihu@usc.edu
-
-
 
 
 
