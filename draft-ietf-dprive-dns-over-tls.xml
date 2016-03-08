@@ -20,7 +20,7 @@
   <!ENTITY RFC4892 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4892.xml">
   <!ENTITY RFC5077 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5077.xml">
   <!ENTITY RFC6335 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
-  <!ENTITY RFC5966 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5966.xml">
+  <!ENTITY RFC7766 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7766.xml">
   <!ENTITY RFC7120 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7120.xml">
   <!ENTITY RFC7258 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7258.xml">
   <!ENTITY RFC7413 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7413.xml">
@@ -374,24 +374,27 @@
           same time (e.g., in a single "write" system call) to make
           it more likely that all the data will be transmitted in
           a single TCP segment
-          (<xref target="I-D.ietf-dnsop-5966bis"/>, Section 8).
+          (<xref target="RFC7766"/>, Section 8).
         </t>
 	<t>
-	  <!-- cut-n-paste with edits from rfc5966-bis sec 6.2.1.1 -->
+	  <!-- cut-n-paste with edits from rfc7766 sec 6.2.1.1 -->
 	  In order to minimize latency, clients SHOULD pipeline
 	  multiple queries over a TLS session.  When a DNS client sends
 	  multiple queries to a server, it should not wait for an
 	  outstanding reply before sending the next query (<xref
-	  target="I-D.ietf-dnsop-5966bis"/>, Section 6.2.1.1).
+	  target="RFC7766"/>, Section 6.2.1.1).
 	</t>
 	<t>
-	  <!-- cut-n-paste from rfc5966-bis sec 7 -->
-	  Since pipelined responses can arrive out-of-order, clients
-	  MUST match responses to outstanding queries using the ID
-	  field, query name, type, and class.  Failure by clients to properly
+	  <!-- cut-n-paste from rfc7766 sec 7 with s/TCP/TLS/ -->
+	  Since pipelined responses can arrive out of order, clients
+	  MUST match responses to outstanding queries on the same
+	  TLS connection using the Message ID.  If the response
+	  contains a question section, the client MUST match the
+	  QNAME, QCLASS, and QTYPE fields.  Failure by clients to
+	  properly
 	  match responses to outstanding queries can have serious
 	  consequences for interoperability (<xref
-	  target="I-D.ietf-dnsop-5966bis"/>, Section 7).
+	  target="RFC7766"/>, Section 7).
 	</t>
       </section>  
 
@@ -419,7 +422,7 @@
           Proper management of established and idle connections is important
           to the healthy operation of a DNS server.  An implementor of
           DNS-over-TLS SHOULD follow best practices for DNS-over-TCP, as
-          described in <xref target="I-D.ietf-dnsop-5966bis"/>.  Failure
+          described in <xref target="RFC7766"/>.  Failure
           to do so may lead to resource exhaustion and denial-of-service.
         </t>
         <t>
@@ -453,7 +456,7 @@
         </t>
         <t>
           When reestablishing a DNS-over-TCP connection that was terminated,
-	  as discussed in <xref target="I-D.ietf-dnsop-5966bis"/>, TCP Fast Open <xref
+	  as discussed in <xref target="RFC7766"/>, TCP Fast Open <xref
                 target="RFC7413"/> is of benefit.
           Underlining the requirement for sending only encrypted
           DNS data on a DNS-over-TLS port (Section 3.2), when
@@ -468,8 +471,8 @@
           When closing a connection, DNS servers SHOULD use the TLS
           close-notify request to shift TCP TIME-WAIT state to the clients.
           Additional requirements and guidance for optimizing DNS-over-TCP
-          are provided by <xref target="RFC5966"/>, <xref
-                target="I-D.ietf-dnsop-5966bis"/>.  
+          are provided by <xref target="RFC7766"/>, <xref
+                target="RFC7766"/>.  
         </t>
       </section>
 
@@ -587,7 +590,7 @@
 	    when information exists from prior connections.
             The TLS handshake adds another two RTTs of latency.  Clients
             and servers should support connection keepalive (reuse) and
-            out-of-order processing to amortize connection setup costs.
+            out of order processing to amortize connection setup costs.
 	    Fast TLS connection         
             resumption <xref target="RFC5077"/> further reduces the
             setup delay and avoids the DNS server keeping per-client session state.  
@@ -618,7 +621,7 @@
             (a particular type of forwarder) allows a single active
             DNS-over-TLS connection from any given client computer to
             its server.  Additional guidance can be found in <xref
-                  target="I-D.ietf-dnsop-5966bis"/>.
+                  target="RFC7766"/>.
           </t>
         </list>
 
@@ -626,7 +629,7 @@
         specification.  A more detailed analysis of the performance
         implications of DNS-over-TLS (and DNS-over-TCP) is discussed
         in <xref target="tdns"/> and <xref
-              target="I-D.ietf-dnsop-5966bis"/>.
+              target="RFC7766"/>.
       </t>
 
     </section>
@@ -941,30 +944,7 @@ United States
       <!-- &RFC6891; -->
       &RFC5077;
       &RFC6335;
-      <reference anchor='I-D.ietf-dnsop-5966bis'>
-        <front>
-          <title>DNS Transport over TCP - Implementation Requirements</title>
-          <author initials='J' surname='Dickinson' fullname='John Dickinson'>
-            <organization />
-          </author>
-          <author initials='S' surname='Dickinson' fullname='Sara Dickinson'>
-            <organization />
-          </author>
-          <author initials='R' surname='Bellis' fullname='Ray Bellis'>
-            <organization />
-          </author>
-          <author initials='A' surname='Mankin' fullname='Allison Mankin'>
-            <organization />
-          </author>
-          <author initials='D' surname='Wessels' fullname='Duane Wessels'>
-            <organization />
-          </author>
-          <date month='July' day='6' year='2015' />
-        </front>
-        <seriesInfo name='Internet-Draft' value='draft-ietf-dnsop-5966bis-02' />
-        <format type='TXT'
-                target='http://www.ietf.org/internet-drafts/draft-ietf-dnsop-5966bis-02.txt' />
-      </reference>
+      &RFC7766;
       &RFC7120;
       &RFC7469;
       &RFC7525;
@@ -981,7 +961,6 @@ United States
       &RFC4033;
       <!-- &RFC4892; -->
       &RFC5280;
-      &RFC5966;
       &RFC6698;
       &RFC7258;
       &RFC7413;

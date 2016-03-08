@@ -314,19 +314,19 @@ Internet-Draft                DNS over TLS                    March 2016
    pass the two-octet length field, and the message described by that
    length field, to the TCP layer at the same time (e.g., in a single
    "write" system call) to make it more likely that all the data will be
-   transmitted in a single TCP segment ([I-D.ietf-dnsop-5966bis],
-   Section 8).
+   transmitted in a single TCP segment ([RFC7766], Section 8).
 
    In order to minimize latency, clients SHOULD pipeline multiple
    queries over a TLS session.  When a DNS client sends multiple queries
    to a server, it should not wait for an outstanding reply before
-   sending the next query ([I-D.ietf-dnsop-5966bis], Section 6.2.1.1).
+   sending the next query ([RFC7766], Section 6.2.1.1).
 
-   Since pipelined responses can arrive out-of-order, clients MUST match
-   responses to outstanding queries using the ID field, query name,
-   type, and class.  Failure by clients to properly match responses to
-   outstanding queries can have serious consequences for
-   interoperability ([I-D.ietf-dnsop-5966bis], Section 7).
+   Since pipelined responses can arrive out of order, clients MUST match
+   responses to outstanding queries on the same TLS connection using the
+   Message ID.  If the response contains a question section, the client
+   MUST match the QNAME, QCLASS, and QTYPE fields.  Failure by clients
+   to properly match responses to outstanding queries can have serious
+   consequences for interoperability ([RFC7766], Section 7).
 
 
 
@@ -358,8 +358,8 @@ Internet-Draft                DNS over TLS                    March 2016
    Proper management of established and idle connections is important to
    the healthy operation of a DNS server.  An implementor of DNS-over-
    TLS SHOULD follow best practices for DNS-over-TCP, as described in
-   [I-D.ietf-dnsop-5966bis].  Failure to do so may lead to resource
-   exhaustion and denial-of-service.
+   [RFC7766].  Failure to do so may lead to resource exhaustion and
+   denial-of-service.
 
    Whereas client and server implementations from the [RFC1035] era are
    known to have poor TCP connection management, this document
@@ -394,18 +394,18 @@ Internet-Draft                DNS over TLS                    March 2016
 
 
    When reestablishing a DNS-over-TCP connection that was terminated, as
-   discussed in [I-D.ietf-dnsop-5966bis], TCP Fast Open [RFC7413] is of
-   benefit.  Underlining the requirement for sending only encrypted DNS
-   data on a DNS-over-TLS port (Section 3.2), when using TCP Fast Open
-   the client and server MUST immediately initiate or resume a TLS
-   handshake (clear text DNS MUST NOT be exchanged).  DNS servers SHOULD
-   enable fast TLS session resumption [RFC5077] and this SHOULD be used
-   when reestablishing connections.
+   discussed in [RFC7766], TCP Fast Open [RFC7413] is of benefit.
+   Underlining the requirement for sending only encrypted DNS data on a
+   DNS-over-TLS port (Section 3.2), when using TCP Fast Open the client
+   and server MUST immediately initiate or resume a TLS handshake (clear
+   text DNS MUST NOT be exchanged).  DNS servers SHOULD enable fast TLS
+   session resumption [RFC5077] and this SHOULD be used when
+   reestablishing connections.
 
    When closing a connection, DNS servers SHOULD use the TLS close-
    notify request to shift TCP TIME-WAIT state to the clients.
    Additional requirements and guidance for optimizing DNS-over-TCP are
-   provided by [RFC5966], [I-D.ietf-dnsop-5966bis].
+   provided by [RFC7766], [RFC7766].
 
 
 4.  Usage Profiles
@@ -510,7 +510,7 @@ Internet-Draft                DNS over TLS                    March 2016
        TCP Fast Open [RFC7413] can eliminate that RTT when information
        exists from prior connections.  The TLS handshake adds another
        two RTTs of latency.  Clients and servers should support
-       connection keepalive (reuse) and out-of-order processing to
+       connection keepalive (reuse) and out of order processing to
        amortize connection setup costs.  Fast TLS connection resumption
        [RFC5077] further reduces the setup delay and avoids the DNS
        server keeping per-client session state.  TLS False Start
@@ -534,12 +534,12 @@ Internet-Draft                DNS over TLS                    March 2016
        TCP connections.  Use of a local DNS request aggregator (a
        particular type of forwarder) allows a single active DNS-over-TLS
        connection from any given client computer to its server.
-       Additional guidance can be found in [I-D.ietf-dnsop-5966bis].
+       Additional guidance can be found in [RFC7766].
 
    A full performance evaluation is outside the scope of this
    specification.  A more detailed analysis of the performance
    implications of DNS-over-TLS (and DNS-over-TCP) is discussed in
-   [tdns] and [I-D.ietf-dnsop-5966bis].
+   [tdns] and [RFC7766].
 
 
 6.  IANA Considerations
@@ -797,12 +797,6 @@ Internet-Draft                DNS over TLS                    March 2016
 
 12.1.  Normative References
 
-   [I-D.ietf-dnsop-5966bis]
-              Dickinson, J., Dickinson, S., Bellis, R., Mankin, A., and
-              D. Wessels, "DNS Transport over TCP - Implementation
-              Requirements", draft-ietf-dnsop-5966bis-02 (work in
-              progress), July 2015.
-
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
               <http://www.rfc-editor.org/info/rfc1034>.
@@ -833,6 +827,12 @@ Internet-Draft                DNS over TLS                    March 2016
               RFC 6335, DOI 10.17487/RFC6335, August 2011,
               <http://www.rfc-editor.org/info/rfc6335>.
 
+   [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
+              Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120,
+              January 2014, <http://www.rfc-editor.org/info/rfc7120>.
+
+   [RFC7469]  Evans, C., Palmer, C., and R. Sleevi, "Public Key Pinning
+              Extension for HTTP", RFC 7469, DOI 10.17487/RFC7469,
 
 
 
@@ -841,12 +841,6 @@ Hu, et al.              Expires September 9, 2016              [Page 15]
 Internet-Draft                DNS over TLS                    March 2016
 
 
-   [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
-              Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120,
-              January 2014, <http://www.rfc-editor.org/info/rfc7120>.
-
-   [RFC7469]  Evans, C., Palmer, C., and R. Sleevi, "Public Key Pinning
-              Extension for HTTP", RFC 7469, DOI 10.17487/RFC7469,
               April 2015, <http://www.rfc-editor.org/info/rfc7469>.
 
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
@@ -854,6 +848,11 @@ Internet-Draft                DNS over TLS                    March 2016
               Security (TLS) and Datagram Transport Layer Security
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525,
               May 2015, <http://www.rfc-editor.org/info/rfc7525>.
+
+   [RFC7766]  Dickinson, J., Dickinson, S., Bellis, R., Mankin, A., and
+              D. Wessels, "DNS Transport over TCP - Implementation
+              Requirements", RFC 7766, DOI 10.17487/RFC7766, March 2016,
+              <http://www.rfc-editor.org/info/rfc7766>.
 
 12.2.  Informative References
 
@@ -889,6 +888,7 @@ Internet-Draft                DNS over TLS                    March 2016
               <http://www.rfc-editor.org/info/rfc2818>.
 
    [RFC3234]  Carpenter, B. and S. Brim, "Middleboxes: Taxonomy and
+              Issues", RFC 3234, DOI 10.17487/RFC3234, February 2002,
 
 
 
@@ -897,7 +897,6 @@ Hu, et al.              Expires September 9, 2016              [Page 16]
 Internet-Draft                DNS over TLS                    March 2016
 
 
-              Issues", RFC 3234, DOI 10.17487/RFC3234, February 2002,
               <http://www.rfc-editor.org/info/rfc3234>.
 
    [RFC3646]  Droms, R., Ed., "DNS Configuration options for Dynamic
@@ -915,10 +914,6 @@ Internet-Draft                DNS over TLS                    March 2016
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
               <http://www.rfc-editor.org/info/rfc5280>.
-
-   [RFC5966]  Bellis, R., "DNS Transport over TCP - Implementation
-              Requirements", RFC 5966, DOI 10.17487/RFC5966,
-              August 2010, <http://www.rfc-editor.org/info/rfc5966>.
 
    [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
               of Named Entities (DANE) Transport Layer Security (TLS)
@@ -946,6 +941,11 @@ Internet-Draft                DNS over TLS                    March 2016
               in progress), August 2010,
               <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
+   [dgr-dprive-dtls-and-tls-profiles]
+              Dickinson, S., Gillmor, D., and T. Reddy,
+              "Authentication	and (D)TLS Profile for DNS-over-TLS and
+              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
+
 
 
 Hu, et al.              Expires September 9, 2016              [Page 17]
@@ -953,10 +953,6 @@ Hu, et al.              Expires September 9, 2016              [Page 17]
 Internet-Draft                DNS over TLS                    March 2016
 
 
-   [dgr-dprive-dtls-and-tls-profiles]
-              Dickinson, S., Gillmor, D., and T. Reddy,
-              "Authentication	and (D)TLS Profile for DNS-over-TLS and
-              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
               (work in progress), December 2015, <https://
               tools.ietf.org/html/
               draft-dgr-dprive-dtls-and-tls-profiles-00>.
@@ -1002,14 +998,16 @@ Appendix A.  Out-of-band Key-pinned Privacy Profile Example
    privacy profile from a network service, using a pinset containing two
    pins.  Represented in HPKP [RFC7469] style, the pins are:
 
+   o  pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
+
+
+
 
 
 Hu, et al.              Expires September 9, 2016              [Page 18]
 
 Internet-Draft                DNS over TLS                    March 2016
 
-
-   o  pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
 
    o  pin-sha256="dFSY3wdPU8L0u/8qECuz5wtlSgnorYV2f66L6GNQg6w="
 
@@ -1049,6 +1047,8 @@ Authors' Addresses
 
    Phone: +1 213 587 1057
    Email: zihu@usc.edu
+
+
 
 
 
