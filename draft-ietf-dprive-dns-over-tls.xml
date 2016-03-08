@@ -954,13 +954,10 @@
         </list>
       </t>
       <t>
-        <!-- adding as suggested by Gen-ART reviewer -->
-        Note, DNS Security Extensions (DNSSEC)
-        <xref target="RFC4033"/> provide <spanx style="emph">response
-        integrity</spanx> by defining mechanisms to cryptographically
-        sign zones, allowing end-users (or their first-hop resolver)
-        to verify replies are correct.  By intention, DNSSEC does not
-        protect request and response privacy. 
+        As noted earlier, DNSSEC and DNS-over-TLS are independent
+        and fully compatible protocols, each solving different
+        problems.  The use of one does not diminish the need nor
+        the usefulness of the other.
       </t>
 
     </section>

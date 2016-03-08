@@ -741,11 +741,9 @@ Internet-Draft                DNS over TLS                    March 2016
        and servers may consider the use of a padding method to address
        privacy leakage due to message sizes [I-D.edns0-padding]
 
-   Note, DNS Security Extensions (DNSSEC) [RFC4033] provide _response
-   integrity_ by defining mechanisms to cryptographically sign zones,
-   allowing end-users (or their first-hop resolver) to verify replies
-   are correct.  By intention, DNSSEC does not protect request and
-   response privacy.
+   As noted earlier, DNSSEC and DNS-over-TLS are independent and fully
+   compatible protocols, each solving different problems.  The use of
+   one does not diminish the need nor the usefulness of the other.
 
 
 10.  Contributing Authors
@@ -777,6 +775,8 @@ Internet-Draft                DNS over TLS                    March 2016
    Simon Joseffson, Simon Kelley, Warren Kumari, John Levine, Ilari
    Liusvaara, Bill Manning, George Michaelson, Eric Osterweil, Jinmei
    Tatuya, Tim Wicinski, and Glen Wiley for reviewing this Internet-
+   draft.  They also thank Nikita Somaiya for early work on this idea.
+
 
 
 
@@ -784,8 +784,6 @@ Hu, et al.              Expires September 9, 2016              [Page 14]
 
 Internet-Draft                DNS over TLS                    March 2016
 
-
-   draft.  They also thank Nikita Somaiya for early work on this idea.
 
    Work by Zi Hu, Liang Zhu, and John Heidemann on this document is
    partially sponsored by the U.S. Dept. of Homeland Security (DHS)
@@ -833,6 +831,8 @@ Internet-Draft                DNS over TLS                    March 2016
               Procedures for the Management of the Service Name and
               Transport Protocol Port Number Registry", BCP 165,
               RFC 6335, DOI 10.17487/RFC6335, August 2011,
+              <http://www.rfc-editor.org/info/rfc6335>.
+
 
 
 
@@ -840,8 +840,6 @@ Hu, et al.              Expires September 9, 2016              [Page 15]
 
 Internet-Draft                DNS over TLS                    March 2016
 
-
-              <http://www.rfc-editor.org/info/rfc6335>.
 
    [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
               Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120,
@@ -890,6 +888,8 @@ Internet-Draft                DNS over TLS                    March 2016
               RFC2818, May 2000,
               <http://www.rfc-editor.org/info/rfc2818>.
 
+   [RFC3234]  Carpenter, B. and S. Brim, "Middleboxes: Taxonomy and
+
 
 
 Hu, et al.              Expires September 9, 2016              [Page 16]
@@ -897,7 +897,6 @@ Hu, et al.              Expires September 9, 2016              [Page 16]
 Internet-Draft                DNS over TLS                    March 2016
 
 
-   [RFC3234]  Carpenter, B. and S. Brim, "Middleboxes: Taxonomy and
               Issues", RFC 3234, DOI 10.17487/RFC3234, February 2002,
               <http://www.rfc-editor.org/info/rfc3234>.
 
@@ -945,6 +944,7 @@ Internet-Draft                DNS over TLS                    March 2016
    [dgr-dprive-dtls-and-tls-profiles]
               Dickinson, S., Gillmor, D., and T. Reddy,
               "Authentication	and (D)TLS Profile for DNS-over-TLS and
+              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
 
 
 
@@ -953,7 +953,6 @@ Hu, et al.              Expires September 9, 2016              [Page 17]
 Internet-Draft                DNS over TLS                    March 2016
 
 
-              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
               (work in progress), December 2015, <https://
               tools.ietf.org/html/
               draft-dgr-dprive-dtls-and-tls-profiles-00>.
@@ -1000,6 +999,7 @@ Appendix A.  Out-of-band Key-pinned Privacy Profile Example
    pins.  Represented in HPKP [RFC7469] style, the pins are:
 
    o  pin-sha256="FHkyLhvI0n70E47cJlRTamTrnYVcsYdjUGbr79CfAVI="
+
 
 
 
