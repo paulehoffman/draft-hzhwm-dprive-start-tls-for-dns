@@ -315,7 +315,9 @@
           port 853 on the server.  By mutual agreement with its server,
           the client MAY, instead, use a port other than port 853 for DNS-over-TLS.
           Such an other port MUST NOT be port 53, but MAY be from the
-          "first-come, first-served" port range.  The first data exchange on this TCP
+          "first-come, first-served" port range.  Use of port 53 for DNS-over-TLS is prohibited
+          because mixing cleartext and ciphertext can result in false privacy.
+          The first data exchange on this TCP
           connection MUST be the client and server
           initiating a TLS handshake using the procedure described
           in <xref target="RFC5246"/>.
@@ -359,7 +361,10 @@
         </t>
         <t>
           After TLS negotiation completes, the connection will be encrypted
-          and is now protected from eavesdropping. At this point, normal DNS queries SHOULD take place.
+          and is now protected from eavesdropping.
+	  <!-- Suggested for removal during IESG review
+          At this point, normal DNS queries SHOULD take place.
+          -->
         </t>
       </section>  
 
