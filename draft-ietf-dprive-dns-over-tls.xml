@@ -335,14 +335,16 @@
     <section anchor="Establishment" title="Establishing and Managing DNS-over-TLS Sessions">
       <section anchor="Initiation" title="Session Initiation">
         <t>
-          A DNS server that supports DNS-over-TLS MUST listen for
+          A DNS server that supports DNS-over-TLS MUST by default listen for
           and accept TCP connections on port 853.  By mutual agreement
           with its clients, the server MAY, instead, use a port other than
           853 for DNS-over-TLS.
+          In order to use a port other than 853, both clients and servers
+          would need a configuration option in their software.
         </t>
         <t>
           DNS clients desiring privacy from DNS-over-TLS from a
-          particular server MUST establish a TCP connection to
+          particular server MUST by default establish a TCP connection to
           port 853 on the server.  By mutual agreement with its server,
           the client MAY, instead, use a port other than port 853 for DNS-over-TLS.
           Such an other port MUST NOT be port 53, but MAY be from the
@@ -530,9 +532,12 @@
           possible.
         </t>
         <t>
-          With opportunistic privacy, a client might learn of a TLS-enabled
-          recursive DNS resolver from an untrusted source (such as DHCP
-          while roaming), it might or might not validate the
+          With opportunistic privacy, a client might simply try port 853
+          on a normally configured recursive DNS resolver, or
+          it might learn of a TLS-enabled
+          recursive DNS resolver from an untrusted source (such as
+          with a yet-to-be-defined DHCP extension or ICMPv6 type).
+          The client might or might not validate the
           resolver.  These choices maximize availability and
           performance, but they leave the client vulnerable to on-path attacks
 	  that remove privacy.
@@ -947,6 +952,15 @@
                work in progress on TLS 1.3 <xref target="I-D.tls13"/> 
           </t> -->
         </list>
+      </t>
+      <t>
+        <!-- adding as suggested by Gen-ART reviewer -->
+        Note, DNS Security Extensions (DNSSEC)
+        <xref target="RFC4033"/> provide <spanx style="emph">response
+        integrity</spanx> by defining mechanisms to cryptographically
+        sign zones, allowing end-users (or their first-hop resolver)
+        to verify replies are correct.  By intention, DNSSEC does not
+        protect request and response privacy. 
       </t>
 
     </section>
