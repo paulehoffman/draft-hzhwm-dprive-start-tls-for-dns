@@ -224,32 +224,6 @@
         <xref target="RFC7258"/>.
       </t>
 
-      <!--    XXX DW: I don't particularly like the following paragraph.
-           It seems wrong to mention these drafts in a standards track
-           RFC.  If nothing else it needs to be rewritten (and given
-           a brief "related work" intro sentence) 
-           XXX AJM: See replacment which is very minimal and
-           I think may be OK 
-	   XXX DW: yes, I like it.
-      -->
-
-      <!-- <t>
-           DNSCurve <xref target="draft-dempsky-dnscurve"/> defines a
-           method to add confidentiality to the link between DNS clients
-           and servers; however, it does so with a new cryptographic
-           protocol and does not take advantage of an existing standard
-           protocol such as TLS.  ConfidentialDNS <xref
-           target="draft-wijngaards-confidentialdns"/> and IPSECA <xref
-           target="draft-osterweil-dane-ipsec"/> use opportunistic
-           encryption to offer privacy for DNS queries and responses.
-           Finally, others have suggested DNS-over-TLS.  Unbound DNS
-           software <xref target="unbound"/> includes a DNS-over-TLS
-           implementation.  The DNS-over-DTLS <xref
-           target="draft-ietf-dprive-dnsodtls"/> proposal describing how
-           to secure UDP-based DNS messages with DTLS.  The present document
-           specifies how to encrypt DNS queries with DNS-over-TLS and
-           advice on performance considerations.
-      </t> -->
       <t>
         Other work that has offered the potential to encrypt 
         between DNS clients and servers includes 
@@ -281,14 +255,6 @@
         servers will adhere to the TLS implementation recommendations
         and security considerations of <xref target="RFC7525"/> or its successor.
       </t>
-      <!-- XXX AJM: instead of addressing any security issues of
-           TLS, I think we need to refer all generic TLS items to the TLS BCP.  
-           XXX AJM: Cited RFC 7525 but actually this should be BCP 195 - 
-           for future-proofing - check later to make sure this works in the xml2rfc.
-           Deleted: Furthermore,
-           as is generally the case with TLS, it is subject to downgrade
-           attacks, as discussed in <xref target="Security"/>. -->
-
 
       <t>
         The protocol described here works
@@ -512,11 +478,6 @@
     <section anchor="profiles" title="Usage Profiles">
       <t>
         This protocol provides flexibility to accommodate several different use cases.
-        <!--
-        Two usage profiles are defined here to identify specific
-        design points in performance and privacy.
-        Other profiles are possible but are outside the scope of this document.
-	-->
 	This document defines two usage profiles: (1) opportunistic privacy, and
 	(2) out-of-band key-pinned authentication that can be used to obtain
 	stronger privacy guarantees if the client has a trusted
@@ -550,45 +511,6 @@
           active attackers.
         </t>
       </section>
-
-      <!-- section title="Pre-Deployed Profile">
-        <t>
-          For pre-deployed privacy, the DNS client has one or more
-          trusted recursive DNS providers.  This profile provides strong
-          privacy guarantees to the user.
-        </t>
-        <t>
-          With pre-deployed privacy, a client retains a copy of the TLS
-          certificate (and/or other authentication credentials as
-          appropriate) and IP address of each provider.  The client
-          will only use DNS servers for which this information
-          has been pre-configured.  The possession of a trusted,
-          pre-deployed TLS certificate allows the client to detect person-in-the-middle
-          and downgrade attacks.
-        </t>
-        <t>
-          With pre-deployed privacy, the DNS client MUST signal to the
-          user when none of the designated DNS servers are available,
-          and MUST NOT provide DNS service until at least one of the
-          designated DNS servers becomes available.
-        </t>
-        <t>
-          The designated DNS provider may be temporarily unavailable
-          when configuring a network.  For example, for clients on
-          networks that require authentication through web-based login,
-          such authentication may rely on DNS interception and spoofing.
-          Techniques such as those used by DNSSEC-trigger <xref
-                target="dnssec-trigger"/> MAY be used during network
-          configuration, with the intent to transition to the designated
-          DNS provider after authentication.  The user MUST be alerted
-          that the DNS is not private during such bootstrap.
-        </t>
-        <t>
-          Methods for pre-deployment of the designated DNS provider are
-          outside the scope of this document.  In corporate settings,
-          such information may be provided at system installation.
-        </t>
-      </section -->
 
       <section title="Out-of-band Key-pinned Privacy Profile" anchor="oobkppp">
 	<t>
@@ -635,21 +557,6 @@
           DNS provider after authentication.  The user MUST be alerted
           that the DNS is not private during such bootstrap.
 	</t>
-	<!-- t>
-	  DNS clients configured for out-of-band key-pinned privacy MUST
-	  authenticate the SPKI from the server certificate as follows
-	  (based on section 2.6 of <xref target="RFC7469"/>):
-	</t -->
-	<!-- t>
-	  When a client connects to a server over TLS, if the TLS connection
-	  has errors, the client MUST terminate the connection without
-	  transmitting any queries to the server.
-	</t -->
-	<!-- t>
-	  If the connection has no errors, the client MUST check the SPKI
-	  Fingerprint as soon as possible (e.g., immediately after receiving
-	  the Server Certificate message).
-	</t -->
 	<t>
 	  Upon successful TLS connection and handshake, the client
 	  computes the SPKI Fingerprints for the public keys found
@@ -946,13 +853,6 @@
             method to address privacy leakage due to message sizes
             <xref target="I-D.edns0-padding"/>
           </t>
-          <!-- <t>
-               Applications and systems using encrypted DNS queries have a
-               later risk of exposing the same names they encrypted in DNS        
-               in cleartext protocol exchanges outside of DNS such as the TLS Server Name
-               Indication (SNI) extension.  Mitigating this privacy risk is part of the
-               work in progress on TLS 1.3 <xref target="I-D.tls13"/> 
-          </t> -->
         </list>
       </t>
       <t>
@@ -1132,17 +1032,6 @@ United States
         <seriesInfo name="Internet-Draft" value="draft-osterweil-dane-ipsec-03"/>
       </reference>
 
-      <!-- ><reference anchor="unbound" target="http://unbound.net/">
-           <front>
-           <title>Unbound</title>
-           <author>
-           <organization abbrev="NLnet_Verisign">NLnet Labs, Verisign labs</organization>
-           <address></address>
-      </author>
-           <date year="2013" />
-      </front>
-      </reference> -->
-
       <reference anchor="dnssec-trigger" target="https://www.nlnetlabs.nl/projects/dnssec-trigger/">
         <front>
           <title>Dnssec-Trigger</title>
@@ -1210,42 +1099,6 @@ United States
         <format type='TXT'
                 target='http://www.ietf.org/internet-drafts/draft-mayrhofer-edns0-padding-01.txt' />
       </reference>
-
-      <!-- ><reference anchor="CA_Compromise" target="http://www.infosecisland.com/blogview/19782-Web-Authentication-A-Broken-Trust-with-No-Easy-Fix.html">
-           <front>
-           <title>CA Compromise</title>
-           <author>
-           <organization abbrev="Infosec">Infosec Island Admin</organization>
-           <address></address>
-      </author>
-           <date month="January" year="2012" />
-      </front>
-      </reference> -->
-
-      <!-- reference anchor="crime-attack" target="https://community.qualys.com/blogs/securitylabs/2012/09/14/crime-information-leakage-attack-against-ssltls">
-           <front>
-           <title>The CRIME attack against TLS</title>
-           <author initials="J." surname="Rizzo" fullname="Juliano Rizzo">
-           <address/>
-      </author>
-           <author initials="T." surname="Duong" fullname="Thai Duong">
-           <address/>
-      </author>
-           <date month="September" year="2012" />
-      </front>
-      </reference -->
-
-      <!-- <reference anchor="certificate_pinning" target="https://www.owasp.org/index.php/Certificate_and_Public_Key_Pinning">
-           <front>
-           <title>Certificate and Public Key Pinning</title>
-           <author>
-           <organization abbrev="OWASP">OWASP</organization>
-           <address></address>
-      </author>
-           <date year="2014" />      
-      </front>
-      </reference>
-           -->
 
       <reference anchor="I-D.confidentialdns" target="http://tools.ietf.org/html/draft-wijngaards-dnsop-confidentialdns-03">
         <front>
