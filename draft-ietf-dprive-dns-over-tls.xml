@@ -355,7 +355,7 @@
           not propose new ideas for authentication.
           Depending on the privacy profile in use <xref target="profiles"/>, the DNS client may
           choose not to require authentication of the server, or it may make use of 
-          trusted a SPKI Fingerprint pinset.
+          trusted a Subject Public Key Info (SPKI) Fingerprint pinset.
         </t>
         <t>
           After TLS negotiation completes, the connection will be encrypted
