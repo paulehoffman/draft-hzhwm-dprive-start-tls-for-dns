@@ -473,7 +473,7 @@
           NOT be exchanged).
           DNS servers SHOULD enable fast 
           TLS session resumption <xref target="RFC5077"/> and this SHOULD
-          be used when reestablishing connections. 
+          be used when reestablishing connections.
         </t>
         <t>
           When closing a connection, DNS servers SHOULD use the TLS
@@ -500,7 +500,7 @@
       <section title="Opportunistic Privacy Profile">
         <t>
           For opportunistic privacy, analogous to SMTP opportunistic
-          encryption <xref target="RFC7435"/> one does not require privacy,
+          security <xref target="RFC7435"/>, one does not require privacy,
 	  but one desires privacy when
           possible.
         </t>
@@ -518,7 +518,7 @@
         </t>
         <t>
           Opportunistic privacy can be used by any current client, but
-          it only provides guaranteed privacy when there are no on-path
+          it only provides privacy when there are no on-path
           active attackers.
         </t>
       </section>
@@ -566,6 +566,7 @@
                 target="dnssec-trigger"/> MAY be used during network
           configuration, with the intent to transition to the designated
           DNS provider after authentication.  The user MUST be alerted
+	  whenever possible
           that the DNS is not private during such bootstrap.
 	</t>
 	<t>
@@ -686,7 +687,7 @@
 
     <section anchor="Evolution" title="Design Evolution">
       <t>
-        [Note to RFC Editor: please do not remove this section prior to publication
+        [Note to RFC Editor: please do not remove this section
         as it may be useful to future Foo-over-TLS efforts]
       </t>
 
@@ -862,7 +863,11 @@
             certain details from an analysis of message timings and
             sizes.  Clients and servers may consider the use of a padding
             method to address privacy leakage due to message sizes
-            <xref target="I-D.edns0-padding"/>
+            <xref target="I-D.edns0-padding"/>.
+            Since padding of DNS messages is new, implementations
+            might need to support multiple types of padding or other
+            mitigation techniques in response to traffic analysis
+            threats.
           </t>
         </list>
       </t>
@@ -878,8 +883,8 @@
 
     <section anchor="contrib" title="Contributing Authors">
       <t>
-        The below individuals contributed significantly to the draft.  The
-        RFC Editor prefers a maximum of 5 names on the front page, and so
+        The below individuals contributed significantly to the draft,
+        and so
         we have listed additional authors in this section.
       </t>
  <figure>
