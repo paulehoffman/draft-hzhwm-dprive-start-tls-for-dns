@@ -262,17 +262,17 @@ Internet-Draft                DNS over TLS                    March 2016
    server.  By mutual agreement with its server, the client MAY,
    instead, use a port other than port 853 for DNS-over-TLS.  Such an
    other port MUST NOT be port 53, but MAY be from the "first-come,
-   first-served" port range.  Use of port 53 for DNS-over-TLS is
-   discouraged to avoid complication in selecting use or non-use of TLS,
-   and to reduce risk of downgrade attacks.  The first data exchange on
-   this TCP connection MUST be the client and server initiating a TLS
-   handshake using the procedure described in [RFC5246].
+   first-served" port range.  This recommendation against use of port 53
+   for DNS-over-TLS is to avoid complication in selecting use or non-use
+   of TLS, and to reduce risk of downgrade attacks.  The first data
+   exchange on this TCP connection MUST be the client and server
+   initiating a TLS handshake using the procedure described in
+   [RFC5246].
 
    DNS clients and servers MUST NOT use port 853 to transport clear text
    DNS messages.  DNS clients MUST NOT send and DNS servers MUST NOT
    respond to clear text DNS messages on any port used for DNS-over-TLS
    (including, for example, after a failed TLS handshake).  There are
-   significant security issues in mixing protected and unprotected data
 
 
 
@@ -281,6 +281,7 @@ Hu, et al.             Expires September 10, 2016               [Page 5]
 Internet-Draft                DNS over TLS                    March 2016
 
 
+   significant security issues in mixing protected and unprotected data
    and for this reason TCP connections on a port designated by a given
    server for DNS-over-TLS are reserved purely for encrypted
    communications.
@@ -328,7 +329,6 @@ Internet-Draft                DNS over TLS                    March 2016
    MUST match the QNAME, QCLASS, and QTYPE fields.  Failure by clients
    to properly match responses to outstanding queries can have serious
    consequences for interoperability ([RFC7766], Section 7).
-
 
 
 
