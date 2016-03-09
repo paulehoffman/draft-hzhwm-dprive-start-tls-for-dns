@@ -19,6 +19,7 @@
   <!ENTITY RFC6891 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6891.xml">
   <!ENTITY RFC4892 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4892.xml">
   <!ENTITY RFC5077 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5077.xml">
+  <!ENTITY RFC6234 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6234.xml">
   <!ENTITY RFC6335 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6335.xml">
   <!ENTITY RFC7766 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7766.xml">
   <!ENTITY RFC7120 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7120.xml">
@@ -580,7 +581,14 @@
 	  non-recoverable error. <xref target="example"/> provides a detailed example
 	  of how this authentication could be performed in practice.
 	</t>
-        
+        <t>
+          Implementations of this privacy profile MUST support
+          the calculation and representation of a fingerprint as the SHA-256
+          <xref target="RFC6234"/> hash of the DER-encoded ASN.1
+          representation of the Subject Public Key Info (SPKI) of
+          an X.509 certificate.  Additional fingerprint types MAY also
+          be supported.
+        </t>
       </section>
 
     </section>
@@ -963,6 +971,7 @@ United States
       &RFC5246;
       <!-- &RFC6891; -->
       &RFC5077;
+      &RFC6234;
       &RFC6335;
       &RFC7766;
       &RFC7120;
