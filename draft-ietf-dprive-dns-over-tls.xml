@@ -253,7 +253,7 @@
         by some firewalls.  Clients will be expected to keep track
         of servers that support TLS and those that don't.  Clients and
         servers will adhere to the TLS implementation recommendations
-        and security considerations of <xref target="RFC7525"/> or its successor.
+        and security considerations of <xref target="BCP195"/>.
       </t>
 
       <t>
@@ -352,7 +352,7 @@
           Once the DNS client succeeds in connecting via TCP on the well-known port for
           DNS-over-TLS, it proceeds with the TLS handshake <xref target="RFC5246"/>,
 	  following
-          the best practices specified in <xref target="RFC7525"/> or its successor.
+          the best practices specified in <xref target="BCP195"/>.
 	</t>
 	<t>
 	  The client will then authenticate the server, if required.
@@ -819,7 +819,7 @@
             RFCs for discussion of these security issues.
             Clients and
             servers MUST adhere to the TLS implementation recommendations
-            and security considerations of <xref target="RFC7525"/> or its successor.
+            and security considerations of <xref target="BCP195"/>.
             DNS clients keeping track of servers known to support TLS
             enables clients to detect downgrade attacks.
             For servers with no connection history and no apparent
@@ -955,7 +955,26 @@ United States
       &RFC7766;
       &RFC7120;
       &RFC7469;
-      &RFC7525;
+
+      <reference anchor="BCP195">
+        <front>
+          <title abbrev="Recommendations for Secure use of TLS and DTLS">Recommendations for Secure Use of Transport Layer Security (TLS) and Datagram Transport Layer Security (DTLS)</title>
+	  <author initials="Y." surname="Sheffer" fullname="Y. Sheffer">
+	    <organization/>
+	  </author>
+	  <author initials="R." surname="Holz" fullname="R. Holz">
+	    <organization/>
+	  </author>
+	  <author initials="P." surname="Saint-Andre" fullname="P. Saint-Andre">
+	    <organization/>
+	  </author>
+	  <date year="2015" month="May"/>
+	</front>
+	<seriesInfo name="BCP" value="195"/>
+	<seriesInfo name="RFC" value="7525"/>
+	<seriesInfo name="DOI" value="10.17487/RFC7525"/>
+      </reference>
+
     </references>
 
     <references title="Informative References">
