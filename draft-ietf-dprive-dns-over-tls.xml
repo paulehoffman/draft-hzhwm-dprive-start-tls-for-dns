@@ -315,8 +315,10 @@
           port 853 on the server.  By mutual agreement with its server,
           the client MAY, instead, use a port other than port 853 for DNS-over-TLS.
           Such an other port MUST NOT be port 53, but MAY be from the
-          "first-come, first-served" port range.  Use of port 53 for DNS-over-TLS is prohibited
-          because mixing cleartext and ciphertext can result in false privacy.
+          "first-come, first-served" port range.
+          Use of port 53 for DNS-over-TLS is discouraged to avoid
+          complication in selecting use or non-use of TLS,
+          and to reduce risk of downgrade attacks.
           The first data exchange on this TCP
           connection MUST be the client and server
           initiating a TLS handshake using the procedure described
