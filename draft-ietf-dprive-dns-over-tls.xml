@@ -171,7 +171,7 @@
         This document describes the use of TLS to provide privacy
         for DNS.  Encryption provided by TLS eliminates opportunities
         for eavesdropping and on-path tampering with DNS queries in the network, such as
-        discussed in <xref target="RFC7258"/>.
+        discussed in RFC 7626.
         In addition, this document specifies
         two usage profiles for DNS-over-TLS and provides advice on
         performance considerations to minimize overhead from using
@@ -232,7 +232,7 @@
         ConfidentialDNS <xref target="I-D.confidentialdns"/> 
         and IPSECA <xref target="I-D.ipseca"/>. 
         In addition to the present draft, the DPRIVE working group
-        has recently adopted a DNS-over-DTLS
+        has also adopted a DNS-over-DTLS
         <xref target="draft-ietf-dprive-dnsodtls"/> proposal.  
 
       </t> 
