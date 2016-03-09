@@ -864,10 +864,17 @@
             sizes.  Clients and servers may consider the use of a padding
             method to address privacy leakage due to message sizes
             <xref target="I-D.edns0-padding"/>.
-            Since padding of DNS messages is new, implementations
-            might need to support multiple types of padding or other
-            mitigation techniques in response to traffic analysis
-            threats.
+            Since traffic analysis can be based on many kinds of
+            patterns and many kinds of classifiers, simple padding
+            schemes alone might not be sufficient to mitigate
+            such an attack.
+            Padding will, however, form a part of more
+            complex mitigations for traffic analysis attacks
+            that are likely to be developed over time.
+            Implementers
+            who can offer flexibility in terms of how padding can
+            be used may be in a better position to enable such
+            mitigations to be deployed in future.
           </t>
         </list>
       </t>
