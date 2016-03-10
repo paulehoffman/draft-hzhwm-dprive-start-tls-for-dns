@@ -17,6 +17,7 @@
   <!ENTITY RFC2818 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2818.xml">
   <!ENTITY RFC2131 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2131.xml">
   <!ENTITY RFC6891 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6891.xml">
+  <!ENTITY RFC4648 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml">
   <!ENTITY RFC4892 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4892.xml">
   <!ENTITY RFC5077 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5077.xml">
   <!ENTITY RFC6234 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6234.xml">
@@ -583,11 +584,14 @@
 	</t>
         <t>
           Implementations of this privacy profile MUST support
-          the calculation and representation of a fingerprint as the SHA-256
+          the calculation of a fingerprint as the SHA-256
           <xref target="RFC6234"/> hash of the DER-encoded ASN.1
           representation of the Subject Public Key Info (SPKI) of
-          an X.509 certificate.  Additional fingerprint types MAY also
-          be supported.
+          an X.509 certificate.
+          Implementations MUST support the representation of a
+          SHA-256 fingerprint as a base 64 encoded character string
+          <xref target="RFC4648"/>.
+          Additional fingerprint types MAY also be supported.
         </t>
       </section>
 
@@ -968,6 +972,7 @@ United States
       &RFC2119;
       &RFC1034;
       &RFC1035;
+      &RFC4648;
       &RFC5246;
       <!-- &RFC6891; -->
       &RFC5077;
