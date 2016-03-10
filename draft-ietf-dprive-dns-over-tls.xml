@@ -624,6 +624,15 @@
 	  <t>
             TLS False Start <xref target="draft-ietf-tls-falsestart"/> can also lead to a latency
             reduction in certain situations.
+            Implementations supporting TLS false start need to be
+            aware that it imposes additional constraints on how one
+            uses TLS, over and above those stated in <xref
+            target="BCP195"/>.
+            It is unsafe to use false start if your implementation
+            and deployment does not adhere to these specific
+            requirements.
+            See <xref target="draft-ietf-tls-falsestart"/> for the
+            details of these additional constraints.
           </t>
           <t hangText="State:">
             The use of connection-oriented TCP requires keeping additional
@@ -1187,7 +1196,7 @@ United States
         <seriesInfo name="Technical report" value="ISI-TR-688" />
       </reference>
 
-      <reference anchor="draft-ietf-tls-falsestart" target="http://tools.ietf.org/html/draft-ietf-tls-falsestart-00">
+      <reference anchor="draft-ietf-tls-falsestart" target="http://tools.ietf.org/html/draft-ietf-tls-falsestart-01">
         <front>
           <title>Transport Layer Security (TLS) False Start</title>
           <author initials="B." surname="Moeller" fullname="Bodo Moeller">
@@ -1198,9 +1207,13 @@ United States
             <organization abbrev="Google">Google Inc.</organization>
             <address></address>
           </author>
-          <date month="November" year="2014" />
+          <author initials="N." surname="Modadugu" fullname="Nagendra Modadugu">
+            <organization abbrev="Google">Google Inc.</organization>
+            <address></address>
+          </author>
+          <date month="November" year="2015" />
         </front>
-        <seriesInfo name="Internet-Draft" value="draft-ietf-tls-falsestart-00" />
+        <seriesInfo name="Internet-Draft" value="draft-ietf-tls-falsestart-01" />
       </reference>
 
       <reference anchor="draft-ietf-dprive-dnsodtls" target="https://tools.ietf.org/html/draft-ietf-dprive-dnsodtls-01">
