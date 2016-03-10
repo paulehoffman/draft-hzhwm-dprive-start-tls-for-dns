@@ -481,8 +481,7 @@
           When closing a connection, DNS servers SHOULD use the TLS
           close-notify request to shift TCP TIME-WAIT state to the clients.
           Additional requirements and guidance for optimizing DNS-over-TCP
-          are provided by <xref target="RFC7766"/>, <xref
-                target="RFC7766"/>.  
+          are provided by <xref target="RFC7766"/>.
         </t>
       </section>
 

@@ -405,7 +405,7 @@ Internet-Draft                DNS over TLS                    March 2016
    When closing a connection, DNS servers SHOULD use the TLS close-
    notify request to shift TCP TIME-WAIT state to the clients.
    Additional requirements and guidance for optimizing DNS-over-TCP are
-   provided by [RFC7766], [RFC7766].
+   provided by [RFC7766].
 
 
 4.  Usage Profiles
