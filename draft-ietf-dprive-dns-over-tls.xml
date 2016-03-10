@@ -608,9 +608,8 @@
         DNS-over-TLS incurs additional latency at session startup.  It
         also requires additional state (memory) and increased processing
         (CPU).
-        <list style="numbers">
-          <t>
-            Latency:
+        <list style="hanging">
+          <t hangText="Latency:">
             Compared to UDP, DNS-over-TCP requires an additional
             round-trip-time (RTT) of latency to establish a TCP connection.
             TCP Fast Open <xref target="RFC7413"/> can eliminate that RTT
@@ -621,11 +620,12 @@
 	    Fast TLS connection         
             resumption <xref target="RFC5077"/> further reduces the
             setup delay and avoids the DNS server keeping per-client session state.  
+	  </t>
+	  <t>
             TLS False Start <xref target="draft-ietf-tls-falsestart"/> can also lead to a latency
             reduction in certain situations.
           </t>
-          <t>
-            State:
+          <t hangText="State:">
             The use of connection-oriented TCP requires keeping additional
             state at the server in both the kernel and application.
 	    The state requirements
@@ -635,14 +635,13 @@
             connections, and servers can preemptively close connections
             when resource limits are exceeded.
           </t>
-          <t>
-            Processing:
+          <t hangText="Processing:">
             Use of TLS encryption algorithms results in slightly higher
             CPU usage.  Servers can choose to refuse new DNS-over-TLS
             clients if processing limits are exceeded.
           </t>
-          <t>
-            Number of connections: To minimize state on DNS servers and
+          <t hangText="Number of connections:">
+            To minimize state on DNS servers and
             connection startup time, clients SHOULD minimize creation
             of new TCP connections.  Use of a local DNS request aggregator
             (a particular type of forwarder) allows a single active
