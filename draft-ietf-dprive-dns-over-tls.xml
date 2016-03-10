@@ -536,6 +536,12 @@
 	  The result of this profile is that the client has strong guarantees 
 	  about the privacy of its DNS data by
 	  connecting only to servers it can authenticate.
+          Operators
+	  of a DNS-over-TLS service in this profile are expected to provide pins
+	  that are specific to the service being pinned (i.e., public
+	  keys belonging directly to the end-entity or to a
+	  service-specific private CA) and not to public key(s) of a
+	  generic public CA.
 	</t>
 	<t>
 	  In this profile, clients authenticate servers by matching
@@ -1224,12 +1230,7 @@ United States
       <t>
 	This section presents an example of how the out-of-band key-pinned
 	privacy profile could work in practice based on a minimal 
-	pinset (two pins). Operators
-	of a DNS-over-TLS service in this profile are expected to provide pins
-	that are specific to the service being pinned (i.e., public
-	keys belonging directly to the end-entity or to a
-	service-specific private CA) and not to public key(s) of a
-	generic public CA.
+	pinset (two pins).
       </t>
       <t>
 	A DNS client system is configured with an out-of-band key-pinned privacy 
