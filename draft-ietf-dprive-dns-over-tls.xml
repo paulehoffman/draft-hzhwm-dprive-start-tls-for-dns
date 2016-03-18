@@ -305,8 +305,8 @@
       <section anchor="Initiation" title="Session Initiation">
         <t>
           A DNS server that supports DNS-over-TLS MUST by default listen for
-          and accept TCP connections on port 853.  By mutual agreement
-          with its clients, the server MAY, instead, use a port other than
+          and accept TCP connections on port 853, unless it has mutual agreement
+          with its clients to use a port other than
           853 for DNS-over-TLS.
           In order to use a port other than 853, both clients and servers
           would need a configuration option in their software.
@@ -314,8 +314,8 @@
         <t>
           DNS clients desiring privacy from DNS-over-TLS from a
           particular server MUST by default establish a TCP connection to
-          port 853 on the server.  By mutual agreement with its server,
-          the client MAY, instead, use a port other than port 853 for DNS-over-TLS.
+          port 853 on the server, unless it has mutual agreement with its server
+          to use a port other than port 853 for DNS-over-TLS.
           Such an other port MUST NOT be port 53, but MAY be from the
           "first-come, first-served" port range.
           This recommendation against use of port 53 for DNS-over-TLS
