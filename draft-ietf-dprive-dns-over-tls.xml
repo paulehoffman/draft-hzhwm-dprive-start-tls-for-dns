@@ -73,7 +73,7 @@
           <country>United States</country>
         </postal>
         <phone>+1 213 587 1057</phone>
-        <email>zihu@usc.edu</email>
+        <email>zihu@outlook.com</email>
       </address>
     </author>
 
@@ -360,7 +360,7 @@
 	  The client will then authenticate the server, if required.
 	  This document does 
           not propose new ideas for authentication.
-          Depending on the privacy profile in use <xref target="profiles"/>, the DNS client may
+          Depending on the privacy profile in use (<xref target="profiles"/>), the DNS client may
           choose not to require authentication of the server, or it may make use of 
           a trusted Subject Public Key Info (SPKI) Fingerprint pinset.
         </t>
@@ -411,8 +411,8 @@
       <section anchor="Connection" title="Connection Reuse, Close and Reestablishment">
         <t>
           For DNS clients that use library functions such as "getaddrinfo()" and "gethostbyname()",
-          current implementations are known to open and close TCP connections each DNS
-          call.  To avoid excess TCP connections, each with a single query,
+          current implementations are known to open and close TCP connections for each DNS
+          query.  To avoid excess TCP connections, each with a single query,
           clients SHOULD reuse a single TCP connection to the
           recursive resolver.  Alternatively they may prefer to use UDP
           to a DNS-over-TLS enabled caching resolver on the same machine
@@ -511,7 +511,7 @@
           source (such as DHCP's DNS server option <xref target="RFC3646"/> to
           discover the IP address followed by attemting the
           DNS-over-TLS on port 853, or with a future DHCP option
-          that specifics DNS port).  With such an discovered DNS
+          that specifics DNS port).  With such a discovered DNS
           server, the client might or might not validate the resolver.
           These choices maximize availability and performance, but
           they leave the client vulnerable to on-path attacks that
@@ -718,7 +718,7 @@
 
       <t>
 	Earlier versions of this document
-	proposed an upgrade-based approach to establishing a TLS
+	proposed an upgrade-based approach to establish a TLS
 	session.  The client would signal its interest in TLS by
 	setting a "TLS OK" bit in the EDNS0 flags field.  A server
 	would signal its acceptance by responding with the TLS OK
