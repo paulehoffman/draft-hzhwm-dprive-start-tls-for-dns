@@ -49,7 +49,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-dprive-dns-over-tls-09" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-dprive-dns-over-tls-10" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
        ipr values: full3667, noModification3667, noDerivatives3667
        you can add the attributes updates="NNNN" and obsoletes="NNNN"
@@ -108,7 +108,7 @@
     </author>
 
     <author fullname="Allison Mankin" initials="A." surname="Mankin">
-      <organization></organization>
+      <organization>Independent</organization>
       <address>
         <postal>
           <street></street>
