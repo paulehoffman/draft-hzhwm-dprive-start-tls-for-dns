@@ -1259,10 +1259,10 @@ United States
       </t>
       <t>
         The client also configures the IP addresses of its
-        expected DNS server, 192.0.2.3 and 192.0.2.4.
+        expected DNS server, perhaps 192.0.2.3 and 2001:db8::2:4.
       </t>
       <t>
-        The client connects to 192.0.2.3 on TCP port 853 and
+        The client connects to one of these addresses on TCP port 853 and
         begins the TLS handshake, negotiation TLS 1.2 with a
         diffie-hellman key exchange.  The server sends a
         Certificate message with a list of three certificates (A,
