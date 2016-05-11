@@ -1,18 +1,18 @@
 
 
 
+
 Network Working Group                                              Z. Hu
 Internet-Draft                                                    L. Zhu
 Intended status: Standards Track                            J. Heidemann
-Expires: October 8, 2016                        USC/Information Sciences
-                                                               Institute
+Expires: November 12, 2016            USC/Information Sciences Institute
                                                                A. Mankin
                                                              Independent
                                                               D. Wessels
                                                            Verisign Labs
                                                               P. Hoffman
                                                                    ICANN
-                                                           April 6, 2016
+                                                            May 11, 2016
 
 
                      Specification for DNS over TLS
@@ -31,14 +31,13 @@ Abstract
    the charter of the DPRIVE working group.  It does not prevent future
    applications of the protocol to recursive-to-authoritative traffic.
 
-   Note: this document was formerly named
-   draft-ietf-dprive-start-tls-for-dns.  Its name has been changed to
-   better describe the mechanism now used.  Please refer to working
-   group archives under the former name for history and previous
-   discussion.  [RFC Editor: please remove this paragraph prior to
-   publication]
+   Note: this document was formerly named draft-ietf-dprive-start-tls-
+   for-dns.  Its name has been changed to better describe the mechanism
+   now used.  Please refer to working group archives under the former
+   name for history and previous discussion.  [RFC Editor: please remove
+   this paragraph prior to publication]
 
-Status of this Memo
+Status of This Memo
 
    This Internet-Draft is submitted in full conformance with the
    provisions of BCP 78 and BCP 79.
@@ -48,20 +47,23 @@ Status of this Memo
    working documents as Internet-Drafts.  The list of current Internet-
    Drafts is at http://datatracker.ietf.org/drafts/current/.
 
-   Internet-Drafts are draft documents valid for a maximum of six months
 
 
 
-Hu, et al.               Expires October 8, 2016                [Page 1]
+
+
+
+Hu, et al.              Expires November 12, 2016               [Page 1]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
 
+   Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 8, 2016.
+   This Internet-Draft will expire on November 12, 2016.
 
 Copyright Notice
 
@@ -78,96 +80,42 @@ Copyright Notice
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Hu, et al.               Expires October 8, 2016                [Page 2]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
 Table of Contents
 
-   1.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  4
-   2.  Reserved Words . . . . . . . . . . . . . . . . . . . . . . . .  5
-   3.  Establishing and Managing DNS-over-TLS Sessions  . . . . . . .  5
-     3.1.  Session Initiation . . . . . . . . . . . . . . . . . . . .  5
-     3.2.  TLS Handshake and Authentication . . . . . . . . . . . . .  6
-     3.3.  Transmitting and Receiving Messages  . . . . . . . . . . .  6
-     3.4.  Connection Reuse, Close and Reestablishment  . . . . . . .  7
-   4.  Usage Profiles . . . . . . . . . . . . . . . . . . . . . . . .  8
-     4.1.  Opportunistic Privacy Profile  . . . . . . . . . . . . . .  8
-     4.2.  Out-of-band Key-pinned Privacy Profile . . . . . . . . . .  8
-   5.  Performance Considerations . . . . . . . . . . . . . . . . . . 10
-   6.  IANA Considerations  . . . . . . . . . . . . . . . . . . . . . 11
-   7.  Design Evolution . . . . . . . . . . . . . . . . . . . . . . . 11
-   8.  Implementation Status  . . . . . . . . . . . . . . . . . . . . 12
-     8.1.  Unbound  . . . . . . . . . . . . . . . . . . . . . . . . . 13
-     8.2.  ldns . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-     8.3.  digit  . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-     8.4.  getdns . . . . . . . . . . . . . . . . . . . . . . . . . . 13
-   9.  Security Considerations  . . . . . . . . . . . . . . . . . . . 13
-   10. Contributing Authors . . . . . . . . . . . . . . . . . . . . . 14
-   11. Acknowledgments  . . . . . . . . . . . . . . . . . . . . . . . 15
-   12. References . . . . . . . . . . . . . . . . . . . . . . . . . . 15
-     12.1. Normative References . . . . . . . . . . . . . . . . . . . 15
-     12.2. Informative References . . . . . . . . . . . . . . . . . . 17
-   Appendix A.  Out-of-band Key-pinned Privacy Profile Example  . . . 19
-   Authors' Addresses . . . . . . . . . . . . . . . . . . . . . . . . 20
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Reserved Words  . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  Establishing and Managing DNS-over-TLS Sessions . . . . . . .   4
+     3.1.  Session Initiation  . . . . . . . . . . . . . . . . . . .   4
+     3.2.  TLS Handshake and Authentication  . . . . . . . . . . . .   5
+     3.3.  Transmitting and Receiving Messages . . . . . . . . . . .   5
+     3.4.  Connection Reuse, Close and Reestablishment . . . . . . .   6
+   4.  Usage Profiles  . . . . . . . . . . . . . . . . . . . . . . .   7
+     4.1.  Opportunistic Privacy Profile . . . . . . . . . . . . . .   7
+     4.2.  Out-of-band Key-pinned Privacy Profile  . . . . . . . . .   7
+   5.  Performance Considerations  . . . . . . . . . . . . . . . . .   9
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   7.  Design Evolution  . . . . . . . . . . . . . . . . . . . . . .  10
+   8.  Implementation Status . . . . . . . . . . . . . . . . . . . .  11
+     8.1.  Unbound . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     8.2.  ldns  . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     8.3.  digit . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     8.4.  getdns  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   10. Contributing Authors  . . . . . . . . . . . . . . . . . . . .  13
+   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  14
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  15
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Hu, et al.               Expires October 8, 2016                [Page 3]
+Hu, et al.              Expires November 12, 2016               [Page 2]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
+
+   Appendix A.  Out-of-band Key-pinned Privacy Profile Example . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 1.  Introduction
 
@@ -215,16 +163,15 @@ Internet-Draft                DNS over TLS                    April 2016
    the protocol is out of scope for the DNS PRIVate Exchange (DPRIVE)
    Working Group per its current charter.
 
+
+
+Hu, et al.              Expires November 12, 2016               [Page 3]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
    This document describes two profiles in Section 4 providing different
    levels of assurance of privacy: an opportunistic privacy profile and
-
-
-
-Hu, et al.               Expires October 8, 2016                [Page 4]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
    an out-of-band key-pinned privacy profile.  It is expected that a
    future document based on [dgr-dprive-dtls-and-tls-profiles] will
    further describe additional privacy profiles for DNS over both TLS
@@ -238,13 +185,11 @@ Internet-Draft                DNS over TLS                    April 2016
    document, which now focuses exclusively on the use of a well-known
    port for DNS-over-TLS.
 
-
 2.  Reserved Words
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in RFC 2119 [RFC2119].
-
 
 3.  Establishing and Managing DNS-over-TLS Sessions
 
@@ -276,9 +221,9 @@ Internet-Draft                DNS over TLS                    April 2016
 
 
 
-Hu, et al.               Expires October 8, 2016                [Page 5]
+Hu, et al.              Expires November 12, 2016               [Page 4]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
 
    server for DNS-over-TLS are reserved purely for encrypted
@@ -332,9 +277,9 @@ Internet-Draft                DNS over TLS                    April 2016
 
 
 
-Hu, et al.               Expires October 8, 2016                [Page 6]
+Hu, et al.              Expires November 12, 2016               [Page 5]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
 
 3.4.  Connection Reuse, Close and Reestablishment
@@ -376,7 +321,7 @@ Internet-Draft                DNS over TLS                    April 2016
    Timeouts may be longer during periods of low activity and shorter
    during periods of high activity.  Current work in this area may also
    assist DNS-over-TLS clients and servers in selecting useful timeout
-   values [I-D.edns-tcp-keepalive] [tdns].
+   values [RFC7828] [tdns].
 
    Clients and servers that keep idle connections open MUST be robust to
    termination of idle connection by either party.  As with current DNS-
@@ -388,9 +333,9 @@ Internet-Draft                DNS over TLS                    April 2016
 
 
 
-Hu, et al.               Expires October 8, 2016                [Page 7]
+Hu, et al.              Expires November 12, 2016               [Page 6]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
 
    When reestablishing a DNS-over-TCP connection that was terminated, as
@@ -406,7 +351,6 @@ Internet-Draft                DNS over TLS                    April 2016
    notify request to shift TCP TIME-WAIT state to the clients.
    Additional requirements and guidance for optimizing DNS-over-TCP are
    provided by [RFC7766].
-
 
 4.  Usage Profiles
 
@@ -441,15 +385,15 @@ Internet-Draft                DNS over TLS                    April 2016
    The out-of-band key-pinned privacy profile can be used in
    environments where an established trust relationship already exists
    between DNS clients and servers (e.g., stub-to-recursive in
-
-
-
-Hu, et al.               Expires October 8, 2016                [Page 8]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
    enterprise networks, actively-maintained contractual service
+
+
+
+Hu, et al.              Expires November 12, 2016               [Page 7]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
    relationships, or a client using a public DNS resolver).  The result
    of this profile is that the client has strong guarantees about the
    privacy of its DNS data by connecting only to servers it can
@@ -497,19 +441,18 @@ Internet-Draft                DNS over TLS                    April 2016
 
    Implementations of this privacy profile MUST support the calculation
    of a fingerprint as the SHA-256 [RFC6234] hash of the DER-encoded
-
-
-
-Hu, et al.               Expires October 8, 2016                [Page 9]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
    ASN.1 representation of the Subject Public Key Info (SPKI) of an
+
+
+
+Hu, et al.              Expires November 12, 2016               [Page 8]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
    X.509 certificate.  Implementations MUST support the representation
    of a SHA-256 fingerprint as a base 64 encoded character string
    [RFC4648].  Additional fingerprint types MAY also be supported.
-
 
 5.  Performance Considerations
 
@@ -556,16 +499,17 @@ Internet-Draft                DNS over TLS                    April 2016
 
 
 
-Hu, et al.               Expires October 8, 2016               [Page 10]
+
+
+Hu, et al.              Expires November 12, 2016               [Page 9]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
 
    A full performance evaluation is outside the scope of this
    specification.  A more detailed analysis of the performance
    implications of DNS-over-TLS (and DNS-over-TCP) is discussed in
    [tdns] and [RFC7766].
-
 
 6.  IANA Considerations
 
@@ -590,10 +534,10 @@ Internet-Draft                DNS over TLS                    April 2016
     Description            DNS query-response protocol run over TLS/DTLS
     Reference              This document
 
+
    The TEMPORARY assignment expires 2016-10-08.  IANA is requested to
    make the assigmnent permanent upon publication of this document as an
    RFC.
-
 
 7.  Design Evolution
 
@@ -612,9 +556,10 @@ Internet-Draft                DNS over TLS                    April 2016
 
 
 
-Hu, et al.               Expires October 8, 2016               [Page 11]
+
+Hu, et al.              Expires November 12, 2016              [Page 10]
 
-Internet-Draft                DNS over TLS                    April 2016
+Internet-Draft                DNS over TLS                      May 2016
 
 
    The TLS OK signaling approach has both advantages and disadvantages.
@@ -645,7 +590,6 @@ Internet-Draft                DNS over TLS                    April 2016
    DNS over both TLS and DTLS can benefit from a single well-known port
    and avoid extra latency and mis-interpreted queries as responses.
 
-
 8.  Implementation Status
 
    [Note to RFC Editor: please remove this section and reference to RFC
@@ -665,15 +609,15 @@ Internet-Draft                DNS over TLS                    April 2016
    exist.
 
    According to RFC 6982, "this will allow reviewers and working groups
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 12]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
    to assign due consideration to documents that have the benefit of
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 11]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
    running code, which may serve as evidence of valuable experimentation
    and feedback that have made the implemented protocols more mature.
    It is up to the individual working groups to use this information as
@@ -684,8 +628,8 @@ Internet-Draft                DNS over TLS                    April 2016
    The Unbound recursive name server software added support for DNS-
    over-TLS in version 1.4.14.  The unbound.conf configuration file has
    the following configuration directives: ssl-port, ssl-service-key,
-   ssl-service-pem, ssl-upstream.  See
-   https://unbound.net/documentation/unbound.conf.html.
+   ssl-service-pem, ssl-upstream.  See https://unbound.net/documentation
+   /unbound.conf.html.
 
 8.2.  ldns
 
@@ -705,7 +649,6 @@ Internet-Draft                DNS over TLS                    April 2016
    The getdns API implementation supports DNS-over-TLS.  Source code
    available at https://getdnsapi.net.
 
-
 9.  Security Considerations
 
    Use of DNS-over-TLS is designed to address the privacy risks that
@@ -721,16 +664,16 @@ Internet-Draft                DNS over TLS                    April 2016
        considerations of [BCP195].  DNS clients keeping track of servers
        known to support TLS enables clients to detect downgrade attacks.
        For servers with no connection history and no apparent support
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 13]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
        for TLS, depending on their Privacy Profile and privacy
        requirements, clients may choose to (a) try another server when
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 12]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
        available, (b) continue without TLS, or (c) refuse to forward the
        query.
 
@@ -753,37 +696,24 @@ Internet-Draft                DNS over TLS                    April 2016
        messages, a well-positioned party may be able to glean certain
        details from an analysis of message timings and sizes.  Clients
        and servers may consider the use of a padding method to address
-       privacy leakage due to message sizes [I-D.edns0-padding].  Since
-       traffic analysis can be based on many kinds of patterns and many
-       kinds of classifiers, simple padding schemes alone might not be
-       sufficient to mitigate such an attack.  Padding will, however,
-       form a part of more complex mitigations for traffic analysis
-       attacks that are likely to be developed over time.  Implementers
-       who can offer flexibility in terms of how padding can be used may
-       be in a better position to enable such mitigations to be deployed
-       in future.
+       privacy leakage due to message sizes [RFC7830].  Since traffic
+       analysis can be based on many kinds of patterns and many kinds of
+       classifiers, simple padding schemes alone might not be sufficient
+       to mitigate such an attack.  Padding will, however, form a part
+       of more complex mitigations for traffic analysis attacks that are
+       likely to be developed over time.  Implementers who can offer
+       flexibility in terms of how padding can be used may be in a
+       better position to enable such mitigations to be deployed in
+       future.
 
    As noted earlier, DNSSEC and DNS-over-TLS are independent and fully
    compatible protocols, each solving different problems.  The use of
    one does not diminish the need nor the usefulness of the other.
 
-
 10.  Contributing Authors
 
    The below individuals contributed significantly to the draft, and so
    we have listed additional authors in this section.
-
-
-
-
-
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 14]
-
-Internet-Draft                DNS over TLS                    April 2016
-
 
    Sara Dickinson
    Sinodun Internet Technologies
@@ -792,6 +722,14 @@ Internet-Draft                DNS over TLS                    April 2016
    Oxford  OX4 4GA
    United Kingdom
    Email: sara@sinodun.com
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 13]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
    URI:   http://sinodun.com
 
    Daniel Kahn Gillmor
@@ -817,7 +755,6 @@ Internet-Draft                DNS over TLS                    April 2016
    Directorate under agreement number FA8750-12-2-0344, and contract
    number D08PC75599.
 
-
 12.  References
 
 12.1.  Normative References
@@ -825,22 +762,14 @@ Internet-Draft                DNS over TLS                    April 2016
    [BCP195]   Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
               Security (TLS) and Datagram Transport Layer Security
-              (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525,
-              May 2015.
+              (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
+              2015.
 
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, DOI 10.17487/RFC1034, November 1987,
               <http://www.rfc-editor.org/info/rfc1034>.
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 15]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
               specification", STD 13, RFC 1035, DOI 10.17487/RFC1035,
               November 1987, <http://www.rfc-editor.org/info/rfc1035>.
 
@@ -848,6 +777,14 @@ Internet-Draft                DNS over TLS                    April 2016
               Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/
               RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 14]
+
+Internet-Draft                DNS over TLS                      May 2016
+
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
@@ -864,67 +801,52 @@ Internet-Draft                DNS over TLS                    April 2016
               <http://www.rfc-editor.org/info/rfc5246>.
 
    [RFC6234]  Eastlake 3rd, D. and T. Hansen, "US Secure Hash Algorithms
-              (SHA and SHA-based HMAC and HKDF)", RFC 6234,
-              DOI 10.17487/RFC6234, May 2011,
+              (SHA and SHA-based HMAC and HKDF)", RFC 6234, DOI 10.17487
+              /RFC6234, May 2011,
               <http://www.rfc-editor.org/info/rfc6234>.
 
    [RFC6335]  Cotton, M., Eggert, L., Touch, J., Westerlund, M., and S.
               Cheshire, "Internet Assigned Numbers Authority (IANA)
               Procedures for the Management of the Service Name and
-              Transport Protocol Port Number Registry", BCP 165,
-              RFC 6335, DOI 10.17487/RFC6335, August 2011,
+              Transport Protocol Port Number Registry", BCP 165, RFC
+              6335, DOI 10.17487/RFC6335, August 2011,
               <http://www.rfc-editor.org/info/rfc6335>.
 
    [RFC7120]  Cotton, M., "Early IANA Allocation of Standards Track Code
-              Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120,
-              January 2014, <http://www.rfc-editor.org/info/rfc7120>.
+              Points", BCP 100, RFC 7120, DOI 10.17487/RFC7120, January
+              2014, <http://www.rfc-editor.org/info/rfc7120>.
 
    [RFC7469]  Evans, C., Palmer, C., and R. Sleevi, "Public Key Pinning
-              Extension for HTTP", RFC 7469, DOI 10.17487/RFC7469,
-              April 2015, <http://www.rfc-editor.org/info/rfc7469>.
+              Extension for HTTP", RFC 7469, DOI 10.17487/RFC7469, April
+              2015, <http://www.rfc-editor.org/info/rfc7469>.
 
    [RFC7766]  Dickinson, J., Dickinson, S., Bellis, R., Mankin, A., and
               D. Wessels, "DNS Transport over TCP - Implementation
               Requirements", RFC 7766, DOI 10.17487/RFC7766, March 2016,
               <http://www.rfc-editor.org/info/rfc7766>.
 
-
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 16]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
 12.2.  Informative References
 
    [I-D.confidentialdns]
-              Wijngaards, W., "Confidential DNS",
-              draft-wijngaards-dnsop-confidentialdns-03 (work in
-              progress), March 2015, <http://tools.ietf.org/html/
-              draft-wijngaards-dnsop-confidentialdns-03>.
-
-   [I-D.edns-tcp-keepalive]
-              Wouters, P., Abley, J., Dickinson, S., and R. Bellis, "The
-              edns-tcp-keepalive EDNS0 Option",
-              draft-ietf-dnsop-edns-tcp-keepalive-02 (work in progress),
-              July 2015, <http://tools.ietf.org/html/
-              draft-ietf-dnsop-edns-tcp-keepalive-02>.
-
-   [I-D.edns0-padding]
-              Mayrhofer, A., "The EDNS(0) Padding Option",
-              draft-mayrhofer-edns0-padding-01 (work in progress),
-              August 2015, <http://tools.ietf.org/html/
-              draft-mayrhofer-edns0-padding-01>.
+              Wijngaards, W., "Confidential DNS", draft-wijngaards-
+              dnsop-confidentialdns-03 (work in progress), March 2015,
+              <http://tools.ietf.org/html/draft-wijngaards-dnsop-
+              confidentialdns-03>.
 
    [I-D.ipseca]
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 15]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
               Osterweil, E., Wiley, G., Okubo, T., Lavu, R., and A.
               Mohaisen, "Opportunistic Encryption with DANE Semantics
               and IPsec: IPSECA", draft-osterweil-dane-ipsec-03 (work in
-              progress), July 2015,
-              <http://tools.ietf.org/html/
-              draft-osterweil-dane-ipsec-03>.
+              progress), July 2015, <http://tools.ietf.org/html/draft-
+              osterweil-dane-ipsec-03>.
 
    [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818, DOI 10.17487/
               RFC2818, May 2000,
@@ -940,19 +862,11 @@ Internet-Draft                DNS over TLS                    April 2016
               <http://www.rfc-editor.org/info/rfc3646>.
 
    [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
-              Rose, "DNS Security Introduction and Requirements",
-              RFC 4033, DOI 10.17487/RFC4033, March 2005,
+              Rose, "DNS Security Introduction and Requirements", RFC
+              4033, DOI 10.17487/RFC4033, March 2005,
               <http://www.rfc-editor.org/info/rfc4033>.
 
    [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 17]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
               Housley, R., and W. Polk, "Internet X.509 Public Key
               Infrastructure Certificate and Certificate Revocation List
               (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
@@ -960,12 +874,12 @@ Internet-Draft                DNS over TLS                    April 2016
 
    [RFC6698]  Hoffman, P. and J. Schlyter, "The DNS-Based Authentication
               of Named Entities (DANE) Transport Layer Security (TLS)
-              Protocol: TLSA", RFC 6698, DOI 10.17487/RFC6698,
-              August 2012, <http://www.rfc-editor.org/info/rfc6698>.
+              Protocol: TLSA", RFC 6698, DOI 10.17487/RFC6698, August
+              2012, <http://www.rfc-editor.org/info/rfc6698>.
 
    [RFC7258]  Farrell, S. and H. Tschofenig, "Pervasive Monitoring Is an
-              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258,
-              May 2014, <http://www.rfc-editor.org/info/rfc7258>.
+              Attack", BCP 188, RFC 7258, DOI 10.17487/RFC7258, May
+              2014, <http://www.rfc-editor.org/info/rfc7258>.
 
    [RFC7413]  Cheng, Y., Chu, J., Radhakrishnan, S., and A. Jain, "TCP
               Fast Open", RFC 7413, DOI 10.17487/RFC7413, December 2014,
@@ -975,9 +889,27 @@ Internet-Draft                DNS over TLS                    April 2016
               Most of the Time", RFC 7435, DOI 10.17487/RFC7435,
               December 2014, <http://www.rfc-editor.org/info/rfc7435>.
 
+
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 16]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
    [RFC7626]  Bortzmeyer, S., "DNS Privacy Considerations", RFC 7626,
               DOI 10.17487/RFC7626, August 2015,
               <http://www.rfc-editor.org/info/rfc7626>.
+
+   [RFC7828]  Wouters, P., Abley, J., Dickinson, S., and R. Bellis, "The
+              edns-tcp-keepalive EDNS0 Option", RFC 7828, DOI 10.17487/
+              RFC7828, April 2016,
+              <http://www.rfc-editor.org/info/rfc7828>.
+
+   [RFC7830]  Mayrhofer, A., "The EDNS(0) Padding Option", RFC 7830, DOI
+              10.17487/RFC7830, May 2016,
+              <http://www.rfc-editor.org/info/rfc7830>.
 
    [dempsky-dnscurve]
               Dempsky, M., "DNSCurve", draft-dempsky-dnscurve-01 (work
@@ -985,48 +917,45 @@ Internet-Draft                DNS over TLS                    April 2016
               <http://tools.ietf.org/html/draft-dempsky-dnscurve-01>.
 
    [dgr-dprive-dtls-and-tls-profiles]
-              Dickinson, S., Gillmor, D., and T. Reddy,
-              "Authentication	and (D)TLS Profile for DNS-over-TLS and
-              DNS-over-DTLS", draft-dgr-dprive-dtls-and-tls-profiles-00
-              (work in progress), December 2015, <https://
-              tools.ietf.org/html/
+              Dickinson, S., Gillmor, D., and T. Reddy, "Authentication
+              and (D)TLS Profile for DNS-over-TLS and DNS-over-DTLS",
+              draft-dgr-dprive-dtls-and-tls-profiles-00 (work in
+              progress), December 2015, <https://tools.ietf.org/html/
               draft-dgr-dprive-dtls-and-tls-profiles-00>.
 
    [dnscrypt-website]
-              Denis, F., "DNSCrypt", December 2015,
-              <https://www.dnscrypt.org/>.
+              Denis, F., "DNSCrypt", December 2015, <https://
+              www.dnscrypt.org/>.
 
    [dnssec-trigger]
-              NLnet Labs, "Dnssec-Trigger", May 2014,
-              <https://www.nlnetlabs.nl/projects/dnssec-trigger/>.
+              NLnet Labs, "Dnssec-Trigger", May 2014, <https://
+              www.nlnetlabs.nl/projects/dnssec-trigger/>.
 
    [draft-ietf-dprive-dnsodtls]
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 18]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
               Reddy, T., Wing, D., and P. Patil, "DNS over DTLS
-              (DNSoD)", draft-ietf-dprive-dnsodtls-01 (work in
-              progress), June 2015, <https://tools.ietf.org/html/
-              draft-ietf-dprive-dnsodtls-01>.
+              (DNSoD)", draft-ietf-dprive-dnsodtls-06 (work in
+              progress), April 2016, <https://tools.ietf.org/html/draft-
+              ietf-dprive-dnsodtls-06>.
 
    [draft-ietf-tls-falsestart]
               Moeller, B., Langley, A., and N. Modadugu, "Transport
-              Layer Security (TLS) False Start",
-              draft-ietf-tls-falsestart-01 (work in progress),
-              November 2015,
+              Layer Security (TLS) False Start", draft-ietf-tls-
+              falsestart-01 (work in progress), November 2015,
               <http://tools.ietf.org/html/draft-ietf-tls-falsestart-01>.
 
    [tdns]     Zhu, L., Hu, Z., Heidemann, J., Wessels, D., Mankin, A.,
-              and N. Somaiya, "T-DNS: Connection-Oriented DNS to Improve
-              Privacy and Security", Technical report ISI-TR-688,
-              February 2014, <Technical report, ISI-TR-688,
-              ftp://ftp.isi.edu/isi-pubs/tr-688.pdf>.
+              and N. Somaiya, "Connection-Oriented DNS to Improve
+              Privacy and Security", Proceedings of the 36th IEEE
 
+
+
+Hu, et al.              Expires November 12, 2016              [Page 17]
+
+Internet-Draft                DNS over TLS                      May 2016
+
+
+              Symposium on Security and Privacy, DOI 10.1109/SP.2015.18,
+              May 2015, <http://dx.doi.org/10.1109/SP.2015.18>.
 
 Appendix A.  Out-of-band Key-pinned Privacy Profile Example
 
@@ -1057,15 +986,7 @@ Appendix A.  Out-of-band Key-pinned Privacy Profile Example
    connection and can make its first DNS query.
 
    If neither pin matches the SPKI of cert A, the client verifies that
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 19]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
-   cert A is actually issued by cert B. If it is, it takes the SHA-256
+   cert A is actually issued by cert B.  If it is, it takes the SHA-256
    digest of the SPKI in cert B and compares it against both pins in the
    pinset.  If either pin matches, the verification is successful.
    Otherwise, it verifes that B was issued by C, and then compares the
@@ -1075,8 +996,19 @@ Internet-Draft                DNS over TLS                    April 2016
    match any pin in the pinset, the client closes the connection with an
    error, and marks the IP address as failed.
 
-
 Authors' Addresses
+
+
+
+
+
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 18]
+
+Internet-Draft                DNS over TLS                      May 2016
+
 
    Zi Hu
    USC/Information Sciences Institute
@@ -1108,19 +1040,6 @@ Authors' Addresses
    Email: johnh@isi.edu
 
 
-
-
-
-
-
-
-
-
-Hu, et al.               Expires October 8, 2016               [Page 20]
-
-Internet-Draft                DNS over TLS                    April 2016
-
-
    Allison Mankin
    Independent
 
@@ -1136,6 +1055,15 @@ Internet-Draft                DNS over TLS                    April 2016
 
    Phone: +1 703 948 3200
    Email: dwessels@verisign.com
+
+
+
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 19]
+
+Internet-Draft                DNS over TLS                      May 2016
 
 
    Paul Hoffman
@@ -1172,5 +1100,21 @@ Internet-Draft                DNS over TLS                    April 2016
 
 
 
-Hu, et al.               Expires October 8, 2016               [Page 21]
-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Hu, et al.              Expires November 12, 2016              [Page 20]
