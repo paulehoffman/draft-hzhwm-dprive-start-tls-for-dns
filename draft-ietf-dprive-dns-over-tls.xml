@@ -31,6 +31,8 @@
   <!ENTITY RFC7525 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7525.xml">
   <!ENTITY RFC7626 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7626.xml">
   <!ENTITY RFC3646 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3646.xml">
+  <!ENTITY RFC7830 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7830.xml">
+  <!ENTITY RFC7828 PUBLIC '' "http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7828.xml">
   ]>
 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -454,7 +456,7 @@
           and shorter during periods of high activity.  Current work in
           this area may also assist DNS-over-TLS clients and servers
           in selecting useful timeout values <xref
-                target="I-D.edns-tcp-keepalive"/> <xref target="tdns"/>.
+                target="RFC7828"/> <xref target="tdns"/>.
         </t>
         <t>
           Clients and servers that keep idle connections open MUST be
@@ -888,7 +890,7 @@
             certain details from an analysis of message timings and
             sizes.  Clients and servers may consider the use of a padding
             method to address privacy leakage due to message sizes
-            <xref target="I-D.edns0-padding"/>.
+            <xref target="RFC7830"/>.
             Since traffic analysis can be based on many kinds of
             patterns and many kinds of classifiers, simple padding
             schemes alone might not be sufficient to mitigate
@@ -1033,6 +1035,8 @@ United States
       &RFC7435;
       &RFC7626;
       &RFC3646;
+      &RFC7830;
+      &RFC7828;
 
 
       <!--  <reference anchor='I-D.ietf-dprive-problem-statement'>
@@ -1130,7 +1134,7 @@ United States
         </front>
         <seriesInfo name="Internet-Draft" value="draft-dgr-dprive-dtls-and-tls-profiles-00" />
       </reference>
-
+      <!--
       <reference anchor="I-D.edns0-padding" target="http://tools.ietf.org/html/draft-mayrhofer-edns0-padding-01">
         <front>
           <title>The EDNS(0) Padding Option</title>
@@ -1143,7 +1147,7 @@ United States
         <seriesInfo name='Internet-Draft' value='draft-mayrhofer-edns0-padding-01' />
         <format type='TXT'
                 target='http://www.ietf.org/internet-drafts/draft-mayrhofer-edns0-padding-01.txt' />
-      </reference>
+      </reference> -->
 
       <reference anchor="I-D.confidentialdns" target="http://tools.ietf.org/html/draft-wijngaards-dnsop-confidentialdns-03">
         <front>
@@ -1157,6 +1161,7 @@ United States
         <seriesInfo name="Internet-Draft" value="draft-wijngaards-dnsop-confidentialdns-03" />
       </reference>
 
+      <!--
       <reference anchor="I-D.edns-tcp-keepalive" target="http://tools.ietf.org/html/draft-ietf-dnsop-edns-tcp-keepalive-02">
         <front>
           <title>The edns-tcp-keepalive EDNS0 Option</title>
@@ -1179,20 +1184,21 @@ United States
           <date month="July" year="2015" />
         </front>
         <seriesInfo name="Internet-Draft" value="draft-ietf-dnsop-edns-tcp-keepalive-02" />
-      </reference>
+      </reference> -->
 
-      <reference anchor="tdns" target="Technical report, ISI-TR-688, ftp://ftp.isi.edu/isi-pubs/tr-688.pdf">
+      <reference anchor="tdns" target="http://dx.doi.org/10.1109/SP.2015.18">
         <front>
-          <title>T-DNS: Connection-Oriented DNS to Improve Privacy and Security</title>
+          <title>Connection-Oriented DNS to Improve Privacy and Security</title>
           <author initials="L." surname="Zhu" fullname="Liang Zhu"/>
           <author initials="Z." surname="Hu" fullname="Zi Hu"/>
           <author initials="J." surname="Heidemann" fullname="John Heidemann"/>
           <author initials="D." surname="Wessels" fullname="Duane Wessels"/>
           <author initials="A." surname="Mankin" fullname="Allison Mankin"/>
           <author initials="N." surname="Somaiya" fullname="Nikita Somaiya"/>
-          <date month="February" year="2014" />
+          <date month="May" year="2015" />
         </front>
-        <seriesInfo name="Technical report" value="ISI-TR-688" />
+	<seriesInfo name="" value="Proceedings of the 36th IEEE Symposium on Security and Privacy" />
+	<seriesInfo name="DOI" value="10.1109/SP.2015.18" />
       </reference>
 
       <reference anchor="draft-ietf-tls-falsestart" target="http://tools.ietf.org/html/draft-ietf-tls-falsestart-01">
@@ -1215,7 +1221,7 @@ United States
         <seriesInfo name="Internet-Draft" value="draft-ietf-tls-falsestart-01" />
       </reference>
 
-      <reference anchor="draft-ietf-dprive-dnsodtls" target="https://tools.ietf.org/html/draft-ietf-dprive-dnsodtls-01">
+      <reference anchor="draft-ietf-dprive-dnsodtls" target="https://tools.ietf.org/html/draft-ietf-dprive-dnsodtls-06">
         <front>
           <title>DNS over DTLS (DNSoD)</title>
           <author initials="T." surname="Reddy" fullname="Tirumaleswar Reddy">
@@ -1230,9 +1236,9 @@ United States
             <organization abbrev="Cisco">Cisco</organization>
             <address></address>
           </author>
-          <date month="June" year="2015" />
+          <date month="April" year="2016" />
         </front>
-        <seriesInfo name="Internet-Draft" value="draft-ietf-dprive-dnsodtls-01" />
+        <seriesInfo name="Internet-Draft" value="draft-ietf-dprive-dnsodtls-06" />
       </reference>
 
     </references>
